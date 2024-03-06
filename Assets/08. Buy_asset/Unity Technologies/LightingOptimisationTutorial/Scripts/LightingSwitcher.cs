@@ -8,7 +8,7 @@ public class LightingSwitcher : MonoBehaviour
     {
         public Material skyBoxMaterial;
         public GameObject lightingGameObject;
-        public GameObject camera;
+      //  public GameObject camera;
         public Vector3 sunEulerAngles;
         public Color fogColor;
         public float fogDensity;
@@ -22,13 +22,13 @@ public class LightingSwitcher : MonoBehaviour
             RenderSettings.fogColor = fogColor;
             RenderSettings.fogDensity = fogDensity;
             RenderSettings.fogMode = fogMode;
-            camera.SetActive(true);
+      //      camera.SetActive(true);
             sunTransform.localEulerAngles = sunEulerAngles;
         }
 
         public void DeactivateTreatment(Transform sunTransform)
         {
-            camera.SetActive(false);
+   //         camera.SetActive(false);
             lightingGameObject.SetActive(false);
             sunTransform.localEulerAngles = sunEulerAngles;
         }

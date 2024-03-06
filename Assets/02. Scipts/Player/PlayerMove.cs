@@ -18,12 +18,6 @@ public class PlayerMove : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
     }
 
-    void Start()
-    {
-        
-    }
-
-    
     void Update()
     {
         float speed = MoveSpeed;
@@ -31,7 +25,7 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Vector3 dir = new Vector3(x: h, y: 0, z: v);          // 로컬 좌표계 (나만의 동서남북)
+        Vector3 dir = new Vector3(x: h, y: 0, z: v); // 로컬 좌표계 (나만의 동서남북)
         Vector3 unNormalizedDir = dir;
         dir.Normalize();
 
@@ -41,6 +35,7 @@ public class PlayerMove : MonoBehaviour
         {
             speed = RunSpeed;
             _animator.SetTrigger("Run");
+            PlayerStateManager.Instance.SetCurrentState(PlayerState.Run);
         }
 
 
@@ -48,11 +43,20 @@ public class PlayerMove : MonoBehaviour
         {
             _yVelocity = 0f;
         }
-            dir.y = _yVelocity;
 
-        // 3-2. 이동하기
-        //transform.position += speed * dir * Time.deltaTime;
+        dir.y = _yVelocity;
+
+        // 이동하기
         _characterController.Move(dir * speed * Time.deltaTime);
+
+        // 플레이어 캐릭터의 회전
+        if (dir.magnitude > 0.1f)
+        {
+            Quaternion newRotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * 10f);
+        }
+
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
+      //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }
