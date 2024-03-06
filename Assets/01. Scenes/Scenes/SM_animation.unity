@@ -385,8 +385,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2
   RunSpeed: 5
-  Stamina: 100
-  MaxStamina: 100
 --- !u!4 &1712047760
 Transform:
   m_ObjectHideFlags: 0
@@ -592,6 +590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Basic
       objectReference: {fileID: 0}
+    - target: {fileID: 5151410161799776547, guid: f1396634101c56846854f9800c3155ba, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: de07bd09172479a40a01b98cb26ca94d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

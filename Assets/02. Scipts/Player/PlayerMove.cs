@@ -37,10 +37,12 @@ public class PlayerMove : MonoBehaviour
 
         dir = Camera.main.transform.TransformDirection(dir);
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             speed = RunSpeed;
+            _animator.SetTrigger("Run");
         }
+
 
         if (_characterController.isGrounded)
         {
