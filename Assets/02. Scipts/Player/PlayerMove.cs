@@ -57,6 +57,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
-        PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
+      //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }
