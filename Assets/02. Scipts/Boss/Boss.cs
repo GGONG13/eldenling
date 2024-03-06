@@ -44,7 +44,7 @@ public class Boss : MonoBehaviour
     }
     private void Update()
     {
-        /*if (GameManager.Instantiate.State != GameState.Go)
+        /*if (GameManager.Instance.state != State.Go)
         {
             return;
         }*/
