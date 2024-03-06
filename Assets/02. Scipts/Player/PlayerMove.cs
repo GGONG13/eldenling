@@ -30,18 +30,27 @@ public class PlayerMove : MonoBehaviour
     {
         float speed = MoveSpeed;
 
+        if (Input.GetKey(KeyCode.LeftShift)&&_animator.GetFloat("Move")>0)
+        {
+            speed = RunSpeed;
+            _animator.SetTrigger("Run");
+            Debug.Log(speed);
+        }
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         // 2. 방향구하기
         Vector3 dir = new Vector3(x: h, y: 0, z: v);          // 로컬 좌표계 (나만의 동서남북)
         Vector3 unNormalizedDir = dir;
         dir.Normalize();
-
+        
         // 2. '캐릭터가 바라보는 방향'을 기준으로 방향구하기
         dir = Camera.main.transform.TransformDirection(dir); // 글로벌 좌표계 (세상의 동서남북)
 
 
         _characterController.Move(dir * speed * Time.deltaTime);
-        _animator.SetFloat("Move", unNormalizedDir.magnitude);
+        _animator.SetFloat("Move", dir.magnitude);
+
+        
     }
 }
