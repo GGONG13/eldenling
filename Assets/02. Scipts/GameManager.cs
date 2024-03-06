@@ -10,15 +10,26 @@ public enum State
 }
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameManager Instance { get; private set; }
+    public State state { get; private set; } = State.Ready;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
-        
+        StartCoroutine(Start_Coroutine());
     }
 
-    // Update is called once per frame
-    void Update()
+ 
+    private IEnumerator Start_Coroutine()
     {
-        
+        // 게임 상태
+        // 1. 게임 준비 상태
+        state = State.Ready;
+
+        yield return new WaitForSeconds(0.5f);
+        state = State.Go;
     }
 }
