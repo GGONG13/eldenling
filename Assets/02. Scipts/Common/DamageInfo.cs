@@ -6,6 +6,7 @@ public enum DamageType
 {
     Normal,     //0
     Critical,   //1
+    Run,        //2
 }
 
 public class DamageInfo : MonoBehaviour

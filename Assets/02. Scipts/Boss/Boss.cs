@@ -21,6 +21,12 @@ public class Boss : MonoBehaviour
     private BossState _currentState = BossState.Patrol;
     public const float TOLERANCE = 0.1f;
 
+    public int Health;
+    public int MaxHealth = 500;
+    // public Slider HealthSliderUI;
+    public int RunDamage = 10;
+    public int NormalDamage = 5;
+    public int CriticalDamage = 7;
     public float MovementRange = 15f;
     
     private Vector3 Destination;
@@ -33,7 +39,7 @@ public class Boss : MonoBehaviour
     public float StiffTime = 1f;
     private float _stiffTimer = 0f;
 
-    private void Start()
+    private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
@@ -41,6 +47,7 @@ public class Boss : MonoBehaviour
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
         _stiffTimer = 0f;
+        Health = MaxHealth;
     }
     private void Update()
     {
@@ -64,8 +71,7 @@ public class Boss : MonoBehaviour
                 Stiffness(); break;
             case BossState.Die:
                 Die(); break;                
-        }
-             
+        }           
     }
     private void Patrol()
     {
@@ -116,7 +122,6 @@ public class Boss : MonoBehaviour
             _currentState = BossState.Attack;
             _delayTimer = 0;
         }
-        // Stiffness
     }
     private void Stiffness()
     {
@@ -129,7 +134,7 @@ public class Boss : MonoBehaviour
     }
     private void Die()
     {
-
+        this.gameObject.SetActive( false );
     }
     private void MoveToRandomPosition()
     {
@@ -140,5 +145,51 @@ public class Boss : MonoBehaviour
         Vector3 targetPosition = hit.position;
         _agent.SetDestination(targetPosition);
         Destination = targetPosition;
+    }
+    public void PlayerAttack()
+    {
+        IHitable playerHitable = _target.GetComponent<IHitable>();
+        if (playerHitable != null)
+        {
+            DamageInfo damageInfo;
+            if (_currentState == BossState.RunAttack)
+            {
+                damageInfo = new DamageInfo(DamageType.Run, RunDamage);
+                playerHitable.Hit(damageInfo);
+            }
+            else if (_currentState == BossState.Attack)
+            {
+                int num = Random.Range(0, 10);
+                if (num < 3)
+                {
+                    damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
+                    playerHitable.Hit(damageInfo);
+                }
+                else
+                {
+                    damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                    playerHitable.Hit(damageInfo);
+                }
+            }         
+        }
+    }
+    public void Hit(DamageInfo damage)
+    {
+        if (_currentState == BossState.Die)
+        {
+            return;
+        }
+        Health -= damage.Amount;
+        if (_currentState == BossState.AttackDelay)
+        {
+            Debug.Log("Boss: AttackDelay -> Stiffness");
+            _currentState = BossState.Stiffness;
+        }
+        if ( Health <= 0 )
+        {
+            Health = 0;
+            Debug.Log("Boss: Any -> Die");
+            _currentState = BossState.Die;
+        }
     }
 }
