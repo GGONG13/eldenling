@@ -41,6 +41,7 @@ public class PlayerMove : MonoBehaviour
         {
             speed = RunSpeed;
             _animator.SetTrigger("Run");
+            PlayerStateManager.Instance.SetCurrentState(PlayerState.Run);
         }
 
 
@@ -54,5 +55,6 @@ public class PlayerMove : MonoBehaviour
         //transform.position += speed * dir * Time.deltaTime;
         _characterController.Move(dir * speed * Time.deltaTime);
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
+        PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }
