@@ -10,7 +10,13 @@ public enum State
 }
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameManager Instance { get; private set; }
+    public State state { get; private set; } = State.Ready;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         
