@@ -20,6 +20,7 @@ public class Boss : MonoBehaviour
     private Animator _animator;
     private BossState _currentState = BossState.Patrol;
     public const float TOLERANCE = 0.1f;
+    private Coroutine _dieCoroutine;
 
     public int Health;
     public int MaxHealth = 500;
@@ -134,7 +135,10 @@ public class Boss : MonoBehaviour
     }
     private void Die()
     {
-        this.gameObject.SetActive( false );
+        if (_dieCoroutine == null)
+        {
+            _dieCoroutine = StartCoroutine(Die_Coroutine());
+        }
     }
     private void MoveToRandomPosition()
     {
@@ -156,6 +160,7 @@ public class Boss : MonoBehaviour
             {
                 damageInfo = new DamageInfo(DamageType.Run, RunDamage);
                 playerHitable.Hit(damageInfo);
+                Debug.Log("Boss: Run Attack");
             }
             else if (_currentState == BossState.Attack)
             {
@@ -164,11 +169,13 @@ public class Boss : MonoBehaviour
                 {
                     damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
                     playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Critical Attack");
                 }
                 else
                 {
                     damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
                     playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Normal Attack");
                 }
             }         
         }
@@ -191,5 +198,13 @@ public class Boss : MonoBehaviour
             Debug.Log("Boss: Any -> Die");
             _currentState = BossState.Die;
         }
+    }
+    private IEnumerator Die_Coroutine()
+    {
+        _agent.isStopped = true;
+        _agent.ResetPath();
+        // HealthSliderUI.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }
