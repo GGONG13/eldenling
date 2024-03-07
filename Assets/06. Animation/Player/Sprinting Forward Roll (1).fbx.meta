@@ -110,6 +110,7 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
+<<<<<<< HEAD
     human:
     - boneName: mixamorig:Hips
       humanName: Hips
@@ -543,6 +544,9 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
+=======
+    human: []
+>>>>>>> 32aff3c473ce801c3c41a91c95bfdded4eb8db5c
     skeleton:
     - name: Sprinting Forward Roll (1)(Clone)
       parentName: 
