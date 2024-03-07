@@ -11,19 +11,17 @@ public class Player : MonoBehaviour
     public float AttackDelayTime = 1f;
     private float AttackTimer = 0f;
 
-    public float viewRadius = 10f; // 시야 반경
-    public LayerMask targetMask; // 대상 레이어 마스크
+    public float attackRange = 2.5f; // 플레이어의 공격 범위
 
     private void Awake()
     {
         Health = MaxHealth;
         AttackTimer = 0f;
-
     }
 
     private void Update()
     {
-        if (AttackTimer <= 0f && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f)
         {
             Attack();
             AttackTimer = AttackDelayTime;
@@ -37,21 +35,15 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-        foreach (Collider targetCollider in targetsInViewRadius)
+        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, attackRange);
+        foreach (Collider targetCollider in targetsInRange)
         {
-            // 대상이 IHitable을 구현한 오브젝트인지 확인
-            IHitable target = targetCollider.GetComponent<IHitable>();
-            if (target != null)
+            Boss boss = targetCollider.GetComponent<Boss>();
+            if (boss != null)
             {
-                target.Hit(PlayerDamage);
-                Debug.Log("Player attacked boss.");
-                Boss boss = targetCollider.GetComponent<Boss>();
-                if (boss != null)
-                {
-                    boss.PlayerAttack();
-                    Debug.Log($"Boss Health: {boss.Health}");
-                }
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, PlayerDamage);
+                boss.Hit(damageInfo);
+                Debug.Log("플레이어가 보스를 공격했습니다.");
             }
         }
     }

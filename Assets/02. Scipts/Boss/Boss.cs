@@ -16,7 +16,7 @@ public enum BossState
     Die
 }
 
-public class Boss : MonoBehaviour//, IHitable
+public class Boss : MonoBehaviour
 {
     private NavMeshAgent _agent;
     public Animator _animator;
@@ -240,14 +240,16 @@ public class Boss : MonoBehaviour//, IHitable
         {
             _animator.SetTrigger("Stiffness");
             _currentState = BossState.Stiffness;
-            Debug.Log("Boss: AttackDelay -> Stiffness");
+            Debug.Log("보스: 공격 딜레이 -> 스터너 상태");
         }
         if (Health <= 0)
         {
             Health = 0;
-            Debug.Log("Boss: Any -> Die");
+            Debug.Log("보스: 어떤 상태든 -> 죽음");
             _currentState = BossState.Die;
         }
+        // 여기서 보스의 체력을 출력합니다.
+        Debug.Log($"보스 체력: {Health}");
     }
     private IEnumerator Die_Coroutine()
     {

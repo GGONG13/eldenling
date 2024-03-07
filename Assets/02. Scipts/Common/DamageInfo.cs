@@ -4,23 +4,20 @@ using UnityEngine;
 
 public enum DamageType
 {
-    Normal,     //0
-    Critical,   //1
-    Run,        //2
+    Normal,
+    Critical,
+    Run // 예시입니다. 필요에 따라 확장할 수 있습니다.
 }
 
-public class DamageInfo : MonoBehaviour
+public class DamageInfo
 {
-    public DamageType DamageType;  // 0: 일반, 1: 크리티컬
-    public int Amount;      // 데미지 량
-    public Vector3 Position;
-    public Vector3 Normal;      // 방향(법선벡터)
+    public DamageType Type { get; private set; }
+    public int Amount { get; private set; }
 
-    public DamageInfo(DamageType damageType, int amount)
+    public DamageInfo(DamageType type, int amount)
     {
-        this.DamageType = damageType;
-        this.Amount = amount;
-        this.Position = Vector3.zero;
-        this.Normal = Vector3.zero;
+        Type = type;
+        Amount = amount;
     }
 }
+
