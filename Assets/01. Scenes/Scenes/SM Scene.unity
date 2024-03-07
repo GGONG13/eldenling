@@ -532,6 +532,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2
   RunSpeed: 5
+  rollSpeed: 5
+  rollDuration: 1
 --- !u!1001 &8247768241555500107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -540,6 +542,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 418010903663159239, guid: f1396634101c56846854f9800c3155ba, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 702616956161182881, guid: f1396634101c56846854f9800c3155ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

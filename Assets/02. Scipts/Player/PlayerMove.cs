@@ -13,7 +13,14 @@ public class PlayerMove : MonoBehaviour
 
     private float _yVelocity = 0f; // 중력
 
+    private bool _isWalking;
+    private bool _isRuning;
+
     private bool _isRolling;
+    public float rollSpeed = 5f;
+    public float rollDuration = 1f;
+    private float rollTimer;
+    private Vector3 rollDirection;
 
     private void Awake()
     {
@@ -23,11 +30,13 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _isRolling = false;
+        
     }
     void Update()
     {
         float speed = MoveSpeed;
-
+        _animator.SetBool("Walk", false);
+        _animator.SetBool("Run", false);
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -37,27 +46,28 @@ public class PlayerMove : MonoBehaviour
         dir.Normalize();
 
         dir = Camera.main.transform.TransformDirection(dir);
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            _isWalking = true;
+            _animator.SetBool("Walk", true);
+            Debug.Log("Walk");
+        }
+            if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = RunSpeed;
+            _isRuning = true;
+            _animator.SetBool("Run",true);
+            Debug.Log("Run");
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            _animator.SetTrigger("Run");
-            //PlayerStateManager.Instance.SetCurrentState(PlayerState.Run);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            _animator.SetTrigger("Walk");
-            //PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
-        }
+       
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !_isRolling)
         {
             _animator.SetTrigger("Roll");
             _isRolling = true;
+            rollTimer = rollDuration;
+            rollDirection = transform.forward;
             //PlayerStateManager.Instance.SetCurrentState(PlayerState.Roll);
         }
 
@@ -68,6 +78,20 @@ public class PlayerMove : MonoBehaviour
 
         dir.y = _yVelocity;
 
+        if (_isRolling)
+        {
+            rollTimer -= Time.deltaTime;
+            if (rollTimer <= 0)
+            {
+                _isRolling = false;
+                // 구르기 종료 처리
+            }
+            else
+            {
+                // 구르기 동안 이동 실행
+                _characterController.Move(rollDirection * rollSpeed * Time.deltaTime);
+            }
+        }
         // 이동하기
 
 
@@ -83,7 +107,7 @@ public class PlayerMove : MonoBehaviour
             _characterController.Move(dir * speed * Time.deltaTime);
         }
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
-        _animator.SetTrigger("Walk");
+        
         //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }
