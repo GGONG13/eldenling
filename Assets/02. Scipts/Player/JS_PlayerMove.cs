@@ -23,16 +23,19 @@ public class JS_PlayerMove : MonoBehaviour
     private float rollTimer;
     private Vector3 rollDirection;
 
+    private bool SwordON = false;
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
         isRolling = false;
+        SwordON = false;
     }
 
     private void Update()
     {
-        
+
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -71,8 +74,29 @@ public class JS_PlayerMove : MonoBehaviour
             }
         }
         // _yVelocity += (_gravity * Time.deltaTime);
-       // dir.y = _yVelocity;
+        // dir.y = _yVelocity;
         _characterController.Move(dir * MoveSpeed * Time.deltaTime);
         _animator.SetFloat("Move", dir.magnitude);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            StartCoroutine(Sword_Coroutine());
+        }
+
+        
+    }
+    public IEnumerator Sword_Coroutine()
+    {
+        SwordON = true;
+        _animator.SetLayerWeight(2, 1f);
+        _animator.SetTrigger("SwordMotion");
+        UpdateSwordAnimation(1);
+        _animator.SetFloat("Sword_", 1);
+        yield return new WaitForSeconds(0.4f);
+        _animator.SetLayerWeight(3, 1f);
+    }
+    public void UpdateSwordAnimation(float value)
+    {
+        _animator.SetFloat("Sword_", value);
     }
 }
