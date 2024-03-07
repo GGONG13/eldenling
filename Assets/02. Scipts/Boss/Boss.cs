@@ -8,13 +8,14 @@ public enum BossState
     Patrol,
     Trace,
     RunAttack,
-    Attack,
     AttackDelay,
     Stiffness,
+    NormalAttack,
+    CriticalAttack,
     Die
 }
 
-public class Boss : MonoBehaviour
+public class Boss : MonoBehaviour, IHitable
 {
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -64,12 +65,14 @@ public class Boss : MonoBehaviour
                 Trace(); break;
             case BossState.RunAttack:
                 RunAttack(); break;
-            case BossState.Attack:
-                Attack(); break;
             case BossState.AttackDelay:
-                AttackDelay(); break;
+                AttackDelay(); break;            
             case BossState.Stiffness:
                 Stiffness(); break;
+            case BossState.NormalAttack:
+                NormalAttack(); break;
+            case BossState.CriticalAttack:
+                CriticalAttack(); break;
             case BossState.Die:
                 Die(); break;                
         }           
@@ -88,20 +91,16 @@ public class Boss : MonoBehaviour
     }
     private void Trace()
     {
-        Vector3 dir = _target.position - this.transform.position;
-        dir.Normalize();
-        _agent.stoppingDistance = AttackDistance;
-        _agent.destination = _target.position;
-        if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
+        PlayerTrace();
+        if (Vector3.Distance(_target.position, transform.position) < AttackDistance)
         {
-            Debug.Log("Boss: Trace -> Attack");
-            _currentState = BossState.Attack;
+
         }
-        if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
+        else if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
         {
             Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
-        }      
+        }         
     }
     private void RunAttack()
     {
@@ -109,19 +108,31 @@ public class Boss : MonoBehaviour
         Debug.Log("Boss: RunAttack -> AttackDelay");
         _currentState = BossState.AttackDelay;
     }
-    private void Attack()
-    {
-        Debug.Log("Boss: Attack -> AttackDelay");
-        _currentState = BossState.AttackDelay;
-    }
     private void AttackDelay()
     {
+        PlayerTrace();
         _delayTimer += Time.deltaTime;
         if ( _delayTimer > DelayTime )
         {
-            Debug.Log("Boss: AttackDelay -> Attack");
-            _currentState = BossState.Attack;
-            _delayTimer = 0;
+            if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
+            {
+                int num = Random.Range(0, 10);
+                if ( num < 3 )
+                {
+                    Debug.Log("Boss: Trace -> CriticalAttack");
+                    _currentState = BossState.CriticalAttack;
+                }
+                else
+                {
+                    Debug.Log("Boss: Trace -> NormalAttack");
+                    _currentState = BossState.NormalAttack;
+                }        
+            }
+            if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
+            {
+                Debug.Log("Boss: Trace -> RunAttack");
+                _currentState = BossState.RunAttack;
+            }
         }
     }
     private void Stiffness()
@@ -129,9 +140,19 @@ public class Boss : MonoBehaviour
         _stiffTimer += Time.deltaTime;
         if( _stiffTimer > StiffTime )
         {
-            Debug.Log("Boss: Stiffness -> Trace");
-            _currentState = BossState.Trace;
+            Debug.Log("Boss: Stiffness -> Patrol");
+            _currentState = BossState.Patrol;
         }
+    }
+    private void NormalAttack()
+    {
+        Debug.Log("Boss: NormalAttack -> AttackDelay");
+        _currentState = BossState.AttackDelay;
+    }
+    private void CriticalAttack()
+    {
+        Debug.Log("Boss: CriticalAttack -> AttackDelay");
+        _currentState = BossState.AttackDelay;
     }
     private void Die()
     {
@@ -162,23 +183,26 @@ public class Boss : MonoBehaviour
                 playerHitable.Hit(damageInfo);
                 Debug.Log("Boss: Run Attack");
             }
-            else if (_currentState == BossState.Attack)
+            else if (_currentState == BossState.NormalAttack)
             {
-                int num = Random.Range(0, 10);
-                if (num < 3)
-                {
-                    damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
-                    playerHitable.Hit(damageInfo);
-                    Debug.Log("Boss: Critical Attack");
-                }
-                else
-                {
-                    damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
-                    playerHitable.Hit(damageInfo);
-                    Debug.Log("Boss: Normal Attack");
-                }
-            }         
+                damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                playerHitable.Hit(damageInfo);
+                Debug.Log("Boss: Normal Attack");
+            }
+            else if (_currentState == BossState.CriticalAttack)
+            {
+                damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
+                playerHitable.Hit(damageInfo);
+                Debug.Log("Boss: Critical Attack");
+            }
         }
+    }
+    public void PlayerTrace()
+    {
+        Vector3 dir = _target.position - this.transform.position;
+        dir.Normalize();
+        _agent.stoppingDistance = AttackDistance;
+        _agent.destination = _target.position;
     }
     public void Hit(DamageInfo damage)
     {
