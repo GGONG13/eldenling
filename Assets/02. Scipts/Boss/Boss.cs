@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public enum BossState
 {
@@ -15,7 +16,7 @@ public enum BossState
     Die
 }
 
-public class Boss : MonoBehaviour, IHitable
+public class Boss : MonoBehaviour//, IHitable
 {
     private NavMeshAgent _agent;
     public Animator _animator;
@@ -30,12 +31,14 @@ public class Boss : MonoBehaviour, IHitable
     public int NormalDamage = 5;
     public int CriticalDamage = 7;
     public float MovementRange = 15f;
+    public float AttackRadius = 15;
+    public float ViewAngle = 90;
     
     private Vector3 Destination;
     private Transform _target; 
     public float FindDistance = 12f;
     public float RunAttackDistance = 8f;
-    public float AttackDistance = 3.5f;
+    public float AttackDistance = 2.5f;
     public float DelayTime = 2f;
     private float _delayTimer = 0f;
     public float StiffTime = 1f;
@@ -43,8 +46,8 @@ public class Boss : MonoBehaviour, IHitable
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        //_animator = GetComponentInChildren<Animator>();
+        _agent = GetComponentInParent<NavMeshAgent>();
+        //_animator = GetComponent<Animator>();
         Destination = _agent.transform.position;
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
@@ -171,6 +174,37 @@ public class Boss : MonoBehaviour, IHitable
         _currentState = BossState.AttackDelay;
         Debug.Log("Boss: CriticalAttack");
     }
+    public void PlayerAttack()
+    {
+        IHitable playerHitable = _target.GetComponent<IHitable>();
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, AttackRadius);
+        Vector3 dirToTarget = (_target.position - transform.position).normalized;
+        if (Vector3.Angle(transform.forward, dirToTarget) < ViewAngle / 2)
+        {
+            if (playerHitable != null)
+            {
+                DamageInfo damageInfo;
+                if (_currentState == BossState.RunAttack)
+                {
+                    damageInfo = new DamageInfo(DamageType.Run, RunDamage);
+                    playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Run Attack");
+                }
+                else if (_currentState == BossState.NormalAttack)
+                {
+                    damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                    playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Normal Attack");
+                }
+                else if (_currentState == BossState.CriticalAttack)
+                {
+                    damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
+                    playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Critical Attack");
+                }
+            }
+        }       
+    }
     private void Die()
     {
         if (_dieCoroutine == null)
@@ -188,32 +222,6 @@ public class Boss : MonoBehaviour, IHitable
         _agent.SetDestination(targetPosition);
         Destination = targetPosition;
     }
-    public void PlayerAttack()
-    {
-        IHitable playerHitable = _target.GetComponent<IHitable>();
-        if (playerHitable != null)
-        {
-            DamageInfo damageInfo;
-            if (_currentState == BossState.RunAttack)
-            {
-                damageInfo = new DamageInfo(DamageType.Run, RunDamage);
-                playerHitable.Hit(damageInfo);
-                Debug.Log("Boss: Run Attack");
-            }
-            else if (_currentState == BossState.NormalAttack)
-            {
-                damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
-                playerHitable.Hit(damageInfo);
-                Debug.Log("Boss: Normal Attack");
-            }
-            else if (_currentState == BossState.CriticalAttack)
-            {
-                damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
-                playerHitable.Hit(damageInfo);
-                Debug.Log("Boss: Critical Attack");
-            }
-        }
-    }
     public void PlayerTrace()
     {
         Vector3 dir = _target.position - this.transform.position;
@@ -229,12 +237,12 @@ public class Boss : MonoBehaviour, IHitable
         }
         Health -= damage.Amount;
         if (_currentState == BossState.AttackDelay)
-        {                   
+        {
             _animator.SetTrigger("Stiffness");
             _currentState = BossState.Stiffness;
             Debug.Log("Boss: AttackDelay -> Stiffness");
         }
-        if ( Health <= 0 )
+        if (Health <= 0)
         {
             Health = 0;
             Debug.Log("Boss: Any -> Die");
