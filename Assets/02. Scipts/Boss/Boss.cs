@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public enum BossState
 {
@@ -30,6 +31,8 @@ public class Boss : MonoBehaviour//, IHitable
     public int NormalDamage = 5;
     public int CriticalDamage = 7;
     public float MovementRange = 15f;
+    public float AttackRadius = 15;
+    public float ViewAngle = 90;
     
     private Vector3 Destination;
     private Transform _target; 
@@ -161,10 +164,6 @@ public class Boss : MonoBehaviour//, IHitable
             _currentState = BossState.Patrol;
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
     private void NormalAttack()
     {
         _currentState = BossState.AttackDelay;
@@ -178,28 +177,33 @@ public class Boss : MonoBehaviour//, IHitable
     public void PlayerAttack()
     {
         IHitable playerHitable = _target.GetComponent<IHitable>();
-        if (playerHitable != null)
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, AttackRadius);
+        Vector3 dirToTarget = (_target.position - transform.position).normalized;
+        if (Vector3.Angle(transform.forward, dirToTarget) < ViewAngle / 2)
         {
-            DamageInfo damageInfo;
-            if (_currentState == BossState.RunAttack)
+            if (playerHitable != null)
             {
-                damageInfo = new DamageInfo(DamageType.Run, RunDamage);
-                playerHitable.Hit(damageInfo);
-                Debug.Log("Boss: Run Attack");
+                DamageInfo damageInfo;
+                if (_currentState == BossState.RunAttack)
+                {
+                    damageInfo = new DamageInfo(DamageType.Run, RunDamage);
+                    playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Run Attack");
+                }
+                else if (_currentState == BossState.NormalAttack)
+                {
+                    damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                    playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Normal Attack");
+                }
+                else if (_currentState == BossState.CriticalAttack)
+                {
+                    damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
+                    playerHitable.Hit(damageInfo);
+                    Debug.Log("Boss: Critical Attack");
+                }
             }
-            else if (_currentState == BossState.NormalAttack)
-            {
-                damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
-                playerHitable.Hit(damageInfo);
-                Debug.Log("Boss: Normal Attack");
-            }
-            else if (_currentState == BossState.CriticalAttack)
-            {
-                damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
-                playerHitable.Hit(damageInfo);
-                Debug.Log("Boss: Critical Attack");
-            }
-        }
+        }       
     }
     private void Die()
     {
