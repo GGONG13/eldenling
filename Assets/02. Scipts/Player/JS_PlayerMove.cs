@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class JS_PlayerMove : MonoBehaviour
 {
     public float MoveSpeed = 5;     // 일반 속도
     public float RunSpeed = 10;    // 뛰는 속도
-
-    [Header("플레이어 체력 슬라이더 UI")]
-    public int Health;
-    public int MaxHealth = 100;
 
     private CharacterController _characterController;
     private Animator _animator;
@@ -35,34 +32,22 @@ public class JS_PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-
-        // 2. '캐릭터가 바라보는 방향'을 기준으로 방향구하기
         Vector3 dir = new Vector3(h, 0, v);             // 로컬 좌표계 (나만의 동서남북) 
         dir.Normalize();
-        // Transforms direction from local space to world space.
         dir = Camera.main.transform.TransformDirection(dir); // 글로벌 좌표계 (세상의 동서남북)
-
-        // 3-1. 중력 적용
-        // 1. 중력 가속도가 누적된다.
-        _yVelocity += _gravity * Time.deltaTime;
-
-        // 2. 플레이어에게 y축에 있어 중력을 적용한다.
-
-        dir.y = _yVelocity;
-
-        // 3-2. 이동하기
-        //transform.position += speed * dir * Time.deltaTime;
-        _characterController.Move(dir * MoveSpeed * Time.deltaTime);
-        _animator.SetFloat("Move", dir.magnitude);
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (_characterController.isGrounded)
         {
-            speed = RunSpeed;
-            _animator.SetTrigger("Run");
+            dir.y = _yVelocity;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = RunSpeed;
+                _animator.SetTrigger("Run");
+            }
         }
-
         if (Input.GetKey(KeyCode.LeftControl) && !isRolling)
         {
             isRolling = true;
@@ -85,5 +70,9 @@ public class JS_PlayerMove : MonoBehaviour
                 _characterController.Move(rollDirection * rollSpeed * Time.deltaTime);
             }
         }
+        // _yVelocity += (_gravity * Time.deltaTime);
+       // dir.y = _yVelocity;
+        _characterController.Move(dir * MoveSpeed * Time.deltaTime);
+        _animator.SetFloat("Move", dir.magnitude);
     }
 }
