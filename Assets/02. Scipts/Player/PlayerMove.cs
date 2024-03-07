@@ -83,7 +83,7 @@ public class PlayerMove : MonoBehaviour
             _characterController.Move(dir * speed * Time.deltaTime);
         }
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
-        _animator.SetTrigger("Walk");
+        //_animator.SetTrigger("Walk");
         //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }

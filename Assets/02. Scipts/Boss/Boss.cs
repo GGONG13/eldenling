@@ -15,7 +15,7 @@ public enum BossState
     Die
 }
 
-public class Boss : MonoBehaviour, IHitable
+public class Boss : MonoBehaviour//, IHitable
 {
     private NavMeshAgent _agent;
     public Animator _animator;
@@ -35,7 +35,7 @@ public class Boss : MonoBehaviour, IHitable
     private Transform _target; 
     public float FindDistance = 12f;
     public float RunAttackDistance = 8f;
-    public float AttackDistance = 3.5f;
+    public float AttackDistance = 2.5f;
     public float DelayTime = 2f;
     private float _delayTimer = 0f;
     public float StiffTime = 1f;
@@ -43,8 +43,8 @@ public class Boss : MonoBehaviour, IHitable
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
-        //_animator = GetComponentInChildren<Animator>();
+        _agent = GetComponentInParent<NavMeshAgent>();
+        //_animator = GetComponent<Animator>();
         Destination = _agent.transform.position;
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
@@ -161,6 +161,10 @@ public class Boss : MonoBehaviour, IHitable
             _currentState = BossState.Patrol;
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
     private void NormalAttack()
     {
         _currentState = BossState.AttackDelay;
@@ -170,23 +174,6 @@ public class Boss : MonoBehaviour, IHitable
     {        
         _currentState = BossState.AttackDelay;
         Debug.Log("Boss: CriticalAttack");
-    }
-    private void Die()
-    {
-        if (_dieCoroutine == null)
-        {
-            _dieCoroutine = StartCoroutine(Die_Coroutine());
-        }
-    }
-    private void MoveToRandomPosition()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * MovementRange;
-        randomDirection += transform.position;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection, out hit, MovementRange, NavMesh.AllAreas);
-        Vector3 targetPosition = hit.position;
-        _agent.SetDestination(targetPosition);
-        Destination = targetPosition;
     }
     public void PlayerAttack()
     {
@@ -214,6 +201,23 @@ public class Boss : MonoBehaviour, IHitable
             }
         }
     }
+    private void Die()
+    {
+        if (_dieCoroutine == null)
+        {
+            _dieCoroutine = StartCoroutine(Die_Coroutine());
+        }
+    }
+    private void MoveToRandomPosition()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * MovementRange;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomDirection, out hit, MovementRange, NavMesh.AllAreas);
+        Vector3 targetPosition = hit.position;
+        _agent.SetDestination(targetPosition);
+        Destination = targetPosition;
+    }
     public void PlayerTrace()
     {
         Vector3 dir = _target.position - this.transform.position;
@@ -229,12 +233,12 @@ public class Boss : MonoBehaviour, IHitable
         }
         Health -= damage.Amount;
         if (_currentState == BossState.AttackDelay)
-        {                   
+        {
             _animator.SetTrigger("Stiffness");
             _currentState = BossState.Stiffness;
             Debug.Log("Boss: AttackDelay -> Stiffness");
         }
-        if ( Health <= 0 )
+        if (Health <= 0)
         {
             Health = 0;
             Debug.Log("Boss: Any -> Die");
