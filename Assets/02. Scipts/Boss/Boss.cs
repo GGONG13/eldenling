@@ -175,12 +175,12 @@ public class Boss : MonoBehaviour//, IHitable
         Debug.Log("Boss: CriticalAttack");
     }
     public void PlayerAttack()
-    {
-        IHitable playerHitable = _target.GetComponent<IHitable>();
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, AttackRadius);
+    {      
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, FindDistance);
         Vector3 dirToTarget = (_target.position - transform.position).normalized;
+        IHitable playerHitable = _target.GetComponent<IHitable>();
         if (Vector3.Angle(transform.forward, dirToTarget) < ViewAngle / 2)
-        {
+        {          
             if (playerHitable != null)
             {
                 DamageInfo damageInfo;
