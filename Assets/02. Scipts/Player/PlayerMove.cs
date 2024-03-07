@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 
     public float MoveSpeed = 2f; // 일반 속도
     public float RunSpeed = 5f; // 뛰는 속도
+    
 
     private float _yVelocity = 0f; // 중력
 
@@ -21,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         float speed = MoveSpeed;
+        
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -31,9 +33,13 @@ public class PlayerMove : MonoBehaviour
 
         dir = Camera.main.transform.TransformDirection(dir);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = RunSpeed;
+            
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
             _animator.SetTrigger("Run");
         }
 
