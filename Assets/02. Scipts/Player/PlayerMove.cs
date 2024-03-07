@@ -41,6 +41,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             _animator.SetTrigger("Run");
+            PlayerStateManager.Instance.SetCurrentState(PlayerState.Run);
         }
 
 
@@ -62,5 +63,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
+      //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }

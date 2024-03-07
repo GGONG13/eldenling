@@ -2889,10 +2889,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc051f750472724c8a41ecee8ed02fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 0
+  MaxHealth: 500
   MovementRange: 15
   FindDistance: 12
   RunAttackDistance: 8
   AttackDistance: 3.5
+  DelayTime: 2
+  StiffTime: 1
 --- !u!195 &1102825775
 NavMeshAgent:
   m_ObjectHideFlags: 0
