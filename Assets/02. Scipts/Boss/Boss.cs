@@ -18,7 +18,7 @@ public enum BossState
 public class Boss : MonoBehaviour, IHitable
 {
     private NavMeshAgent _agent;
-    private Animator _animator;
+    public Animator _animator;
     private BossState _currentState = BossState.Patrol;
     public const float TOLERANCE = 0.1f;
     private Coroutine _dieCoroutine;
@@ -44,7 +44,7 @@ public class Boss : MonoBehaviour, IHitable
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
+        //_animator = GetComponentInChildren<Animator>();
         Destination = _agent.transform.position;
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
@@ -87,25 +87,36 @@ public class Boss : MonoBehaviour, IHitable
         {
             Debug.Log("Boss: Patrol -> Trace");
             _currentState = BossState.Trace;
+            _animator.SetTrigger("PatrolToTrace");
         }
     }
     private void Trace()
     {
         PlayerTrace();
-        if (Vector3.Distance(_target.position, transform.position) < AttackDistance)
-        {
-
-        }
-        else if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
+        if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
         {
             Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
-        }         
+            _animator.SetTrigger("TraceToRunAttack");
+            return;
+        }
+        else if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
+        {
+            Debug.Log("Boss: Trace -> AttackDelay");
+            _currentState = BossState.AttackDelay;
+            _animator.SetTrigger("TraceToAttackDelay");
+            return;
+        }
+        else if (Vector3.Distance(_target.position, transform.position) > FindDistance)
+        {
+            Debug.Log("Boss: Trace -> Patrol");
+            _currentState = BossState.Patrol;
+            _animator.SetTrigger("TraceToPatrol");
+        }
     }
     private void RunAttack()
     {
-        _animator.SetTrigger("RunAttack");
-        Debug.Log("Boss: RunAttack -> AttackDelay");
+        Debug.Log("Boss: RunAttack");
         _currentState = BossState.AttackDelay;
     }
     private void AttackDelay()
@@ -121,17 +132,23 @@ public class Boss : MonoBehaviour, IHitable
                 {
                     Debug.Log("Boss: Trace -> CriticalAttack");
                     _currentState = BossState.CriticalAttack;
+                    _animator.SetTrigger("CriticalAttack");
+                    _delayTimer = 0;
                 }
                 else
                 {
                     Debug.Log("Boss: Trace -> NormalAttack");
                     _currentState = BossState.NormalAttack;
+                    _animator.SetTrigger("NormalAttack");
+                    _delayTimer = 0;
                 }        
             }
-            if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
+            else
             {
-                Debug.Log("Boss: Trace -> RunAttack");
-                _currentState = BossState.RunAttack;
+                Debug.Log("Boss: AttackDelay -> Trace");
+                _currentState = BossState.Trace;
+                _animator.SetTrigger("AttackDelayToTrace");
+                _delayTimer = 0;
             }
         }
     }
@@ -146,13 +163,13 @@ public class Boss : MonoBehaviour, IHitable
     }
     private void NormalAttack()
     {
-        Debug.Log("Boss: NormalAttack -> AttackDelay");
         _currentState = BossState.AttackDelay;
+        Debug.Log("Boss: NormalAttack");
     }
     private void CriticalAttack()
-    {
-        Debug.Log("Boss: CriticalAttack -> AttackDelay");
+    {        
         _currentState = BossState.AttackDelay;
+        Debug.Log("Boss: CriticalAttack");
     }
     private void Die()
     {
@@ -212,9 +229,10 @@ public class Boss : MonoBehaviour, IHitable
         }
         Health -= damage.Amount;
         if (_currentState == BossState.AttackDelay)
-        {
-            Debug.Log("Boss: AttackDelay -> Stiffness");
+        {                   
+            _animator.SetTrigger("Stiffness");
             _currentState = BossState.Stiffness;
+            Debug.Log("Boss: AttackDelay -> Stiffness");
         }
         if ( Health <= 0 )
         {
@@ -225,6 +243,7 @@ public class Boss : MonoBehaviour, IHitable
     }
     private IEnumerator Die_Coroutine()
     {
+        _animator.SetTrigger("Die");
         _agent.isStopped = true;
         _agent.ResetPath();
         // HealthSliderUI.gameObject.SetActive(false);
