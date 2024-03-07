@@ -52,7 +52,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             _animator.SetTrigger("Roll");
-            PlayerStateManager.Instance.SetCurrentState(PlayerState.Roll);
+            //PlayerStateManager.Instance.SetCurrentState(PlayerState.Roll);
         }
 
         if (_characterController.isGrounded)
