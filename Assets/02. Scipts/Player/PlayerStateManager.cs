@@ -22,6 +22,8 @@ public class PlayerStateManager : MonoBehaviour
 
     private PlayerState _currentState = PlayerState.Idle;
 
+    private CharacterController _characterController;
+    private Animator _animator;
 
     void Awake()
     {
@@ -33,6 +35,8 @@ public class PlayerStateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        _characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
     }
     public PlayerState GetCurrentState()
     {
