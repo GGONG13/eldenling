@@ -35,7 +35,7 @@ public class PlayerMove : MonoBehaviour
         {
             speed = RunSpeed;
             _animator.SetTrigger("Run");
-            PlayerStateManager.Instance.SetCurrentState(PlayerState.Run);
+          //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Run);
         }
 
 
@@ -57,6 +57,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         _animator.SetFloat("Move", unNormalizedDir.magnitude);
+        _animator.SetTrigger("Walk");
       //  PlayerStateManager.Instance.SetCurrentState(PlayerState.Walk);
     }
 }
