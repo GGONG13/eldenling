@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public enum BossState
@@ -20,13 +21,14 @@ public class Boss : MonoBehaviour
 {
     private NavMeshAgent _agent;
     public Animator _animator;
+    public Animator _horseAnimator;
     private BossState _currentState = BossState.Patrol;
     public const float TOLERANCE = 0.1f;
     private Coroutine _dieCoroutine;
 
     public int Health;
     public int MaxHealth = 500;
-    // public Slider HealthSliderUI;
+    public Slider BossSliderUI;
     public int NormalDamage = 5;
     public int CriticalDamage = 7;
     public float MovementRange = 15f;
@@ -59,6 +61,7 @@ public class Boss : MonoBehaviour
         _stiffTimer = 0f;
         _currentState = BossState.Patrol;
         Health = MaxHealth;
+        RefreshUI();
     }
     private void Update()
     {
@@ -85,6 +88,10 @@ public class Boss : MonoBehaviour
             case BossState.Die:
                 Die(); break;                
         }           
+    }
+    public void RefreshUI()
+    {
+        BossSliderUI.value = Health / (float)MaxHealth;
     }
     private void Patrol()
     {
@@ -254,14 +261,16 @@ public class Boss : MonoBehaviour
         }
         // 여기서 보스의 체력을 출력합니다.
         Debug.Log($"보스 체력: {Health}");
+        RefreshUI();
     }
     private IEnumerator Die_Coroutine()
     {
         _animator.SetTrigger("Die");
+        _horseAnimator.SetTrigger("Die");
         _agent.isStopped = true;
         _agent.ResetPath();
         // HealthSliderUI.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(5f);
+        //gameObject.SetActive(false);
     }
 }
