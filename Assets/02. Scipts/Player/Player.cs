@@ -48,12 +48,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Hit(DamageInfo damage)
+    public void Hit(int damage)
     {
-        Health -= damage.Amount;
-        Debug.Log($"플레이어 체력: {Health}");
+        Health -= damage;
+        Debug.Log($"Player: {Health}");
         if (Health <= 0)
         {
+            StopAllCoroutines();
             Health = 0;
             gameObject.SetActive(false);
         }

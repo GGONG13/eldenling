@@ -13,8 +13,8 @@ public class PlayerMove : MonoBehaviour
     private float _yVelocity = 0f;
    // private float _gravity = -20;// ม฿ทย
 
-    private bool _isWalking;
-    private bool _isRunning;
+    public bool _isWalking;
+    public bool _isRunning;
 
     private bool _isRolling;
     public float rollSpeed = 5f;
@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _isRolling = false;
+       
     }
 
     void Update()
