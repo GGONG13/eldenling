@@ -7237,7 +7237,7 @@ GameObject:
   - component: {fileID: 5151410161799776547}
   - component: {fileID: 4105246491979274642}
   - component: {fileID: 283568848772850893}
-  - component: {fileID: -3294450445991677148}
+  - component: {fileID: 2608647726369235644}
   m_Layer: 0
   m_Name: Player_Basic
   m_TagString: Player
@@ -7309,6 +7309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2
   RunSpeed: 5
+  _isWalking: 0
+  _isRunning: 0
   rollSpeed: 5
   rollDuration: 1
 --- !u!143 &283568848772850893
@@ -7337,7 +7339,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &-3294450445991677148
+--- !u!114 &2608647726369235644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7349,8 +7351,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0e89e6e70b6654b82cfd4f2a0bf23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
+  HealthSliderUI: {fileID: 0}
+  Health: 100
   MaxHealth: 100
+  PlayerDamage: 20
+  AttackDelayTime: 1
+  attackRange: 2.5
 --- !u!1 &3574339666424638960
 GameObject:
   m_ObjectHideFlags: 0
