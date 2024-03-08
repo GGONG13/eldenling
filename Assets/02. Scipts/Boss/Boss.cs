@@ -38,7 +38,8 @@ public class Boss : MonoBehaviour
     private Transform _target; 
     public float FindDistance = 12f;
     public float RunAttackDistance = 8f;
-    public float AttackDistance = 2.5f;
+    public float AttackDistance = 5f;
+    public float StopDistance = 2.5f;
     public float DelayTime = 2f;
     private float _delayTimer = 0f;
     public float StiffTime = 1f;
@@ -103,7 +104,7 @@ public class Boss : MonoBehaviour
             _animator.SetTrigger("TraceToRunAttack");
             return;
         }
-        else if (Vector3.Distance(_target.position, transform.position) < AttackDistance)
+        else if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
         {
             Debug.Log("Boss: Trace -> AttackDelay");
             _currentState = BossState.AttackDelay;
@@ -208,7 +209,7 @@ public class Boss : MonoBehaviour
     {
         Vector3 dir = _target.position - this.transform.position;
         dir.Normalize();
-        _agent.stoppingDistance = AttackDistance;
+        _agent.stoppingDistance = StopDistance;
         _agent.destination = _target.position;
     }
     public void Hit(DamageInfo damage)
