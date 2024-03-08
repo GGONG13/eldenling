@@ -23,7 +23,6 @@ public class Boss : MonoBehaviour
     public Animator _animator;
     public Animator _horseAnimator;
     private BossState _currentState = BossState.Patrol;
-    public const float TOLERANCE = 0.1f;
     private Coroutine _dieCoroutine;
 
     public int Health;
@@ -95,13 +94,13 @@ public class Boss : MonoBehaviour
     }
     private void Patrol()
     {
-        if (Vector3.Distance(transform.position, Destination) <= TOLERANCE)
+        if (Vector3.Distance(transform.position, Destination) <= StopDistance)
         {
             MoveToRandomPosition();
         }
         if (Vector3.Distance(_target.position, transform.position) <= FindDistance)
         {
-            Debug.Log("Boss: Patrol -> Trace");
+            //Debug.Log("Boss: Patrol -> Trace");
             _currentState = BossState.Trace;
             _animator.SetTrigger("PatrolToTrace");
         }
@@ -111,21 +110,21 @@ public class Boss : MonoBehaviour
         PlayerTrace();
         if (Vector3.Distance(_target.position, transform.position) >= RunAttackDistance)
         {
-            Debug.Log("Boss: Trace -> RunAttack");
+            //Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
             _animator.SetTrigger("TraceToRunAttack");
             return;
         }
         else if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
         {
-            Debug.Log("Boss: Trace -> AttackDelay");
+            //Debug.Log("Boss: Trace -> AttackDelay");
             _currentState = BossState.AttackDelay;
             _animator.SetTrigger("TraceToAttackDelay");
             return;
         }
         else if (Vector3.Distance(_target.position, transform.position) > FindDistance)
         {
-            Debug.Log("Boss: Trace -> Patrol");
+            //Debug.Log("Boss: Trace -> Patrol");
             _currentState = BossState.Patrol;
             _animator.SetTrigger("TraceToPatrol");
         }
@@ -133,7 +132,7 @@ public class Boss : MonoBehaviour
     private void RunAttack()
     {
         StartCoroutine(_changeSpeedCoroutine());
-        Debug.Log("Boss: RunAttack");
+        //Debug.Log("Boss: RunAttack");
         _currentState = BossState.AttackDelay;
     }
     private void AttackDelay()
@@ -174,19 +173,19 @@ public class Boss : MonoBehaviour
         _stiffTimer += Time.deltaTime;
         if( _stiffTimer > StiffTime )
         {
-            Debug.Log("Boss: Stiffness -> Patrol");
+            //Debug.Log("Boss: Stiffness -> Patrol");
             _currentState = BossState.Patrol;
         }
     }
     private void NormalAttack()
     {
         _currentState = BossState.AttackDelay;
-        Debug.Log("Boss: NormalAttack");
+        //Debug.Log("Boss: NormalAttack");
     }
     private void CriticalAttack()
     {        
         _currentState = BossState.AttackDelay;
-        Debug.Log("Boss: CriticalAttack");
+        //Debug.Log("Boss: CriticalAttack");
     }
     public void PlayerAttack()
     {
