@@ -15,11 +15,7 @@ public class PlayerEatting : MonoBehaviour
         int layerMask = LayerMask.GetMask("Sword");
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance, layerMask))
         {
-
             Debug.Log("Found an object - distance: " + hit.distance + ", name: " + hit.collider.gameObject.name);
-            
-            
         }
     }
-
 }

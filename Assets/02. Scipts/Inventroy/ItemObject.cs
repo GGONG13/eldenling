@@ -15,16 +15,13 @@ public class ItemObject : MonoBehaviour
     public float movingSpeed = 0.3f;
     private float _movingProgress = 0f; // 시간을 저장할 변수
 
-    public static ItemObject instance { get; private set; }
+
    
     private void Start()
     {
         Target = GameObject.FindGameObjectWithTag("Player").transform;
         _itemStartPos = transform.position;
-        if (instance == null)
-        {
-            instance = this;
-        }
+
     }
 
     private void Update()
