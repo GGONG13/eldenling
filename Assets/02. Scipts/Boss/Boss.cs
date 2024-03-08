@@ -40,7 +40,7 @@ public class Boss : MonoBehaviour
     public float RunAttackDistance = 8f;
     public float AttackDistance = 5f;
     public float StopDistance = 2.5f;
-    public float DelayTime = 2f;
+    public float DelayTime = 3f;
     private float _delayTimer = 0f;
     public float StiffTime = 1f;
     private float _stiffTimer = 0f;
@@ -137,7 +137,7 @@ public class Boss : MonoBehaviour
     }
     private void AttackDelay()
     {
-        PlayerTrace();
+        //PlayerTrace();
         _delayTimer += Time.deltaTime;
         if ( _delayTimer > DelayTime )
         {
