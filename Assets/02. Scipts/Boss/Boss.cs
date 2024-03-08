@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public enum BossState
@@ -20,14 +21,13 @@ public class Boss : MonoBehaviour
 {
     private NavMeshAgent _agent;
     public Animator _animator;
+    public Animator _horseAnimator;
     private BossState _currentState = BossState.Patrol;
-    public const float TOLERANCE = 0.1f;
     private Coroutine _dieCoroutine;
 
     public int Health;
     public int MaxHealth = 500;
-    // public Slider HealthSliderUI;
-    public int RunDamage = 10;
+    public Slider BossSliderUI;
     public int NormalDamage = 5;
     public int CriticalDamage = 7;
     public float MovementRange = 15f;
@@ -45,15 +45,22 @@ public class Boss : MonoBehaviour
     public float StiffTime = 1f;
     private float _stiffTimer = 0f;
 
+    public float newSpeed = 5f;
+    public float duration = 3f;
+    private float originalSpeed;
+
     private void Awake()
     {
         _agent = GetComponentInParent<NavMeshAgent>();
         //_animator = GetComponent<Animator>();
-        Destination = _agent.transform.position;
+        originalSpeed = _agent.speed;
+        Destination = transform.position;
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
         _stiffTimer = 0f;
+        _currentState = BossState.Patrol;
         Health = MaxHealth;
+        RefreshUI();
     }
     private void Update()
     {
@@ -81,15 +88,19 @@ public class Boss : MonoBehaviour
                 Die(); break;                
         }           
     }
+    public void RefreshUI()
+    {
+        BossSliderUI.value = Health / (float)MaxHealth;
+    }
     private void Patrol()
     {
-        if (Vector3.Distance(transform.position, Destination) <= TOLERANCE)
+        if (Vector3.Distance(transform.position, Destination) <= StopDistance)
         {
             MoveToRandomPosition();
         }
         if (Vector3.Distance(_target.position, transform.position) <= FindDistance)
         {
-            Debug.Log("Boss: Patrol -> Trace");
+            //Debug.Log("Boss: Patrol -> Trace");
             _currentState = BossState.Trace;
             _animator.SetTrigger("PatrolToTrace");
         }
@@ -97,30 +108,31 @@ public class Boss : MonoBehaviour
     private void Trace()
     {
         PlayerTrace();
-        if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
+        if (Vector3.Distance(_target.position, transform.position) >= RunAttackDistance)
         {
-            Debug.Log("Boss: Trace -> RunAttack");
+            //Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
             _animator.SetTrigger("TraceToRunAttack");
             return;
         }
         else if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
         {
-            Debug.Log("Boss: Trace -> AttackDelay");
+            //Debug.Log("Boss: Trace -> AttackDelay");
             _currentState = BossState.AttackDelay;
             _animator.SetTrigger("TraceToAttackDelay");
             return;
         }
         else if (Vector3.Distance(_target.position, transform.position) > FindDistance)
         {
-            Debug.Log("Boss: Trace -> Patrol");
+            //Debug.Log("Boss: Trace -> Patrol");
             _currentState = BossState.Patrol;
             _animator.SetTrigger("TraceToPatrol");
         }
     }
     private void RunAttack()
     {
-        Debug.Log("Boss: RunAttack");
+        StartCoroutine(_changeSpeedCoroutine());
+        //Debug.Log("Boss: RunAttack");
         _currentState = BossState.AttackDelay;
     }
     private void AttackDelay()
@@ -161,19 +173,19 @@ public class Boss : MonoBehaviour
         _stiffTimer += Time.deltaTime;
         if( _stiffTimer > StiffTime )
         {
-            Debug.Log("Boss: Stiffness -> Patrol");
+            //Debug.Log("Boss: Stiffness -> Patrol");
             _currentState = BossState.Patrol;
         }
     }
     private void NormalAttack()
     {
         _currentState = BossState.AttackDelay;
-        Debug.Log("Boss: NormalAttack");
+        //Debug.Log("Boss: NormalAttack");
     }
     private void CriticalAttack()
     {        
         _currentState = BossState.AttackDelay;
-        Debug.Log("Boss: CriticalAttack");
+        //Debug.Log("Boss: CriticalAttack");
     }
     public void PlayerAttack()
     {
@@ -181,10 +193,19 @@ public class Boss : MonoBehaviour
         foreach (Collider targetCollider in targetsInRange)
         {
             Player player = targetCollider.GetComponent<Player>();
+            int num = Random.Range(0, 10);
             if (player != null)
             {
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
-                player.Hit(damageInfo);
+                if (num < 3)
+                {
+                    DamageInfo damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
+                    player.Hit(damageInfo);
+                }
+                else
+                {
+                    DamageInfo damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                    player.Hit(damageInfo);
+                }           
             }
         }
     }
@@ -204,6 +225,12 @@ public class Boss : MonoBehaviour
         Vector3 targetPosition = hit.position;
         _agent.SetDestination(targetPosition);
         Destination = targetPosition;
+    }
+    private IEnumerator _changeSpeedCoroutine()
+    {
+        _agent.speed = newSpeed;
+        yield return new WaitForSeconds(duration);
+        _agent.speed = originalSpeed;
     }
     public void PlayerTrace()
     {
@@ -233,14 +260,16 @@ public class Boss : MonoBehaviour
         }
         // 여기서 보스의 체력을 출력합니다.
         Debug.Log($"보스 체력: {Health}");
+        RefreshUI();
     }
     private IEnumerator Die_Coroutine()
     {
         _animator.SetTrigger("Die");
+        _horseAnimator.SetTrigger("Die");
         _agent.isStopped = true;
         _agent.ResetPath();
         // HealthSliderUI.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(5f);
+        //gameObject.SetActive(false);
     }
 }
