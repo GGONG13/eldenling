@@ -48,9 +48,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Hit(int damage)
+    public void Hit(DamageInfo damage)
     {
-        Health -= damage;
+        Health -= damage.Amount;
         Debug.Log($"Player: {Health}");
         if (Health <= 0)
         {
