@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Animator _animator;
     public int Health;
     public int MaxHealth = 100;
 
@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         Health = MaxHealth;
         AttackTimer = 0f;
     }
@@ -54,9 +55,21 @@ public class Player : MonoBehaviour
         Debug.Log($"Player: {Health}");
         if (Health <= 0)
         {
-            StopAllCoroutines();
             Health = 0;
-            gameObject.SetActive(false);
+            _animator.SetTrigger("Death");
+
+            StartCoroutine(DeathWithDelay(5f)); // Death() 대신 Coroutine 호출
         }
+    }
+
+    private IEnumerator DeathWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Death();
+    }
+
+    public void Death()
+    {
+        gameObject.SetActive(false);
     }
 }

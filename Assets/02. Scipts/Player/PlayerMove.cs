@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -11,7 +10,6 @@ public class PlayerMove : MonoBehaviour
     public float RunSpeed = 5f; // 뛰는 속도
 
     private float _yVelocity = 0f;
-   // private float _gravity = -20;// 중력
 
     public bool _isWalking;
     public bool _isRunning;
@@ -22,8 +20,6 @@ public class PlayerMove : MonoBehaviour
     private float rollTimer;
     private Vector3 rollDirection;
 
-    
-
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
@@ -33,7 +29,6 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _isRolling = false;
-       
     }
 
     void Update()
@@ -67,8 +62,6 @@ public class PlayerMove : MonoBehaviour
             _animator.SetBool("Run", true);
         }
 
-        
-
         if (Input.GetKeyDown(KeyCode.Space) && !_isRolling)
         {
             _animator.SetTrigger("Roll");
@@ -80,10 +73,7 @@ public class PlayerMove : MonoBehaviour
         if (_characterController.isGrounded)
         {
             _yVelocity = 0f;
-            
         }
-
-        //_yVelocity += _gravity * Time.deltaTime;
 
         dir.y = _yVelocity;
 
