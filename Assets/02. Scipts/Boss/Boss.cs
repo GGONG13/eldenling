@@ -27,7 +27,6 @@ public class Boss : MonoBehaviour
     public int Health;
     public int MaxHealth = 500;
     // public Slider HealthSliderUI;
-    public int RunDamage = 10;
     public int NormalDamage = 5;
     public int CriticalDamage = 7;
     public float MovementRange = 15f;
@@ -45,14 +44,20 @@ public class Boss : MonoBehaviour
     public float StiffTime = 1f;
     private float _stiffTimer = 0f;
 
+    public float newSpeed = 5f;
+    public float duration = 3f;
+    private float originalSpeed;
+
     private void Awake()
     {
         _agent = GetComponentInParent<NavMeshAgent>();
         //_animator = GetComponent<Animator>();
-        Destination = _agent.transform.position;
+        originalSpeed = _agent.speed;
+        Destination = transform.position;
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
         _stiffTimer = 0f;
+        _currentState = BossState.Patrol;
         Health = MaxHealth;
     }
     private void Update()
@@ -97,7 +102,7 @@ public class Boss : MonoBehaviour
     private void Trace()
     {
         PlayerTrace();
-        if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
+        if (Vector3.Distance(_target.position, transform.position) >= RunAttackDistance)
         {
             Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
@@ -120,6 +125,7 @@ public class Boss : MonoBehaviour
     }
     private void RunAttack()
     {
+        StartCoroutine(_changeSpeedCoroutine());
         Debug.Log("Boss: RunAttack");
         _currentState = BossState.AttackDelay;
     }
@@ -181,10 +187,19 @@ public class Boss : MonoBehaviour
         foreach (Collider targetCollider in targetsInRange)
         {
             Player player = targetCollider.GetComponent<Player>();
+            int num = Random.Range(0, 10);
             if (player != null)
             {
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
-                player.Hit(damageInfo);
+                if (num < 3)
+                {
+                    DamageInfo damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
+                    player.Hit(damageInfo);
+                }
+                else
+                {
+                    DamageInfo damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                    player.Hit(damageInfo);
+                }           
             }
         }
     }
@@ -204,6 +219,12 @@ public class Boss : MonoBehaviour
         Vector3 targetPosition = hit.position;
         _agent.SetDestination(targetPosition);
         Destination = targetPosition;
+    }
+    private IEnumerator _changeSpeedCoroutine()
+    {
+        _agent.speed = newSpeed;
+        yield return new WaitForSeconds(duration);
+        _agent.speed = originalSpeed;
     }
     public void PlayerTrace()
     {
