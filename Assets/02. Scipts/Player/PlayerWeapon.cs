@@ -13,6 +13,7 @@ public class PlayerWeapon : MonoBehaviour
     public static PlayerWeapon Instance { get; private set; }
     private PlayerWeaponState _currentState = PlayerWeaponState.Sword;
 
+
     public GameObject Sword;
     public GameObject MagicWand;
     public Vector3 _target;
