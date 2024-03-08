@@ -5928,6 +5928,37 @@ Cloth:
   - {x: 0.6666667, y: 0.16666667, z: 0.16666667}
   - {x: 0.5, y: 0.5, z: 0}
   m_VirtualParticleIndices: 
+--- !u!1 &1581072767224872646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4312055137346750932}
+  m_Layer: 0
+  m_Name: Camera (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4312055137346750932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581072767224872646}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 702616956161182881}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1586392737015976443
 GameObject:
   m_ObjectHideFlags: 0
@@ -7208,6 +7239,8 @@ GameObject:
   - component: {fileID: 702616956161182881}
   - component: {fileID: 5151410161799776547}
   - component: {fileID: 418010903663159239}
+  - component: {fileID: 1628863356179309762}
+  - component: {fileID: 3068061154317092612}
   m_Layer: 0
   m_Name: Player_Basic_sheid
   m_TagString: Untagged
@@ -7223,7 +7256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3447993933412705455}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.698, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7241,6 +7274,7 @@ Transform:
   - {fileID: 2147721965984429426}
   - {fileID: 1592915322499111663}
   - {fileID: 4148214901181233364}
+  - {fileID: 4312055137346750932}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5151410161799776547
@@ -7290,6 +7324,43 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1628863356179309762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447993933412705455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0e89e6e70b6654b82cfd4f2a0bf23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthSliderUI: {fileID: 0}
+  Health: 0
+  MaxHealth: 100
+  PlayerDamage: 20
+  AttackDelayTime: 1
+  attackRange: 2.5
+--- !u!114 &3068061154317092612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447993933412705455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815cadfebfa83544ba10c627dc83210f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StaminaSliderUI: {fileID: 0}
+  Stamina: 100
+  MaxStamina: 100
+  UseRollingStamina: 15
+  UseRuningStamina: 5
+  rollSpeed: 5
+  rollDuration: 1
 --- !u!1 &3574339666424638960
 GameObject:
   m_ObjectHideFlags: 0
