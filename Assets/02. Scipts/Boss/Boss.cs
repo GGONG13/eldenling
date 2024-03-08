@@ -103,7 +103,7 @@ public class Boss : MonoBehaviour
             _animator.SetTrigger("TraceToRunAttack");
             return;
         }
-        else if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
+        else if (Vector3.Distance(_target.position, transform.position) < AttackDistance)
         {
             Debug.Log("Boss: Trace -> AttackDelay");
             _currentState = BossState.AttackDelay;
@@ -175,35 +175,17 @@ public class Boss : MonoBehaviour
         Debug.Log("Boss: CriticalAttack");
     }
     public void PlayerAttack()
-    {      
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, FindDistance);
-        Vector3 dirToTarget = (_target.position - transform.position).normalized;
-        IHitable playerHitable = _target.GetComponent<IHitable>();
-        if (Vector3.Angle(transform.forward, dirToTarget) < ViewAngle / 2)
-        {          
-            if (playerHitable != null)
+    {
+        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, AttackRadius);
+        foreach (Collider targetCollider in targetsInRange)
+        {
+            Player player = targetCollider.GetComponent<Player>();
+            if (player != null)
             {
-                DamageInfo damageInfo;
-                if (_currentState == BossState.RunAttack)
-                {
-                    damageInfo = new DamageInfo(DamageType.Run, RunDamage);
-                    playerHitable.Hit(damageInfo);
-                    Debug.Log("Boss: Run Attack");
-                }
-                else if (_currentState == BossState.NormalAttack)
-                {
-                    damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
-                    playerHitable.Hit(damageInfo);
-                    Debug.Log("Boss: Normal Attack");
-                }
-                else if (_currentState == BossState.CriticalAttack)
-                {
-                    damageInfo = new DamageInfo(DamageType.Critical, CriticalDamage);
-                    playerHitable.Hit(damageInfo);
-                    Debug.Log("Boss: Critical Attack");
-                }
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, NormalDamage);
+                player.Hit(damageInfo);
             }
-        }       
+        }
     }
     private void Die()
     {
