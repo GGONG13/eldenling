@@ -55552,16 +55552,16 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: BeginAttack
+    functionName: BeginWeaponAttack
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 19ca3c14bff4dc946a45677097b324a7, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.5
-    functionName: EndAttack
+    functionName: EndWeaponAttack
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 19ca3c14bff4dc946a45677097b324a7, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

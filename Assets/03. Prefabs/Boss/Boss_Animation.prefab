@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 2867191102112377494}
   m_Layer: 0
   m_Name: CG
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2533,7 +2533,7 @@ GameObject:
   - component: {fileID: 6664888090289955748}
   m_Layer: 0
   m_Name: Boss_Animation
-  m_TagString: Boss
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

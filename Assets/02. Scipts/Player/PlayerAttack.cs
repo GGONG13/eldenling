@@ -8,8 +8,6 @@ public class PlayerAttack : MonoBehaviour
     public float AttackDelayTime = 1f;
     private float AttackTimer = 0f;
 
-    public float attackRange = 2.5f; // 플레이어의 공격 범위
-
     private Animator _animator;
     private PlayerMove _playerMove;
     public Weapon weapon; // Weapon 클래스에 대한 참조
@@ -18,7 +16,6 @@ public class PlayerAttack : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _playerMove = GetComponent<PlayerMove>();
-        // 무기 오브젝트를 찾아서 weapon 변수에 할당합니다.
         weapon = GetComponentInChildren<Weapon>();
     }
 
@@ -27,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && _playerMove.Stamina >= 12)
         {
             _animator.SetTrigger("Attack");
-            weapon.BeginAttack(); // 공격 시작
+            // 이제 Weapon 클래스의 BeginAttack은 애니메이션 이벤트를 통해 호출됩니다.
             AttackTimer = AttackDelayTime;
             _playerMove.ReduceStamina(12);
         }
@@ -35,8 +32,24 @@ public class PlayerAttack : MonoBehaviour
         if (AttackTimer > 0f)
         {
             AttackTimer -= Time.deltaTime;
+            if (AttackTimer <= 0f)
+            {
+                // AttackTimer가 0에 도달하면 공격 상태를 리셋합니다.
+                // EndAttack은 애니메이션 이벤트를 통해 호출됩니다.
+            }
         }
     }
 
-    // 이제 무기 콜라이더가 적과 충돌했을 때 데미지를 주므로, Attack 메서드는 비워둡니다.
+    // 애니메이션 이벤트를 위한 메서드
+    public void BeginWeaponAttack()
+    {
+        weapon.BeginAttack();
+        _playerMove.isAttacking = true;
+    }
+
+    public void EndWeaponAttack()
+    {
+        weapon.EndAttack();
+        _playerMove.isAttacking = false;
+    }
 }
