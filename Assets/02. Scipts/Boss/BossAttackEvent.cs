@@ -12,6 +12,6 @@ public class BossAttackEvent : MonoBehaviour
     public void AttackEvent()
     {
         Debug.Log("어택이벤트 발생");
-        _owner.PlayerAttack();
+        //_owner.PlayerAttack();
     }
 }
