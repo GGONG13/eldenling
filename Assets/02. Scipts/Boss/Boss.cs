@@ -28,8 +28,8 @@ public class Boss : MonoBehaviour
     public int Health;
     public int MaxHealth = 500;
     public Slider BossSliderUI;
-    public int NormalDamage = 5;
-    public int CriticalDamage = 7;
+    //public int NormalDamage = 5;
+    //public int CriticalDamage = 7;
     public float MovementRange = 15f;
     public float AttackRadius = 15;
     public float ViewAngle = 90;
@@ -39,7 +39,7 @@ public class Boss : MonoBehaviour
     public float FindDistance = 12f;
     public float RunAttackDistance = 8f;
     public float AttackDistance = 5f;
-    public float StopDistance = 2.5f;
+    public float StopDistance = 1.5f;
     public float DelayTime = 3f;
     private float _delayTimer = 0f;
     public float StiffTime = 1f;
@@ -108,7 +108,7 @@ public class Boss : MonoBehaviour
     private void Trace()
     {
         PlayerTrace();
-        if (Vector3.Distance(_target.position, transform.position) >= RunAttackDistance)
+        if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
         {
             //Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
@@ -187,7 +187,7 @@ public class Boss : MonoBehaviour
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: CriticalAttack");
     }
-    public void PlayerAttack()
+    /*public void PlayerAttack()
     {
         Collider[] targetsInRange = Physics.OverlapSphere(transform.position, AttackRadius);
         foreach (Collider targetCollider in targetsInRange)
@@ -208,7 +208,7 @@ public class Boss : MonoBehaviour
                 }           
             }
         }
-    }
+    }*/
     private void Die()
     {
         if (_dieCoroutine == null)
