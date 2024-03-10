@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     public float MaxStamina = 100;          // 스태미나 최대량
     public bool isAttacking = false;        // 공격 중인지 나타내는 변수
     public bool isInvincible = false;       // 구르기 중 무적 상태인지 나타내는 변수
+    public bool isAlive = true;             // 플레이어의 생존 상태
 
     public float UseRollingStamina = 15;
     public float UseRunningStamina = 5f;
@@ -21,8 +22,6 @@ public class PlayerMove : MonoBehaviour
     private float moveSpeed = 2f;           // 일반 속도
     private float runSpeed = 5f;            // 뛰는 속도
     private float staminaRecoveryRate = 40f;// 스태미너 회복 속도
-
-    private float _yVelocity = 0f;
 
     private bool _isWalking;
     private bool _isRunning;
@@ -48,44 +47,47 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        UpdateStamina();
-
-        if (isAttacking)
+        if (!isAlive) // 생존 상태가 아니면 모든 이동 및 액션 처리 중지
         {
             return;
         }
 
-        HandleMovement();
-        HandleRolling();
+        UpdateStamina();
+        if (!isAttacking)
+        {
+            HandleMovement();
+            HandleRolling();
+        }
     }
 
     private void HandleMovement()
     {
-        if (_isRolling || isInvincible) return;
+        if (_isRolling || isInvincible || !isAlive) return; // isAlive 조건 추가
 
-        float speed = _isRunning ? runSpeed : moveSpeed;
-        _animator.SetBool("Walk", false);
-        _animator.SetBool("Run", false);
-
-        Vector3 direction = Vector3.zero;
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        _animator.SetFloat("Move", direction.magnitude);
-        if (h != 0 || v != 0)
+        Vector3 direction = new Vector3(h, 0, v);
+        float movementMagnitude = direction.magnitude;
+
+        _animator.SetFloat("Move", Mathf.Clamp01(movementMagnitude));
+
+        if (movementMagnitude > 0.1f)
         {
-            direction = new Vector3(h, 0, v);
             _isWalking = true;
             _animator.SetBool("Walk", true);
 
             Vector3 forward = Camera.main.transform.forward;
-            forward.y = 0; // Y축 고정
+            forward.y = 0;
             direction = forward.normalized * v + Camera.main.transform.right * h;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+
+            _characterController.Move(direction.normalized * (_isRunning ? runSpeed : moveSpeed) * Time.deltaTime);
         }
         else
         {
             _isWalking = false;
+            _animator.SetBool("Walk", _isWalking);
         }
 
         if (Input.GetKey(KeyCode.LeftShift) && Stamina > UseRunningStamina)
@@ -94,9 +96,11 @@ public class PlayerMove : MonoBehaviour
             _animator.SetBool("Run", true);
             ReduceStamina(UseRunningStamina * Time.deltaTime);
         }
-
-        Vector3 move = direction * speed * Time.deltaTime;
-        _characterController.Move(move);
+        else
+        {
+            _isRunning = false;
+            _animator.SetBool("Run", _isRunning);
+        }
     }
 
     private void UpdateStamina()
@@ -111,7 +115,7 @@ public class PlayerMove : MonoBehaviour
 
     private void HandleRolling()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !_isRolling && Stamina >= UseRollingStamina)
+        if (Input.GetKeyDown(KeyCode.Space) && !_isRolling && Stamina >= UseRollingStamina && isAlive) // isAlive 조건 추가
         {
             StartRolling();
         }
@@ -155,5 +159,12 @@ public class PlayerMove : MonoBehaviour
     public void RestoreStamina(float amount)
     {
         Stamina = Mathf.Clamp(Stamina + amount, 0, MaxStamina);
+    }
+
+    // 플레이어 사망 처리 메서드
+    public void OnPlayerDeath()
+    {
+        isAlive = false;
+        _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
     }
 }
