@@ -13,53 +13,26 @@ public class Player : MonoBehaviour
     public int Health;
     public int MaxHealth = 100;
 
-    public int PlayerDamage = 20;
-    public float AttackDelayTime = 1f;
-    private float AttackTimer = 0f;
-
-    public float attackRange = 2.5f; // 플레이어의 공격 범위
+    
 
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
-        AttackTimer = 0f;
+        
     }
 
     private void Update()
     {
         HealthSliderUI.value = Health / (float)MaxHealth;
 
-        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && _playerMove.Stamina >= 15)
-        {
-            Attack();
-            AttackTimer = AttackDelayTime;
-            _playerMove.ReduceStamina(15);
-        }
-
-        if (AttackTimer > 0f)
-        {
-            AttackTimer -= Time.deltaTime;
-        }
+        
 
         
     }
 
-    void Attack()
-    {
-        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, attackRange);
-        foreach (Collider targetCollider in targetsInRange)
-        {
-            Boss boss = targetCollider.GetComponent<Boss>();
-            if (boss != null)
-            {
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, PlayerDamage);
-                boss.Hit(damageInfo);
-                Debug.Log("플레이어가 보스를 공격했습니다.");
-            }
-        }
-    }
+    
 
     public void Hit(DamageInfo damage)
     {

@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
 
     public List<ItemObject> HaveItems = new List<ItemObject>();
 
+    
 
     public GameObject InventoryUI;
     public TextMeshProUGUI ItemName;
@@ -45,7 +46,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (i < ItemsUIList.Count)
             {
-                ItemsUIList[i].Refresh(HaveItems[i]);
+               // ItemsUIList[i].Refresh(HaveItems[i]);
                 Debug.Log($"{HaveItems[i].Data.Name}가 UI에 추가됩니다.");
             }
         }
