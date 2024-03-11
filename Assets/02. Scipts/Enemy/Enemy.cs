@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public enum EnemyState
 {
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     public int Health;
     public int MaxHealth = 50;
+    public Slider HealthSliderUI;
 
     public float AttackDelay = 3f;
     private float _attackTimer = 0f;
@@ -41,12 +43,6 @@ public class Enemy : MonoBehaviour
     private float _patrolTimer = 0f;
     public float PatrolRadius = 30f;
 
-    private Vector3 _knockbackStartPosition;
-    private Vector3 _knockbackEndPosition;
-    private const float KNOCKBACK_DURATION = 0.1f;
-    private float _knockbackProgress = 0f;
-    public float KnockbackPower = 1.2f;
-
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -61,6 +57,7 @@ public class Enemy : MonoBehaviour
         _patrolTimer = 0;
         Destination = transform.position;
         StartPosition = transform.position;
+        RefreshUI();
     }
 
     private void Update()
@@ -163,36 +160,17 @@ public class Enemy : MonoBehaviour
     private void Damaged()
     {
         _animator.SetTrigger("Damaged");
-        // 넉백 구현
-        // 1. 넉백 시작/최종 위치를 구한다.
-        if (_knockbackProgress == 0)
-        {
-            _knockbackStartPosition = transform.position;
-
-            Vector3 dir = transform.position - _target.position;
-            dir.y = 0;
-            dir.Normalize();
-
-            _knockbackEndPosition = transform.position + dir * KnockbackPower;
-        }
-
-        _knockbackProgress += Time.deltaTime / KNOCKBACK_DURATION;
-
-        // 2. Lerp를 이용해 넉백하기
-        transform.position = Vector3.Lerp(_knockbackStartPosition, _knockbackEndPosition, _knockbackProgress);
-
-        if (_knockbackProgress > 1)
-        {
-            _knockbackProgress = 0f;
-
-            Debug.Log("Enemy: Damaged -> Trace");
-            _animator.SetTrigger("DamagedToTrace");
-            _state = EnemyState.Trace;
-        }
+        RefreshUI();
+        Debug.Log("Enemy: Damaged -> Trace");
+        _animator.SetTrigger("DamagedToTrace");
+        _state = EnemyState.Trace;
     }
     public void Death()
     {
-        _dieCoroutine = StartCoroutine(Die_Coroutine());
+        if (_dieCoroutine == null)
+        {
+            _dieCoroutine = StartCoroutine(Die_Coroutine());
+        }
     }
     public void PlayerAttack()
     {
@@ -219,12 +197,33 @@ public class Enemy : MonoBehaviour
         _agent.SetDestination(targetPosition);
         Destination = targetPosition;
     }
+    private void RefreshUI()
+    {
+        HealthSliderUI.value = (float)Health / (float)MaxHealth;
+    }
+    public void Hit(DamageInfo damage)
+    {
+        if (_state == EnemyState.Death)
+        {
+            return;
+        }
+        Health -= damage.Amount;
+        if (Health <= 0)
+        {
+            Health = 0;
+            Debug.Log("Enemy: 어떤 상태든 -> 죽음");
+            _state = EnemyState.Death;
+        }
+        // 여기서 보스의 체력을 출력합니다.
+        Debug.Log($"Enemy 체력: {Health}");
+        RefreshUI();
+    }
     private IEnumerator Die_Coroutine()
     {
         _animator.SetTrigger("Death");
         _agent.isStopped = true;
         _agent.ResetPath();
-        // HealthSliderUI.gameObject.SetActive(false);
+        HealthSliderUI.gameObject.SetActive(false);
         yield return new WaitForSeconds(5f);
         gameObject.SetActive(false);
     }
