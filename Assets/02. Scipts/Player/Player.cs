@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         {
             Health = 0;
             HealthSliderUI.value = 0;
-            _animator.SetTrigger("Death"); // 사망 애니메이션 트리거
+            _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
             _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
             StartCoroutine(DeathWithDelay(5f)); // 사망 처리 지연
         }
