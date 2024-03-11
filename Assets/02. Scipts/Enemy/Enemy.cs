@@ -25,16 +25,17 @@ public class Enemy : MonoBehaviour
     public int Health;
     public int MaxHealth = 50;
 
-    public const float AttackDelay = 1f;
+    public float AttackDelay = 3f;
     private float _attackTimer = 0f;
+    public int Damage = 5;
 
     private Transform _target;          //플레이어
     Vector3 Destination;
     Vector3 StartPosition;
-    public float FindDistance = 7f;     //감지 거리
-    public float AttackDistance = 3f;   //공격 거리
+    public float FindDistance = 10f;     //감지 거리
+    public float AttackDistance = 1.5f;   //공격 거리
     public float MovementRange = 10f;
-    public float PatrolRange = 40f;
+    public float PatrolRange = 20f;
 
     public float PatrolTime = 3f;
     private float _patrolTimer = 0f;
@@ -126,28 +127,32 @@ public class Enemy : MonoBehaviour
     public void Trace()
     {
         _agent.destination = _target.position;
+        //transform.forward = _target.position;
         if (Vector3.Distance(transform.position, _target.position) > FindDistance)
         {
-            Debug.Log("Enemy: Trace -> Return");
-            _animator.SetTrigger("TraceToReturn");
-            _state = EnemyState.Return;
+            Debug.Log("Enemy: Trace -> Patrol");
+            _animator.SetTrigger("TraceToPatrol");
+            _state = EnemyState.Patrol;
         }
         if (Vector3.Distance(transform.position, _target.position) <= AttackDistance)
         {
             Debug.Log("Enemy: Trace -> Attack");
+            _animator.SetTrigger("TraceToAttack");
             _state = EnemyState.Attack;
         }
     }
     public void Attack()
     {
-        _agent.stoppingDistance = TOLERANCE;
+        _agent.stoppingDistance = AttackDistance;
+        _agent.destination = _target.position;
+        //transform.forward = _target.position;
         _attackTimer += Time.deltaTime;
-        if (_attackTimer >= AttackDelay)
+        if (_attackTimer >= AttackDelay && Vector3.Distance(transform.position, _target.position) <= AttackDistance)
         {
             _animator.SetTrigger("Attack");
             _attackTimer = 0;
         }
-        if (Vector3.Distance(transform.position, _target.position) > AttackDistance)
+        if (Vector3.Distance(transform.position, _target.position) > FindDistance)
         {
             Debug.Log("Enemy: Attack -> Trace");
             _attackTimer = 0;
@@ -188,6 +193,20 @@ public class Enemy : MonoBehaviour
     public void Death()
     {
         _dieCoroutine = StartCoroutine(Die_Coroutine());
+    }
+    public void PlayerAttack()
+    {
+        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, FindDistance);
+        foreach (Collider targetCollider in targetsInRange)
+        {
+            Player player = targetCollider.GetComponent<Player>();
+            int num = Random.Range(0, 10);
+            if (player != null)
+            {
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
+                player.Hit(damageInfo);
+            }
+        }
     }
 
     private void MoveToRandomPosition()
