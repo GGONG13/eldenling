@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour
 
     private float moveSpeed = 2f;           // 일반 속도
     private float runSpeed = 5f;            // 뛰는 속도
-    private float staminaRecoveryRate = 40f;// 스태미너 회복 속도
+    private float staminaRecoveryRate = 60f;// 스태미너 회복 속도
 
     private bool _isWalking;
     private bool _isRunning;

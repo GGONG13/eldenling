@@ -225,6 +225,7 @@ public class Enemy : MonoBehaviour
         _agent.ResetPath();
         HealthSliderUI.gameObject.SetActive(false);
         yield return new WaitForSeconds(5f);
+        CoinFactory.instance.CoinDrop(transform.position);
         gameObject.SetActive(false);
     }
 }
