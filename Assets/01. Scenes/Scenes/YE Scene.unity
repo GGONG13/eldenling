@@ -602,7 +602,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 944f7206c78ce9a4ab47af0ab3b57612, type: 3}
   m_Name: 
@@ -1484,6 +1484,7 @@ MonoBehaviour:
   PlayerDamage: 20
   AttackDelayTime: 1
   weapon: {fileID: 2227463227099656191}
+  ComboAttack: 0
 --- !u!1 &513459255484141084
 GameObject:
   m_ObjectHideFlags: 0
@@ -11922,7 +11923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5775618778198787953
 Transform:
   m_ObjectHideFlags: 0
