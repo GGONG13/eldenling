@@ -6,8 +6,8 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance { get; private set; }
 
+    public UI_InventoryDescription InventoryDescriptionUI;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
