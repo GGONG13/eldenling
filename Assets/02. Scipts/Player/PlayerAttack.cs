@@ -31,14 +31,14 @@ public class PlayerAttack : MonoBehaviour
             _animator.SetTrigger("Attack");
             // 이제 Weapon 클래스의 BeginAttack은 애니메이션 이벤트를 통해 호출됩니다.
             AttackTimer = AttackDelayTime;
-            _playerMove.ReduceStamina(12);
+            
             
         }
         if (Input.GetMouseButtonDown(0) &&_playerMove.isAttacking == true && _playerMove.Stamina >= 12)
         {
             _animator.SetTrigger("ComboAttack");
             AttackTimer = AttackDelayTime;
-            _playerMove.ReduceStamina(12);
+            
         }
 
         
@@ -61,6 +61,7 @@ public class PlayerAttack : MonoBehaviour
         weapon.BeginAttack();
         _playerMove.isAttacking = true;
         _animator.SetBool("isAttacking", _playerMove.isAttacking);
+        _playerMove.ReduceStamina(12);
     }
 
     public void EndWeaponAttack()
@@ -68,5 +69,8 @@ public class PlayerAttack : MonoBehaviour
         weapon.EndAttack();
         _playerMove.isAttacking = false;
         _animator.SetBool("isAttacking", _playerMove.isAttacking);
+
+        // ComboAttack 트리거 리셋
+        _animator.ResetTrigger("ComboAttack");
     }
 }
