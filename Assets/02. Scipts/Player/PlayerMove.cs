@@ -11,21 +11,20 @@ public class PlayerMove : MonoBehaviour
     public Slider StaminaSliderUI;
 
     public float Stamina = 100;             // 스태미나
-    public float MaxStamina = 100;    // 스태미나 최대량
+    public float MaxStamina = 100;          // 스태미나 최대량
+    public bool isAttacking = false;        // 공격 중인지 나타내는 변수
+    public bool isInvincible = false;       // 구르기 중 무적 상태인지 나타내는 변수
+    public bool isAlive = true;             // 플레이어의 생존 상태
 
     public float UseRollingStamina = 15;
-    public float UseRuningStamina = 5f;
+    public float UseRunningStamina = 5f;
 
-
-    private float moveSpeed = 2f; // 일반 속도
-    private float runSpeed = 5f; // 뛰는 속도
-    private float staminaRecoveryRate = 15f; // 스태미너 회복 속도
-
-    private float _yVelocity = 0f;
+    private float moveSpeed = 2f;           // 일반 속도
+    private float runSpeed = 5f;            // 뛰는 속도
+    private float staminaRecoveryRate = 40f;// 스태미너 회복 속도
 
     private bool _isWalking;
     private bool _isRunning;
-
     private bool _isRolling;
     public float rollSpeed = 5f;
     public float rollDuration = 1f;
@@ -43,102 +42,129 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        _isRolling = false;
         Stamina = MaxStamina;
     }
 
     void Update()
     {
-        UpdateStamina();
+        if (!isAlive) // 생존 상태가 아니면 모든 이동 및 액션 처리 중지
+        {
+            return;
+        }
 
-        float speed = _isRunning ? runSpeed : moveSpeed;
-        _animator.SetBool("Walk", false);
-        _animator.SetBool("Run", false);
+        UpdateStamina();
+        if (!isAttacking)
+        {
+            HandleMovement();
+            HandleRolling();
+        }
+    }
+
+    private void HandleMovement()
+    {
+        if (_isRolling || isInvincible || !isAlive) return; // isAlive 조건 추가
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+        Vector3 direction = new Vector3(h, 0, v);
+        float movementMagnitude = direction.magnitude;
 
-        Vector3 dir = new Vector3(x: h, y: 0, z: v);
-        Vector3 unNormalizedDir = dir;
-        dir.Normalize();
+        _animator.SetFloat("Move", Mathf.Clamp01(movementMagnitude));
 
-        dir = Camera.main.transform.TransformDirection(dir);
-
-        _isWalking = false;
-        _isRunning = false;
-
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (movementMagnitude > 0.1f)
         {
             _isWalking = true;
             _animator.SetBool("Walk", true);
-        }
 
-        if (Input.GetKey(KeyCode.LeftShift) && Stamina > 0)
-        {
-            _isRunning = true;
-            _animator.SetBool("Run", true);
-            ReduceStamina(UseRuningStamina * Time.deltaTime); // 달리기 중 스태미너 감소
-        }
+            Vector3 forward = Camera.main.transform.forward;
+            forward.y = 0;
+            direction = forward.normalized * v + Camera.main.transform.right * h;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
 
-        if (Input.GetKeyDown(KeyCode.Space) && !_isRolling && Stamina >= UseRollingStamina)
-        {
-            _animator.SetTrigger("Roll");
-            _isRolling = true;
-            rollTimer = rollDuration;
-            rollDirection = transform.forward;
-            ReduceStamina(UseRollingStamina); // 롤링 시 스태미너 감소
-        }
-
-        if (_characterController.isGrounded)
-        {
-            _yVelocity = 0f;
-        }
-
-        dir.y = _yVelocity;
-
-        if (_isRolling)
-        {
-            rollTimer -= Time.deltaTime;
-            if (rollTimer <= 0)
-            {
-                _isRolling = false;
-            }
-            else
-            {
-                _characterController.Move(rollDirection * rollSpeed * Time.deltaTime);
-            }
+            _characterController.Move(direction.normalized * (_isRunning ? runSpeed : moveSpeed) * Time.deltaTime);
         }
         else
         {
-            _characterController.Move(dir * speed * Time.deltaTime);
-            if (Time.time > lastStaminaUseTime + staminaRecoveryDelay && Stamina < MaxStamina)
-            {
-                RestoreStamina(staminaRecoveryRate * Time.deltaTime); // 스태미너 회복 로직
-            }
+            _isWalking = false;
+            _animator.SetBool("Walk", _isWalking);
         }
 
-        if (dir.magnitude > 0.1f)
+        if (Input.GetKey(KeyCode.LeftShift) && Stamina > UseRunningStamina)
         {
-            Quaternion newRotation = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * 10f);
+            _isRunning = true;
+            _animator.SetBool("Run", true);
+            ReduceStamina(UseRunningStamina * Time.deltaTime);
         }
-
-        _animator.SetFloat("Move", unNormalizedDir.magnitude);
+        else
+        {
+            _isRunning = false;
+            _animator.SetBool("Run", _isRunning);
+        }
     }
 
     private void UpdateStamina()
     {
+        if (!isAttacking && Time.time > lastStaminaUseTime + staminaRecoveryDelay && Stamina < MaxStamina)
+        {
+            Stamina += staminaRecoveryRate * Time.deltaTime;
+            Stamina = Mathf.Clamp(Stamina, 0, MaxStamina);
+        }
         StaminaSliderUI.value = Stamina / MaxStamina;
+    }
+
+    private void HandleRolling()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !_isRolling && Stamina >= UseRollingStamina && isAlive) // isAlive 조건 추가
+        {
+            StartRolling();
+        }
+
+        if (_isRolling)
+        {
+            ContinueRolling();
+        }
+    }
+
+    private void StartRolling()
+    {
+        _animator.SetTrigger("Roll");
+        _isRolling = true;
+        isInvincible = true;
+        rollTimer = rollDuration;
+        rollDirection = transform.forward;
+        ReduceStamina(UseRollingStamina);
+    }
+
+    private void ContinueRolling()
+    {
+        rollTimer -= Time.deltaTime;
+        if (rollTimer <= 0)
+        {
+            _isRolling = false;
+            isInvincible = false;
+        }
+        else
+        {
+            _characterController.Move(rollDirection * rollSpeed * Time.deltaTime);
+        }
     }
 
     public void ReduceStamina(float amount)
     {
-        Stamina = Mathf.Clamp(Stamina - amount, 0f, MaxStamina);
-        lastStaminaUseTime = Time.time; // 스태미너 사용 시간 갱신
+        Stamina = Mathf.Clamp(Stamina - amount, 0, MaxStamina);
+        lastStaminaUseTime = Time.time;
     }
 
     public void RestoreStamina(float amount)
     {
-        Stamina = Mathf.Clamp(Stamina + amount, 0f, MaxStamina);
+        Stamina = Mathf.Clamp(Stamina + amount, 0, MaxStamina);
+    }
+
+    // 플레이어 사망 처리 메서드
+    public void OnPlayerDeath()
+    {
+        isAlive = false;
+        _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
     }
 }
