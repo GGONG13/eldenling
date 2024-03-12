@@ -15,6 +15,8 @@ public class TPSCamera : MonoBehaviour
 
     private Vector3 offset; // 초기 위치
 
+
+
     void Start()
     {
         offset = new Vector3(0, height, -distance); // 초기 위치 설정

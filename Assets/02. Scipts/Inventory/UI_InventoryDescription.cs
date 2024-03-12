@@ -9,13 +9,17 @@ public class UI_InventoryDescription : MonoBehaviour
     public Image BigImageUI;
     public TextMeshProUGUI NameTextUI;
     public TextMeshProUGUI DescriptionTextUI;
-    public List<ItemInventoryUI> ItemInventoryUISlots;
+
+    public TextMeshProUGUI IconNameTextUI;
+    public Image IconImageUI;
 
     public void Refresh(ItemData itemData)
     {
+
         NameTextUI.text = itemData.Name;
         DescriptionTextUI.text = itemData.Description;
         BigImageUI.sprite = itemData.BigImage;
-
+/*        IconNameTextUI.text = itemData.name;
+        IconImageUI.sprite = itemData.Icon;*/
     }
 }
