@@ -199,7 +199,7 @@ public class Enemy : MonoBehaviour
     }
     private void RefreshUI()
     {
-        HealthSliderUI.value = (float)Health / (float)MaxHealth;
+        HealthSliderUI.value = Health / (float)MaxHealth;
     }
     public void Hit(DamageInfo damage)
     {
@@ -214,8 +214,8 @@ public class Enemy : MonoBehaviour
             Debug.Log("Enemy: 어떤 상태든 -> 죽음");
             _state = EnemyState.Death;
         }
-        // 여기서 보스의 체력을 출력합니다.
-        Debug.Log($"Enemy 체력: {Health}");
+        // 여기서 적의 체력을 출력합니다.
+        Debug.Log($"적 체력: {Health}");
         RefreshUI();
     }
     private IEnumerator Die_Coroutine()
@@ -224,7 +224,7 @@ public class Enemy : MonoBehaviour
         _agent.isStopped = true;
         _agent.ResetPath();
         HealthSliderUI.gameObject.SetActive(false);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         CoinFactory.instance.CoinDrop(transform.position);
         gameObject.SetActive(false);
     }
