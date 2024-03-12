@@ -1,5 +1,10 @@
 using UnityEngine;
 
+public enum WeaponType
+{
+    HandSword,
+
+}
 public class Weapon : MonoBehaviour
 {
     public int damage = 20; // 공격 데미지
