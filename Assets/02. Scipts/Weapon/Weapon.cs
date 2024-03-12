@@ -9,11 +9,16 @@ public class Weapon : MonoBehaviour
 {
     public WeaponType type;
 
-    public int damage = 20; // 공격 데미지
+    public int Damage = 20; // 공격 데미지
     public bool isAttacking = false; // 현재 공격 중인지 여부
     private bool hasDealtDamage = false; // 이번 공격에서 이미 데미지를 주었는지 여부
 
     public Animator _animator;
+    private void Awake()
+    {
+        // 해당 게임 오브젝트에 있는 Animator 컴포넌트 참조를 가져옴
+        _animator = GetComponent<Animator>();
+    }
 
     // 공격 시작
     public void BeginAttack()
@@ -39,14 +44,14 @@ public class Weapon : MonoBehaviour
             if (boss != null)
             {
                 // 적에게 데미지를 주는 로직
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 boss.Hit(damageInfo);
                 hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }
             if (enemy != null)
             {
                 // 적에게 데미지를 주는 로직
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 enemy.Hit(damageInfo);
                 hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }

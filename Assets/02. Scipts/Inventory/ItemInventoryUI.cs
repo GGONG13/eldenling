@@ -15,7 +15,9 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
     public TextMeshProUGUI itemDescriptionText;
     public Image itemIconImage;
     public Image itemBigImage;
+    public TextMeshProUGUI countitemText;
     public ItemData CurrentitemData;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         UpdateItemUI();
@@ -24,6 +26,7 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
     public void OnMouseDown()
     {
         ChangeWeapon();
+        Time.timeScale = 1.0f;
         if (CurrentitemData.Type == ItemType.Potion)
         {
             InventoryManager.Instance.Remove(CurrentitemData);
@@ -53,4 +56,5 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
         FindObjectOfType<Player>().ActivateItem(CurrentitemData);
         Inventory.instance.gameObject.SetActive(false);
     }
+
 }
