@@ -44,14 +44,14 @@ public class Weapon : MonoBehaviour
             if (boss != null)
             {
                 // 적에게 데미지를 주는 로직
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 boss.Hit(damageInfo);
                 hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }
             if (enemy != null)
             {
                 // 적에게 데미지를 주는 로직
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 enemy.Hit(damageInfo);
                 hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }
