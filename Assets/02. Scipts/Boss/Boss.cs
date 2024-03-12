@@ -28,6 +28,7 @@ public class Boss : MonoBehaviour
     public int Health;
     public int MaxHealth = 500;
     public Slider BossSliderUI;
+    public Image EnemyFelledImage;
     //public int NormalDamage = 5;
     //public int CriticalDamage = 7;
     public float MovementRange = 15f;
@@ -58,6 +59,7 @@ public class Boss : MonoBehaviour
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
         _stiffTimer = 0f;
+        EnemyFelledImage.gameObject.SetActive(false);
         _currentState = BossState.Patrol;
         Health = MaxHealth;
         RefreshUI();
@@ -137,7 +139,7 @@ public class Boss : MonoBehaviour
     }
     private void AttackDelay()
     {
-        //PlayerTrace();
+        //_horseAnimator.SetTrigger("AttackDelay");
         _delayTimer += Time.deltaTime;
         if ( _delayTimer > DelayTime )
         {
@@ -268,7 +270,8 @@ public class Boss : MonoBehaviour
         _horseAnimator.SetTrigger("Die");
         _agent.isStopped = true;
         _agent.ResetPath();
-        // HealthSliderUI.gameObject.SetActive(false);
+        BossSliderUI.gameObject.SetActive(false);
+        EnemyFelledImage.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f);
         //gameObject.SetActive(false);
     }
