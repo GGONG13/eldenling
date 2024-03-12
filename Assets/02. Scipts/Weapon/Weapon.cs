@@ -3,13 +3,17 @@ using UnityEngine;
 public enum WeaponType
 {
     HandSword,
-
+    Staff,
 }
 public class Weapon : MonoBehaviour
 {
+    public WeaponType type;
+
     public int damage = 20; // 공격 데미지
     public bool isAttacking = false; // 현재 공격 중인지 여부
     private bool hasDealtDamage = false; // 이번 공격에서 이미 데미지를 주었는지 여부
+
+    public Animator _animator;
 
     // 공격 시작
     public void BeginAttack()
@@ -38,6 +42,24 @@ public class Weapon : MonoBehaviour
                 boss.Hit(damageInfo);
                 hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }
+        }
+    }
+
+    private void SetAnimationLayerWeight()
+    {
+        // 무기 유형에 따라 애니메이션 레이어 변경
+        switch (type)
+        {
+            case WeaponType.HandSword:
+                // HandSword 레이어만 가중치를 높임
+                _animator.SetLayerWeight(0, 1f); // HandSword 레이어의 가중치를 1로 설정
+                _animator.SetLayerWeight(1, 0f); // Staff 레이어의 가중치를 0으로 설정
+                break;
+            case WeaponType.Staff:
+                // Staff 레이어만 가중치를 높임
+                _animator.SetLayerWeight(0, 0f); // HandSword 레이어의 가중치를 0으로 설정
+                _animator.SetLayerWeight(1, 1f); // Staff 레이어의 가중치를 1로 설정
+                break;
         }
     }
 }
