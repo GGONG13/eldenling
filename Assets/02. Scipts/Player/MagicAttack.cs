@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class MagicAttack : MonoBehaviour
 {
-    
     public float AttackDelayTime = 1f;
     private float AttackTimer = 0f;
+
+    public GameObject MaigcArrowPrefab;
+    public Transform MagicPosition;
 
     private Animator _animator;
     private PlayerMove _playerMove;
@@ -28,8 +30,11 @@ public class PlayerAttack : MonoBehaviour
         {
 
 
-            _animator.SetTrigger("Attack");
+            _animator.SetTrigger("MagicAttack");
             // 이제 Weapon 클래스의 BeginAttack은 애니메이션 이벤트를 통해 호출됩니다.
+            GameObject magicArrow = Instantiate(MaigcArrowPrefab);
+            magicArrow.transform.position = MagicPosition.transform.position;
+
             AttackTimer = AttackDelayTime;
 
 
@@ -74,3 +79,4 @@ public class PlayerAttack : MonoBehaviour
         _animator.ResetTrigger("ComboAttack");
     }
 }
+
