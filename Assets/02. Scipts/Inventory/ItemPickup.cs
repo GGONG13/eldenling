@@ -9,7 +9,8 @@ public class ItemPickup : MonoBehaviour
     public void Pickup()
     {
         InventoryManager.Instance.Add(Item);
-        InventoryManager.Instance.ListItem();
+        Inventory.instance.InventoryDescriptionUI.Refresh(Item);
+       // InventoryManager.Instance.ListItem();
         this.gameObject.SetActive(false);
     }
 

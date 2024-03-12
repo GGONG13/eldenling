@@ -41,9 +41,7 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
     public void UpdateItemUI()
     {
         // CurrentitemData = InventoryManager.Instance.itemDic[id];
-        itemNameText.text = CurrentitemData.Name;
-        itemDescriptionText.text = CurrentitemData.Description;
-        itemBigImage.sprite = CurrentitemData.BigImage;
+        Inventory.instance.InventoryDescriptionUI.Refresh(CurrentitemData);
     }
     public void ChangeWeapon()
     {

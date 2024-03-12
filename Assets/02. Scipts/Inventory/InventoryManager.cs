@@ -14,6 +14,8 @@ public class InventoryManager : MonoBehaviour
     public List<ItemData> items = new List<ItemData>();
     public Dictionary<int, ItemData> itemDic = new Dictionary<int, ItemData>();
 
+    public GameObject Inventory;
+
     public Transform itemContect;
     public GameObject InventoryItem;
 
@@ -21,9 +23,6 @@ public class InventoryManager : MonoBehaviour
     public Dictionary<int, GameObject> Swords = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> Shields = new Dictionary<int, GameObject>();
 
-    private void Start()
-    {
-    }
 
     private void Awake()
     {
@@ -38,6 +37,20 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I)) 
+        {
+            bool isActive = !Inventory.activeSelf;
+            Inventory.SetActive(isActive); // 인벤토리 UI 활성화/비활성화 토글
+
+            // 인벤토리가 활성화되면 마우스 커서를 표시하고, 그렇지 않으면 숨깁니다.
+            UnityEngine.Cursor.visible = isActive;
+
+            // 인벤토리가 활성화되면 마우스 커서를 잠그지 않고, 그렇지 않으면 잠급니다.
+            UnityEngine.Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+    }
     public void Add(ItemData item)
     {
         items.Add(item);
@@ -74,10 +87,6 @@ public class InventoryManager : MonoBehaviour
         // Sword 아이템 활성화
         if (itemType == ItemType.Sword)
         {
-            /*foreach (var sword in Swords.Values)
-            {
-                sword.SetActive(false); // 모든 Sword를 비활성화
-            }*/
             if (Swords.ContainsKey(id))
             {
                 Swords[id].SetActive(true); // 선택된 ID의 Sword만 활성화
@@ -86,10 +95,6 @@ public class InventoryManager : MonoBehaviour
         // Shield 아이템 활성화
         else if (itemType == ItemType.Shield)
         {
-            /*foreach (var shield in Shields.Values)
-            {
-                shield.SetActive(false); // 모든 Shield를 비활성화
-            }*/
             if (Shields.ContainsKey(id))
             {
                 Shields[id].SetActive(true); // 선택된 ID의 Shield만 활성화
