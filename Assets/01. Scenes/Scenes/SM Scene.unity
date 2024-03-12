@@ -1481,6 +1481,10 @@ PrefabInstance:
       value: Boss_Animation
       objectReference: {fileID: 0}
     - target: {fileID: 4444492454053140383, guid: 5f1cb5f117a660141a06335cbe81bb4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444492454053140383, guid: 5f1cb5f117a660141a06335cbe81bb4a, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
