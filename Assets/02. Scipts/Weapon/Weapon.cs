@@ -35,11 +35,19 @@ public class Weapon : MonoBehaviour
         if (isAttacking && !hasDealtDamage && other.CompareTag("Enemy"))
         {
             Boss boss = other.GetComponent<Boss>();
+            Enemy enemy = other.GetComponent<Enemy>();
             if (boss != null)
             {
                 // 적에게 데미지를 주는 로직
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
                 boss.Hit(damageInfo);
+                hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
+            }
+            if (enemy != null)
+            {
+                // 적에게 데미지를 주는 로직
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
+                enemy.Hit(damageInfo);
                 hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }
         }
