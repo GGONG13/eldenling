@@ -122,6 +122,7 @@ public class Boss : MonoBehaviour
             //Debug.Log("Boss: Trace -> AttackDelay");
             _currentState = BossState.AttackDelay;
             _animator.SetTrigger("TraceToAttackDelay");
+            _horseAnimator.SetTrigger("Attack");
             return;
         }
         else if (Vector3.Distance(_target.position, transform.position) > FindDistance)
@@ -129,6 +130,7 @@ public class Boss : MonoBehaviour
             //Debug.Log("Boss: Trace -> Patrol");
             _currentState = BossState.Patrol;
             _animator.SetTrigger("TraceToPatrol");
+            _horseAnimator.SetTrigger("Trace");
         }
     }
     private void RunAttack()
@@ -138,24 +140,27 @@ public class Boss : MonoBehaviour
         _currentState = BossState.AttackDelay;
     }
     private void AttackDelay()
-    {
-        //_horseAnimator.SetTrigger("AttackDelay");
+    {     
         _delayTimer += Time.deltaTime;
         if ( _delayTimer > DelayTime )
         {
             if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
             {
-                int num = Random.Range(0, 10);
-                if ( num < 3 )
+                int num = Random.Range(0, 2);
+                if ( num == 0 )
                 {
-                    Debug.Log("Boss: Trace -> CriticalAttack");
+                    if (Health < MaxHealth * 0.7)
+                    {
+                        _horseAnimator.SetTrigger("AttackDelay");
+                    }
+                    //Debug.Log("Boss: Trace -> CriticalAttack");
                     _currentState = BossState.CriticalAttack;
                     _animator.SetTrigger("CriticalAttack");
                     _delayTimer = 0;
                 }
                 else
                 {
-                    Debug.Log("Boss: Trace -> NormalAttack");
+                    //Debug.Log("Boss: Trace -> NormalAttack");
                     _currentState = BossState.NormalAttack;
                     _animator.SetTrigger("NormalAttack");
                     _delayTimer = 0;
@@ -163,7 +168,7 @@ public class Boss : MonoBehaviour
             }
             else
             {
-                Debug.Log("Boss: AttackDelay -> Trace");
+                //Debug.Log("Boss: AttackDelay -> Trace");
                 _currentState = BossState.Trace;
                 _animator.SetTrigger("AttackDelayToTrace");
                 _delayTimer = 0;
