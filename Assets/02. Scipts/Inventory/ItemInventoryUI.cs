@@ -30,6 +30,8 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
         if (CurrentitemData.Type == ItemType.Potion)
         {
             InventoryManager.Instance.Remove(CurrentitemData);
+            Player player = GetComponent<Player>();
+            player.Heal(10);
         }
     }
     public void SetItemData(ItemData itemData)

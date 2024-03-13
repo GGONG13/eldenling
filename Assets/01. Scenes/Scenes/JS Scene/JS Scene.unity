@@ -3597,7 +3597,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreasureChest_Gn
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6294234636703173513, guid: b5d58dc2ecd4b3a4ca3a94aed1cb8247, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5606,11 +5607,11 @@ RectTransform:
   - {fileID: 1398808689}
   m_Father: {fileID: 268312486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1817831114
 MonoBehaviour:
   m_ObjectHideFlags: 0

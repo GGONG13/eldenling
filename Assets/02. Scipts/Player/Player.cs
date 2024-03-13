@@ -67,7 +67,12 @@ public class Player : MonoBehaviour
         _playerMove.isAlive = false; // 추가: PlayerMove 클래스의 isAlive 상태를 false로 설정
     }
 
-
+    // 체력을 회복하는 메서드
+    public void Heal(int healAmount)
+    {
+        Health += healAmount;
+        Health = Mathf.Min(Health, MaxHealth); // 체력이 최대 체력을 초과하지 않도록 함
+    }
     public void ActivateItem(ItemData itemData)
     {
         switch (itemData.Type)
