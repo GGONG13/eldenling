@@ -1100,6 +1100,10 @@ PrefabInstance:
       propertyPath: weapon
       value: 
       objectReference: {fileID: 1064307316}
+    - target: {fileID: 7756895624769557287, guid: b980f8638d7f3eb4c8604191ab1e24af, type: 3}
+      propertyPath: MagicArrowPrefab
+      value: 
+      objectReference: {fileID: 1742109701968800120, guid: 5bbdd0e9e07d39943aeb25e377f4f847, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1141,6 +1145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_Animation
       objectReference: {fileID: 0}
+    - target: {fileID: 3374006425571291729, guid: ea03135d78bb12843b8bc2dfe4289506, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4152522779142253123, guid: ea03135d78bb12843b8bc2dfe4289506, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.1
@@ -1180,6 +1188,10 @@ PrefabInstance:
     - target: {fileID: 4152522779142253123, guid: ea03135d78bb12843b8bc2dfe4289506, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5589364490504341498, guid: ea03135d78bb12843b8bc2dfe4289506, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
