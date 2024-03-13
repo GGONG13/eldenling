@@ -43,12 +43,13 @@ public class Boss : MonoBehaviour
     public float StopDistance = 1.5f;
     public float DelayTime = 3f;
     private float _delayTimer = 0f;
-    public float StiffTime = 1f;
+    public float StiffTime = 2f;
     private float _stiffTimer = 0f;
 
-    public float newSpeed = 5f;
-    public float duration = 3f;
+    public float NewSpeed = 5f;
+    public float Duration = 3f;
     private float originalSpeed;
+    public float RotationSpeed = 0.5f;
 
     private void Awake()
     {
@@ -149,7 +150,7 @@ public class Boss : MonoBehaviour
                 int num = Random.Range(0, 2);
                 if ( num == 0 )
                 {
-                    if (Health < MaxHealth * 0.7)
+                    if (Health < MaxHealth * 0.5)
                     {
                         _horseAnimator.SetTrigger("AttackDelay");
                     }
@@ -177,6 +178,7 @@ public class Boss : MonoBehaviour
     }
     private void Stiffness()
     {
+        PlayerLook();
         _stiffTimer += Time.deltaTime;
         if( _stiffTimer > StiffTime )
         {
@@ -186,11 +188,13 @@ public class Boss : MonoBehaviour
     }
     private void NormalAttack()
     {
+        PlayerLook();
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: NormalAttack");
     }
     private void CriticalAttack()
-    {        
+    {
+        PlayerLook();
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: CriticalAttack");
     }
@@ -223,6 +227,13 @@ public class Boss : MonoBehaviour
             _dieCoroutine = StartCoroutine(Die_Coroutine());
         }
     }
+    private void PlayerLook()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(_target.position - transform.position);
+        targetRotation.Normalize();
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * RotationSpeed);
+        //this.transform.LookAt(_target.position);
+    }
     private void MoveToRandomPosition()
     {
         Vector3 randomDirection = Random.insideUnitSphere * MovementRange;
@@ -235,8 +246,8 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator _changeSpeedCoroutine()
     {
-        _agent.speed = newSpeed;
-        yield return new WaitForSeconds(duration);
+        _agent.speed = NewSpeed;
+        yield return new WaitForSeconds(Duration);
         _agent.speed = originalSpeed;
     }
     public void PlayerTrace()
@@ -256,6 +267,7 @@ public class Boss : MonoBehaviour
         if (_currentState == BossState.AttackDelay)
         {
             _animator.SetTrigger("Stiffness");
+            _horseAnimator.SetTrigger("Stiffness");
             _currentState = BossState.Stiffness;
             Debug.Log("보스: 공격 딜레이 -> 스터너 상태");
         }
