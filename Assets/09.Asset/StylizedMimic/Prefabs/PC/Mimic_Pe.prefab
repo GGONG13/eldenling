@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 2583664440843341260}
   - component: {fileID: 8447391474600597430}
   - component: {fileID: 8681565783464376827}
+  - component: {fileID: -2644687153482919759}
   m_Layer: 0
   m_Name: Mimic_Pe
   m_TagString: Untagged
@@ -636,6 +637,28 @@ MonoBehaviour:
   FollowDistance: 2
   HealthSlider: {fileID: 3075732469778155605}
   Damage: 0
+--- !u!195 &-2644687153482919759
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923071119281280886}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3125817060543970313
 GameObject:
   m_ObjectHideFlags: 0

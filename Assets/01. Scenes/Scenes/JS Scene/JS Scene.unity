@@ -2298,6 +2298,14 @@ PrefabInstance:
       propertyPath: HealthSlider
       value: 
       objectReference: {fileID: 1817831114}
+    - target: {fileID: 982418298403020129, guid: 8e6d35ae0cd7e914aad0799ccce7e15b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 982418298403020129, guid: 8e6d35ae0cd7e914aad0799ccce7e15b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5869733343824656797, guid: 8e6d35ae0cd7e914aad0799ccce7e15b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
