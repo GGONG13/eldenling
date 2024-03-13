@@ -5471,7 +5471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 29.892237}
+  m_AnchoredPosition: {x: -20, y: 29.892212}
   m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1945664042
@@ -5950,11 +5950,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 04c583d7ff50fe240820b56c9a9778b3, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!114 &1062854253929144197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5968,11 +5965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: ce1214d6990477a43ba41e9dfbc86154, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!1001 &1153098483561164935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6043,11 +6037,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 4a76e73b5deb3a5409ace4e2c3bd4b47, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!33 &1647933810177780053
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6447,11 +6438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 39643d1565d4f27488a497dddcb6bcac, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!33 &2701989561508194955
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6652,11 +6640,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 11560c7183b289e46810fc0a4e965feb, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!33 &3643246754637768447
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7018,11 +7003,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 52df4eabf1bd5fd4f96ceb5c3402cf24, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!114 &7787528479823468402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7036,11 +7018,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 0bfe707634fc23f4a8ea1a7c675766cb, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!114 &7971468792955227138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7054,11 +7033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 07523c9e75427f4429858008de08248f, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!114 &8025855297355037683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7072,11 +7048,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: a4b9e91b32159a84f86cca23124eae68, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!1 &8153842884938221388
 GameObject:
   m_ObjectHideFlags: 0
@@ -7126,11 +7099,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 2593051d31f43ae42979c4390904e679, type: 2}
-  _itemSpeed: 5
+  _itemSpeed: 15
   Player: {fileID: 1249616674}
-  PopUp: {fileID: 1945664042}
-  PopUpImage: {fileID: 1877938928}
-  PopUpText: {fileID: 1042536849}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

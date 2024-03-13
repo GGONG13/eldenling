@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     public int Health;
     public int MaxHealth = 100;
 
+    public int Coin = 0;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -94,4 +96,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            Coin++;
+            Debug.Log($"ÄÚÀÎ: {Coin}°³");
+            other.gameObject.SetActive(false);
+        }
+    }
 }
