@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +8,8 @@ public class Player : MonoBehaviour
 {
     [Header("Inventory")]
     public ItemData ItemData;
-    public GameObject[] swords; // 미리 할당된 5개의 무기 프리팹
-    public GameObject[] shields; // 미리 할당된 5개의 쉴드 프리팹
+    public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
+    public GameObject[] _shields; // 미리 할당된 5개의 쉴드 프리팹
 
     public GameObject SwordPosition;
     public GameObject ShieldPosiotion;
@@ -21,6 +23,8 @@ public class Player : MonoBehaviour
     public int Health;
     public int MaxHealth = 100;
 
+    [Header("코인 UI")]
+    public TextMeshProUGUI CoinUI;
     public int Coin = 0;
 
     private void Awake()
@@ -28,11 +32,18 @@ public class Player : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
+/*        _swords = GameObject.Find("Sword").GetComponentsInChildren<GameObject>(true);
+        _shields = GameObject.Find("Shield").GetComponentsInChildren<GameObject>(true);
+        Transform[] swordTransforms = GameObject.Find("Sword").GetComponentsInChildren<Transform>(true);
+        _swords = swordTransforms.Select(t => t.gameObject).ToArray();
+        Transform[] shieldTransforms = GameObject.Find("Shield").GetComponentsInChildren<Transform>(true);
+        _swords = shieldTransforms.Select(t => t.gameObject).ToArray();*/
     }
 
     private void Update()
     {
         HealthSliderUI.value = Health / (float)MaxHealth;
+        RefreshCoin();
     }
 
     public void Hit(DamageInfo damage)
@@ -79,23 +90,26 @@ public class Player : MonoBehaviour
         {
             case ItemType.Sword:
             {
-                foreach (var sword in swords)
+                foreach (var sword in _swords)
                 {
                     sword.SetActive(false);
                 }
-                swords[itemData.ID].SetActive(true);
-                swords[itemData.ID].transform.position = SwordPosition.transform.position;
+                if (_swords[itemData.ID].activeInHierarchy == false)
+                {
+                    _swords[itemData.ID].SetActive(true);
+                    //swords[itemData.ID].transform.position = SwordPosition.transform.position;
+                }
                 break;
             }
 
             case ItemType.Shield:
             {
-                foreach (var shield in shields)
+                foreach (var shield in _shields)
                 {
                     shield.SetActive(false);
                 }
-                shields[itemData.ID].SetActive(true);
-                shields[itemData.ID].transform.position = ShieldPosiotion.transform.position;
+                _shields[itemData.ID].SetActive(true);
+                _shields[itemData.ID].transform.position = ShieldPosiotion.transform.position;
                 break;
             }
         }
@@ -109,5 +123,10 @@ public class Player : MonoBehaviour
             Debug.Log($"코인: {Coin}개");
             other.gameObject.SetActive(false);
         }
+    }
+
+    public void RefreshCoin()
+    {
+        CoinUI.text = $"코인 : {Coin}개";
     }
 }

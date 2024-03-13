@@ -54,7 +54,6 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
         {
             return;
         }
-
         FindObjectOfType<Player>().ActivateItem(CurrentitemData);
         Inventory.instance.gameObject.SetActive(false);
     }
