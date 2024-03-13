@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Shield : MonoBehaviour
 {
     public bool _isDefenc;
+    public bool _isShield;
     public Animator _animator;
 
     private void Awake()
