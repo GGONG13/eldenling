@@ -30,19 +30,15 @@ public class CoinFactory : MonoBehaviour
     public void CoinDrop(Vector3 position)
     {
         GameObject coin = null;
-        int num = Random.Range(0, 2);
-        if (num == 0)
+        foreach (GameObject c in _coinPool)
         {
-            foreach (GameObject c in _coinPool)
+            if (c.gameObject.activeInHierarchy == false)
             {
-                if (c.gameObject.activeInHierarchy == false)
-                {
-                    coin = c;
-                    coin.transform.position = position;
-                    coin.gameObject.SetActive(true);
-                    break;
-                }
-            }           
+                coin = c;
+                coin.transform.position = position;
+                coin.gameObject.SetActive(true);
+                break;
+            }
         }
     }
 }

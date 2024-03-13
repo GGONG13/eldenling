@@ -142,7 +142,7 @@ public class Enemy : MonoBehaviour
     {
         _agent.stoppingDistance = AttackDistance;
         _agent.destination = _target.position;
-        //transform.forward = _target.position;
+        this.transform.LookAt(_target.position);
         _attackTimer += Time.deltaTime;
         if (_attackTimer >= AttackDelay && Vector3.Distance(transform.position, _target.position) <= AttackDistance)
         {
