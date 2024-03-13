@@ -27,7 +27,6 @@ public class MonsterBox : MonoBehaviour, IHitable
     public float AttactDistance = 2.5f;
     public float FollowDistance = 2f;
 
-    private Vector3 _monsterPosition;
     private Vector3 _dir;
     private Animator _animator;
     private Transform _playerTransform;
@@ -134,19 +133,7 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     void Attack()
     {
-        float randomfloat = UnityEngine.Random.Range(0f, 1f);
-        switch (randomfloat)
-        {
-            case 1:
-                _animator.SetFloat("Attack1", 0);
-                break;
-            case 2:
-                _animator.SetFloat("Attack2", 0.5f);
-                break;
-            case 3:
-                _animator.SetFloat("Attack3", 1);
-                break;
-        }
+        _animator.SetTrigger($"Attack {Random.Range(1, 4)}");
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
         if (distance < 1)
         {
@@ -160,16 +147,16 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     void Run()
     {
+        _animator.SetTrigger("Run");
         _dir = _playerTransform.position - transform.position;
         _dir.y = 0;
         _dir.Normalize();
-        _navMeshAgent.stoppingDistance = AttactDistance;
-        // 네비게이션의 목적지를 플레이어의 위치로 한다. 지금까지 썼던 코드는 하위호완이라 주석처리
         _navMeshAgent.destination = _playerTransform.position;
-        _animator.SetTrigger("Run");
+
+        _navMeshAgent.stoppingDistance = AttactDistance;
 
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
-        if (distance < 2f)
+        if (distance < 3f)
         {
             State = MonsterBoxState.Attack;
         }

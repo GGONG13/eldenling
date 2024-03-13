@@ -27,7 +27,7 @@ public class MagicAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f)
         {
             _animator.SetTrigger("MagicAttack");
-            Instantiate(MagicArrowPrefab, MagicPosition.position, MagicPosition.rotation);
+        //    Instantiate(MagicArrowPrefab, MagicPosition.position, MagicPosition.rotation);
             AttackTimer = AttackDelayTime;
         }
 
