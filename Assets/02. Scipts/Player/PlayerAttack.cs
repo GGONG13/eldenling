@@ -26,13 +26,9 @@ public class PlayerAttack : MonoBehaviour
         ComboAttack = false;
         if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && _playerMove.Stamina >= 12)
         {
-
-
             _animator.SetTrigger("Attack");
             // 이제 Weapon 클래스의 BeginAttack은 애니메이션 이벤트를 통해 호출됩니다.
             AttackTimer = AttackDelayTime;
-
-
         }
         if (Input.GetMouseButtonDown(0) && _playerMove.isAttacking == true && _playerMove.Stamina >= 12)
         {
