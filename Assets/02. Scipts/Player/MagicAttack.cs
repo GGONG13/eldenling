@@ -7,14 +7,14 @@ public class MagicAttack : MonoBehaviour
     public float AttackDelayTime = 1f;
     private float AttackTimer = 0f;
 
-    public GameObject MaigcArrowPrefab;
+    public GameObject MagicArrowPrefab;
     public Transform MagicPosition;
 
     private Animator _animator;
-    private PlayerMove _playerMove;
+    // PlayerMove _playerMove 참조 및 사용 제거
     public Weapon weapon; // Weapon 클래스에 대한 참조
+    private PlayerMove _playerMove;
 
-    public bool ComboAttack;
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -24,59 +24,32 @@ public class MagicAttack : MonoBehaviour
 
     void Update()
     {
-
-        ComboAttack = false;
-        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && _playerMove.Stamina >= 12)
+        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f)
         {
-
-
             _animator.SetTrigger("MagicAttack");
-            // 이제 Weapon 클래스의 BeginAttack은 애니메이션 이벤트를 통해 호출됩니다.
-            GameObject magicArrow = Instantiate(MaigcArrowPrefab);
-            magicArrow.transform.position = MagicPosition.transform.position;
-
+            Instantiate(MagicArrowPrefab, MagicPosition.position, MagicPosition.rotation);
             AttackTimer = AttackDelayTime;
-
-
         }
-        if (Input.GetMouseButtonDown(0) && _playerMove.isAttacking == true && _playerMove.Stamina >= 12)
-        {
-            _animator.SetTrigger("ComboAttack");
-            AttackTimer = AttackDelayTime;
-
-        }
-
-
-
 
         if (AttackTimer > 0f)
         {
             AttackTimer -= Time.deltaTime;
-            if (AttackTimer <= 0f)
-            {
-                // AttackTimer가 0에 도달하면 공격 상태를 리셋합니다.
-                // EndAttack은 애니메이션 이벤트를 통해 호출됩니다.
-            }
         }
     }
 
-    // 애니메이션 이벤트를 위한 메서드
+    // 애니메이션 이벤트를 위한 메서드에서 isAttacking 상태 변경 코드 제거
     public void BeginWeaponAttack()
     {
+        _playerMove.isAttacking = false;
         weapon.BeginAttack();
-        _playerMove.isAttacking = true;
-        _animator.SetBool("isAttacking", _playerMove.isAttacking);
-        _playerMove.ReduceStamina(12);
+        // 여기서 스태미너 감소 코드만 유지
     }
 
     public void EndWeaponAttack()
     {
-        weapon.EndAttack();
         _playerMove.isAttacking = false;
-        _animator.SetBool("isAttacking", _playerMove.isAttacking);
-
+        weapon.EndAttack();
         // ComboAttack 트리거 리셋
         _animator.ResetTrigger("ComboAttack");
     }
 }
-

@@ -64,7 +64,7 @@ public class MagicArrow : MonoBehaviour
                 // 적에게 데미지를 주는 로직
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
                 enemyScript.Hit(damageInfo);
-                
+                Destroy(gameObject);
             }
         }
     }

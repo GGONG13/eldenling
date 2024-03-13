@@ -7243,6 +7243,7 @@ GameObject:
   - component: {fileID: 3068061154317092612}
   - component: {fileID: 5068241501181111115}
   - component: {fileID: 7756895624769557287}
+  - component: {fileID: -973664295767267240}
   m_Layer: 0
   m_Name: Player_Basic_sheid
   m_TagString: Player
@@ -7347,6 +7348,7 @@ MonoBehaviour:
   HealthSliderUI: {fileID: 0}
   Health: 0
   MaxHealth: 100
+  Coin: 0
 --- !u!114 &3068061154317092612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7401,6 +7403,20 @@ MonoBehaviour:
   MagicPosition: {fileID: 8855241188854883425}
   weapon: {fileID: 0}
   ComboAttack: 0
+--- !u!114 &-973664295767267240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447993933412705455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18875d3c5bcf4c141a70dd38a6a4dfed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDefenc: 0
+  _animator: {fileID: 0}
 --- !u!1 &3574339666424638960
 GameObject:
   m_ObjectHideFlags: 0
@@ -10230,7 +10246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  damage: 20
+  Damage: 20
   isAttacking: 0
   _animator: {fileID: 0}
 --- !u!4 &8265566168420944902 stripped
