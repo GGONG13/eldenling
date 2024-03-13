@@ -35,7 +35,7 @@ public class UI_PopUPItem : MonoBehaviour
         PopUpImage.sprite = icon;
         PopUpText.text = name;
         PopUp.gameObject.SetActive(true);
-        StartCoroutine(HidePopUpAfterDelay(1f)); // 예를 들어 1초 후에 팝업을 숨깁니다.
+        StartCoroutine(HidePopUpAfterDelay(2f)); // 예를 들어 1초 후에 팝업을 숨깁니다.
     }
 
     private IEnumerator HidePopUpAfterDelay(float delay)
