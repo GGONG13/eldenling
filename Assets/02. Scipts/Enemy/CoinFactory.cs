@@ -38,11 +38,11 @@ public class CoinFactory : MonoBehaviour
                 if (c.gameObject.activeInHierarchy == false)
                 {
                     coin = c;
+                    coin.transform.position = position;
+                    coin.gameObject.SetActive(true);
                     break;
                 }
-            }
-            coin.transform.position = position;
-            coin.gameObject.SetActive(true);
+            }           
         }
     }
 }

@@ -214,6 +214,10 @@ public class Enemy : MonoBehaviour
             Debug.Log("Enemy: 어떤 상태든 -> 죽음");
             _state = EnemyState.Death;
         }
+        else
+        {
+            _state = EnemyState.Damaged;
+        }
         // 여기서 적의 체력을 출력합니다.
         Debug.Log($"적 체력: {Health}");
         RefreshUI();
@@ -223,9 +227,10 @@ public class Enemy : MonoBehaviour
         _animator.SetTrigger("Death");
         _agent.isStopped = true;
         _agent.ResetPath();
-        HealthSliderUI.gameObject.SetActive(false);
+        HealthSliderUI.gameObject.SetActive(false);       
         yield return new WaitForSeconds(1f);
         CoinFactory.instance.CoinDrop(transform.position);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
