@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
         _patrolTimer += Time.deltaTime;
         if (_patrolTimer > PatrolTime)
         {
-            Debug.Log("Enemy: Idle -> Patrol");
+            //Debug.Log("Enemy: Idle -> Patrol");
             _animator.SetTrigger("IdleToPatrol");
             _state = EnemyState.Patrol;
             MoveToRandomPosition();
@@ -99,13 +99,13 @@ public class Enemy : MonoBehaviour
         }
         if (Vector3.Distance(transform.position, _target.position) <= FindDistance)
         {
-            Debug.Log("Enemy: Patrol -> Trace");
+            //Debug.Log("Enemy: Patrol -> Trace");
             _animator.SetTrigger("PatrolToTrace");
             _state = EnemyState.Trace;
         }
         if (Vector3.Distance(transform.position, StartPosition) > PatrolRange)
         {
-            Debug.Log("Enemy: Patrol -> Return");
+            //Debug.Log("Enemy: Patrol -> Return");
             _animator.SetTrigger("PatrolToReturn");
             _state = EnemyState.Return;
         }
@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
         _agent.destination = StartPosition;
         if (Vector3.Distance(transform.position, StartPosition) <= TOLERANCE)
         {
-            Debug.Log("Enemy: Return -> Idle");
+            //Debug.Log("Enemy: Return -> Idle");
             _patrolTimer = 0;
             _animator.SetTrigger("ReturnToIdle");
             _state = EnemyState.Idle;
@@ -127,13 +127,13 @@ public class Enemy : MonoBehaviour
         //transform.forward = _target.position;
         if (Vector3.Distance(transform.position, _target.position) > FindDistance)
         {
-            Debug.Log("Enemy: Trace -> Patrol");
+            //Debug.Log("Enemy: Trace -> Patrol");
             _animator.SetTrigger("TraceToPatrol");
             _state = EnemyState.Patrol;
         }
         if (Vector3.Distance(transform.position, _target.position) <= AttackDistance)
         {
-            Debug.Log("Enemy: Trace -> Attack");
+            //Debug.Log("Enemy: Trace -> Attack");
             _animator.SetTrigger("TraceToAttack");
             _state = EnemyState.Attack;
         }
@@ -151,7 +151,7 @@ public class Enemy : MonoBehaviour
         }
         if (Vector3.Distance(transform.position, _target.position) > FindDistance)
         {
-            Debug.Log("Enemy: Attack -> Trace");
+            //Debug.Log("Enemy: Attack -> Trace");
             _attackTimer = 0;
             _animator.SetTrigger("AttackToTrace");
             _state = EnemyState.Trace;
@@ -161,7 +161,7 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetTrigger("Damaged");
         RefreshUI();
-        Debug.Log("Enemy: Damaged -> Trace");
+        //Debug.Log("Enemy: Damaged -> Trace");
         _animator.SetTrigger("DamagedToTrace");
         _state = EnemyState.Trace;
     }
@@ -211,7 +211,7 @@ public class Enemy : MonoBehaviour
         if (Health <= 0)
         {
             Health = 0;
-            Debug.Log("Enemy: 어떤 상태든 -> 죽음");
+            //Debug.Log("Enemy: 어떤 상태든 -> 죽음");
             _state = EnemyState.Death;
         }
         else
@@ -219,7 +219,7 @@ public class Enemy : MonoBehaviour
             _state = EnemyState.Damaged;
         }
         // 여기서 적의 체력을 출력합니다.
-        Debug.Log($"적 체력: {Health}");
+        //Debug.Log($"적 체력: {Health}");
         RefreshUI();
     }
     private IEnumerator Die_Coroutine()
