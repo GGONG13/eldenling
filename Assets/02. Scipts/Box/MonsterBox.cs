@@ -22,20 +22,22 @@ public class MonsterBox : MonoBehaviour, IHitable
 {
     public static MonsterBoxState State = MonsterBoxState.CloseIdel;
 
-    public float moveSpeed = 10f;
+
     public float FindDistance = 6;
     public float AttactDistance = 2.5f;
     public float FollowDistance = 2f;
 
+    private float moveSpeed = 5f;
     private Vector3 _dir;
     private Animator _animator;
     private Transform _playerTransform;
+    private Player _player;
     private NavMeshAgent _navMeshAgent;
+    private int Health;
+    private int Maxhealth = 10;
 
-    public int Health;
-    public int Maxhealth;
     public Slider HealthSlider;
-    public int Damage;
+    public int Damage = 10;
 
 
     private void Start()
@@ -44,6 +46,7 @@ public class MonsterBox : MonoBehaviour, IHitable
         _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         _navMeshAgent.speed = moveSpeed;
         _playerTransform = FindAnyObjectByType<Player>().transform;
+        _player = GetComponentInChildren<Player>();
     }
 
     void Update()
@@ -129,17 +132,26 @@ public class MonsterBox : MonoBehaviour, IHitable
         {
             State = MonsterBoxState.Attack;
         }
+        else if (distance > FollowDistance) // FollowDistance보다 멀어진 경우 Run 상태로 전환
+        {
+            State = MonsterBoxState.Run;
+        }
     }
 
     void Attack()
     {
         _animator.SetTrigger($"Attack {Random.Range(1, 4)}");
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
+/*        if (distance <= AttactDistance) // 공격 거리 내에 있을 때
+        {
+            DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
+            _player.Hit(damageInfo);
+        }*/
         if (distance < 1)
         {
             State = MonsterBoxState.OpenIdel;
         }
-        if (distance < 3)
+        else if (distance > FollowDistance) // FollowDistance보다 멀어진 경우 Run 상태로 전환
         {
             State = MonsterBoxState.Run;
         }
@@ -169,8 +181,10 @@ public class MonsterBox : MonoBehaviour, IHitable
         return;
     }
 
+
     public void Hit (DamageInfo damage)
     {
+
         Health -= damage.Amount;
         Stan();
         RefreshSlider();
