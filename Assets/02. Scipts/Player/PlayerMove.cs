@@ -21,8 +21,8 @@ public class PlayerMove : MonoBehaviour
     public float UseRollingStamina = 15;
     public float UseRunningStamina = 5f;
 
-    private float moveSpeed = 2f;           // 일반 속도
-    private float runSpeed = 5f;            // 뛰는 속도
+    private float moveSpeed = 3f;           // 일반 속도
+    private float runSpeed = 6f;            // 뛰는 속도
     private float staminaRecoveryRate = 60f;// 스태미너 회복 속도
 
     private bool _isWalking;
@@ -63,10 +63,24 @@ public class PlayerMove : MonoBehaviour
         {
             HandleMovement();
             HandleRolling();
+            CheckMovementState();
         }
          
     }
-
+    void CheckMovementState()
+    {
+        // 달리기 상태일 때
+        if (_isRunning)
+        {
+            // 예: 달리기 상태에서는 회전 속도를 1.5배로 증가
+            SendMessage("SetRotationSpeed", 2f, SendMessageOptions.DontRequireReceiver);
+        }
+        else
+        {
+            // 걷기 상태에서는 기본 회전 속도 사용
+            SendMessage("SetRotationSpeed", 1f, SendMessageOptions.DontRequireReceiver);
+        }
+    }
     private void HandleMovement()
     {
         if (_isRolling || isInvincible || !isAlive || playerShield._isDefending ==true) return; // isAlive 조건 추가
