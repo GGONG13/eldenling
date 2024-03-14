@@ -70,10 +70,6 @@ public class InventoryManager : MonoBehaviour
             newItem.Value = 1;
             items.Add(newItem);
         }
-/*        if (newItem.Type == ItemType.Potion)
-        {
-            FindAnyObjectByType<ItemPotion>().Refresh();
-        }*/
     }
     public void Remove(ItemData item)
     {
