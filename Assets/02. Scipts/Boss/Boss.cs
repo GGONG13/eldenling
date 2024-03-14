@@ -136,12 +136,14 @@ public class Boss : MonoBehaviour
     }
     private void RunAttack()
     {
+        PlayerLook();
         StartCoroutine(_changeSpeedCoroutine());
         //Debug.Log("Boss: RunAttack");
         _currentState = BossState.AttackDelay;
     }
     private void AttackDelay()
-    {     
+    {
+        PlayerLook();
         _delayTimer += Time.deltaTime;
         if ( _delayTimer > DelayTime )
         {
@@ -178,7 +180,7 @@ public class Boss : MonoBehaviour
     }
     private void Stiffness()
     {
-        //PlayerLook();
+        PlayerLook();
         _stiffTimer += Time.deltaTime;
         if( _stiffTimer > StiffTime )
         {
@@ -188,13 +190,13 @@ public class Boss : MonoBehaviour
     }
     private void NormalAttack()
     {
-        //PlayerLook();
+        PlayerLook();
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: NormalAttack");
     }
     private void CriticalAttack()
     {
-        //PlayerLook();
+        PlayerLook();
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: CriticalAttack");
     }
@@ -227,13 +229,13 @@ public class Boss : MonoBehaviour
             _dieCoroutine = StartCoroutine(Die_Coroutine());
         }
     }
-    /*private void PlayerLook()
+    private void PlayerLook()
     {
-        Quaternion targetRotation = Quaternion.LookRotation(_target.position - transform.position);
-        targetRotation.Normalize();
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * RotationSpeed);
+        Vector3 targetDirection = _target.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
         //this.transform.LookAt(_target.position);
-    }*/
+    }
     private void MoveToRandomPosition()
     {
         Vector3 randomDirection = Random.insideUnitSphere * MovementRange;
