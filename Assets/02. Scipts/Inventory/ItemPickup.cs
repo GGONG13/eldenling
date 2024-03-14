@@ -29,6 +29,11 @@ public class ItemPickup : MonoBehaviour
                 Pickup();
             }
         }
+        else
+        {
+            return;
+        }
+        
 
     }
     public void Pickup()
@@ -56,11 +61,10 @@ public class ItemPickup : MonoBehaviour
             yield return null;
         }
         UI_PopUPItem.Instance.ShowItemPopUp(Item.Icon, Item.Name);
+        _isPickable = false;
         // 아이템 추가 및 인벤토리 업데이트
         InventoryManager.Instance.Add(Item);
         InventoryManager.Instance.ListItem();
-        _isPickable = false;
-     //   isCollecting = true;
         gameObject.SetActive(false);
     }
 }

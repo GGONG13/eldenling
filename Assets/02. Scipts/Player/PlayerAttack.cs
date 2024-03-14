@@ -13,6 +13,8 @@ public class PlayerAttack : MonoBehaviour
     public Weapon weapon; // Weapon 클래스에 대한 참조
 
     public bool ComboAttack;
+
+    public bool _isDefending;
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -34,11 +36,7 @@ public class PlayerAttack : MonoBehaviour
         {
             _animator.SetTrigger("ComboAttack");
             AttackTimer = AttackDelayTime;
-
         }
-
-
-
 
         if (AttackTimer > 0f)
         {

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -11,11 +13,10 @@ public class Player : MonoBehaviour
     public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
     public GameObject[] _shields; // 미리 할당된 5개의 쉴드 프리팹
 
-    public GameObject SwordPosition;
-    public GameObject ShieldPosiotion;
-
     private Animator _animator;
     private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
+    private Player_Shield _playerShield;
+
 
     [Header("체력 슬라이더 UI")]
     public Slider HealthSliderUI;
@@ -27,19 +28,33 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI CoinUI;
     public int Coin = 0;
 
+    [Header("무기와 방패 상태 UI POP-UP")]
+    public Image SwordIcon;
+    public Image ShieldIcon;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _playerShield = GetComponentInChildren<Player_Shield>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
-/*        _swords = GameObject.Find("Sword").GetComponentsInChildren<GameObject>(true);
-        _shields = GameObject.Find("Shield").GetComponentsInChildren<GameObject>(true);
-        Transform[] swordTransforms = GameObject.Find("Sword").GetComponentsInChildren<Transform>(true);
-        _swords = swordTransforms.Select(t => t.gameObject).ToArray();
-        Transform[] shieldTransforms = GameObject.Find("Shield").GetComponentsInChildren<Transform>(true);
-        _swords = shieldTransforms.Select(t => t.gameObject).ToArray();*/
     }
+    private void Start()
+    {
+        // 검 아이템의 아이콘 설정
+        if (_swords.Length > 0 && _swords[0] != null)
+        {
+            ItemSwitching swordItem = _swords[0].GetComponent<ItemSwitching>();
+            SwordIcon.sprite = swordItem.Item.Icon;
+        }
 
+        // 방패 아이템의 아이콘 설정
+        if (_shields.Length > 0 && _shields[0] != null)
+        {
+            ItemSwitching shieldItem = _shields[0].GetComponent<ItemSwitching>();
+            ShieldIcon.sprite = shieldItem.Item.Icon;
+        }
+    }
     private void Update()
     {
         HealthSliderUI.value = Health / (float)MaxHealth;
@@ -54,16 +69,32 @@ public class Player : MonoBehaviour
             return; // 무적 상태이거나 이미 사망한 경우 함수 종료
         }
 
-        Health -= damage.Amount;
-        Debug.Log($"Player: {Health}");
+        
+       
         if (Health <= 0)
         {
             Health = 0;
             HealthSliderUI.value = 0;
+            _playerMove.isAlive = false;
             _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
             _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
             StartCoroutine(DeathWithDelay(5f)); // 사망 처리 지연
         }
+        if(_playerShield._isParrying == true)
+        {
+            damage.Amount = 0;
+            _animator.SetTrigger("Parrying");
+            Debug.Log("패링 성공");
+            
+        }
+
+        if(_playerShield._isDefending == true)
+        {
+            damage.Amount /= 2;
+            _playerMove.ReduceStamina(15);
+        }
+        Health -= damage.Amount;
+        Debug.Log($"Player: {Health}");
     }
 
     private IEnumerator DeathWithDelay(float delay)
@@ -94,11 +125,8 @@ public class Player : MonoBehaviour
                 {
                     sword.SetActive(false);
                 }
-                if (_swords[itemData.ID].activeInHierarchy == false)
-                {
-                    _swords[itemData.ID].SetActive(true);
-                    //swords[itemData.ID].transform.position = SwordPosition.transform.position;
-                }
+                _swords[itemData.ID].SetActive(true);
+                SwordIcon.sprite = itemData.Icon;
                 break;
             }
 
@@ -109,17 +137,18 @@ public class Player : MonoBehaviour
                     shield.SetActive(false);
                 }
                 _shields[itemData.ID].SetActive(true);
-                _shields[itemData.ID].transform.position = ShieldPosiotion.transform.position;
+                ShieldIcon.sprite = itemData.Icon;
                 break;
             }
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin"))
         {
-            Coin++;
+            Coin += 10;
             Debug.Log($"코인: {Coin}개");
             other.gameObject.SetActive(false);
         }
@@ -129,4 +158,5 @@ public class Player : MonoBehaviour
     {
         CoinUI.text = $"코인 : {Coin}개";
     }
+
 }
