@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CameraType
+{
+    TPS,
+    Target,
+}
 public class TPSCamera : MonoBehaviour
 {
     public Transform target; // 카메라가 따라다닐 대상 캐릭터의 Transform

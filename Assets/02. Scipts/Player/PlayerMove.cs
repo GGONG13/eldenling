@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private Player_Shield playerShield;
 
+
     [Header("스태미나 슬라이더 UI")]
     public Slider StaminaSliderUI;
 

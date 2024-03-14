@@ -50,7 +50,7 @@ public class MagicArrow : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            // Assuming the enemy has a script with a method to take damage
+            
             Boss boss = other.GetComponent<Boss>();
             Enemy enemyScript = other.GetComponent<Enemy>();
             if (boss != null)
