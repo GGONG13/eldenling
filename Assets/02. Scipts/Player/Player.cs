@@ -13,6 +13,16 @@ public class Player : MonoBehaviour
     public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
     public GameObject[] _shields; // 미리 할당된 5개의 쉴드 프리팹
 
+<<<<<<< HEAD
+=======
+    public GameObject SwordPosition;
+    public GameObject ShieldPosiotion;
+
+    private Animator _animator;
+    private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
+    private Player_Shield _playerShield;
+
+>>>>>>> 924ee588ed0224a228b96054ca805290f93df867
     [Header("체력 슬라이더 UI")]
     public Slider HealthSliderUI;
 
@@ -34,6 +44,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _playerShield = GetComponentInChildren<Player_Shield>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
     }
@@ -67,16 +78,32 @@ public class Player : MonoBehaviour
             return; // 무적 상태이거나 이미 사망한 경우 함수 종료
         }
 
-        Health -= damage.Amount;
-        Debug.Log($"Player: {Health}");
+        
+       
         if (Health <= 0)
         {
             Health = 0;
             HealthSliderUI.value = 0;
+            _playerMove.isAlive = false;
             _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
             _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
             StartCoroutine(DeathWithDelay(5f)); // 사망 처리 지연
         }
+        if(_playerShield._isParrying == true)
+        {
+            damage.Amount = 0;
+            _animator.SetTrigger("Parrying");
+            Debug.Log("패링 성공");
+            
+        }
+
+        if(_playerShield._isDefending == true)
+        {
+            damage.Amount /= 2;
+            _playerMove.ReduceStamina(15);
+        }
+        Health -= damage.Amount;
+        Debug.Log($"Player: {Health}");
     }
 
     private IEnumerator DeathWithDelay(float delay)

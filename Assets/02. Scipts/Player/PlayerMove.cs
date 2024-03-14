@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     private CharacterController _characterController;
     private Animator _animator;
+    private Player_Shield playerShield;
 
     [Header("스태미나 슬라이더 UI")]
     public Slider StaminaSliderUI;
@@ -25,7 +26,9 @@ public class PlayerMove : MonoBehaviour
 
     private bool _isWalking;
     private bool _isRunning;
-    private bool _isRolling;
+    public bool _isRolling;
+    public bool _isDefending;
+    
     public float rollSpeed = 5f;
     public float rollDuration = 1f;
     private float rollTimer;
@@ -38,6 +41,7 @@ public class PlayerMove : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
+        playerShield = GetComponent<Player_Shield>();
     }
 
     private void Start()
@@ -47,22 +51,24 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        
         if (!isAlive) // 생존 상태가 아니면 모든 이동 및 액션 처리 중지
         {
             return;
         }
 
         UpdateStamina();
-        if (!isAttacking)
+        if (!isAttacking )
         {
             HandleMovement();
             HandleRolling();
         }
+         
     }
 
     private void HandleMovement()
     {
-        if (_isRolling || isInvincible || !isAlive) return; // isAlive 조건 추가
+        if (_isRolling || isInvincible || !isAlive || playerShield._isDefending ==true) return; // isAlive 조건 추가
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -131,6 +137,7 @@ public class PlayerMove : MonoBehaviour
         _animator.SetTrigger("Roll");
         _isRolling = true;
         isInvincible = true;
+        _animator.SetBool("IsDefending", false);
         rollTimer = rollDuration;
         rollDirection = transform.forward;
         ReduceStamina(UseRollingStamina);

@@ -12,7 +12,7 @@ public enum DamageType
 public class DamageInfo
 {
     public DamageType Type { get; private set; }
-    public int Amount { get; private set; }
+    public int Amount { get;  set; }
 
     public DamageInfo(DamageType type, int amount)
     {
