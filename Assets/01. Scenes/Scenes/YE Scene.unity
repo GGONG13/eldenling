@@ -705,7 +705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1496641446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3222,7 +3222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1217945339207573668, guid: 96f990d9d1479854fbd897548edf4c08, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2157932327567589796, guid: 96f990d9d1479854fbd897548edf4c08, type: 3}
       propertyPath: m_Color.a
@@ -3667,13 +3667,13 @@ MonoBehaviour:
   ItemData: {fileID: 0}
   _swords: []
   _shields: []
-  SwordPosition: {fileID: 0}
-  ShieldPosiotion: {fileID: 0}
   HealthSliderUI: {fileID: 216310667}
   Health: 0
   MaxHealth: 100
   CoinUI: {fileID: 1496641447}
   Coin: 0
+  SwordIcon: {fileID: 0}
+  ShieldIcon: {fileID: 0}
 --- !u!143 &1638634911721889174
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6036,6 +6036,8 @@ MonoBehaviour:
   isAlive: 1
   UseRollingStamina: 15
   UseRunningStamina: 5
+  _isRolling: 0
+  _isDefending: 0
   rollSpeed: 5
   rollDuration: 1
 --- !u!4 &3098108085560818648
@@ -7841,7 +7843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &4119438127651451409
 GameObject:
   m_ObjectHideFlags: 0
@@ -8237,7 +8239,7 @@ RectTransform:
   m_Father: {fileID: 6599045376842110398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9655,6 +9657,7 @@ MonoBehaviour:
   AttackDelayTime: 1
   weapon: {fileID: 6895441394448645413}
   ComboAttack: 0
+  _isDefending: 0
 --- !u!1 &5074870671325733480
 GameObject:
   m_ObjectHideFlags: 0
@@ -13302,6 +13305,7 @@ MonoBehaviour:
   MagicArrowPrefab: {fileID: 0}
   MagicPosition: {fileID: 8855241189462746182}
   weapon: {fileID: 0}
+  _isShild: 0
 --- !u!1 &7764965244130754072
 GameObject:
   m_ObjectHideFlags: 0
@@ -13867,8 +13871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18875d3c5bcf4c141a70dd38a6a4dfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDefenc: 0
-  _isShield: 0
+  _isDefending: 0
+  _isParrying: 0
   _animator: {fileID: 0}
 --- !u!1 &8252795077122440885
 GameObject:
