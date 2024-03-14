@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-        StartCoroutine(Start_Coroutine());
+      //  StartCoroutine(Start_Coroutine());
     }
 
     private IEnumerator Start_Coroutine()
