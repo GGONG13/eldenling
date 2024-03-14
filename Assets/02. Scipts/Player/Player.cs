@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     private Animator _animator;
     private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
+    private Player_Shield _playerShield;
 
     [Header("체력 슬라이더 UI")]
     public Slider HealthSliderUI;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _playerShield = GetComponentInChildren<Player_Shield>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
     }
@@ -43,8 +45,8 @@ public class Player : MonoBehaviour
             return; // 무적 상태이거나 이미 사망한 경우 함수 종료
         }
 
-        Health -= damage.Amount;
-        Debug.Log($"Player: {Health}");
+        
+       
         if (Health <= 0)
         {
             Health = 0;
@@ -53,6 +55,13 @@ public class Player : MonoBehaviour
             _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
             StartCoroutine(DeathWithDelay(5f)); // 사망 처리 지연
         }
+        if(_playerShield._isDefending == true)
+        {
+            damage.Amount /= 2;
+            _playerMove.ReduceStamina(15);
+        }
+        Health -= damage.Amount;
+        Debug.Log($"Player: {Health}");
     }
 
     private IEnumerator DeathWithDelay(float delay)

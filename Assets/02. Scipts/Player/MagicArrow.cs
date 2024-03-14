@@ -11,6 +11,7 @@ public class MagicArrow : MonoBehaviour
     public float speed = 10f;
     public float rotateSpeed = 200f;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
