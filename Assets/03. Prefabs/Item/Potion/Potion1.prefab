@@ -92,7 +92,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7327545901189661170}
-  - component: {fileID: 1431921577181217832}
   - component: {fileID: 6575915916871040287}
   m_Layer: 0
   m_Name: Potion1
@@ -117,21 +116,6 @@ Transform:
   - {fileID: 9054161470073405877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1431921577181217832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3550323479992761665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 943e3ec9708a03c418d87b03d5827593, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: f1ace6c999316d74d8487f81cbdedd32, type: 2}
-  _itemSpeed: 5
-  Player: {fileID: 0}
 --- !u!114 &6575915916871040287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +129,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: f1ace6c999316d74d8487f81cbdedd32, type: 2}
+  PositionIcon: {fileID: 0}
+  Count: {fileID: 0}
