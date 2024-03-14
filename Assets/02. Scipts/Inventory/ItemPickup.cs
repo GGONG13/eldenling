@@ -17,6 +17,7 @@ public class ItemPickup : MonoBehaviour
     private void Start()
     {
         _isPickable = true;
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     private void Update()
     {
