@@ -6,7 +6,7 @@ public class Player_Shield : MonoBehaviour
 {
     private PlayerMove playerMove;
     public bool _isDefending ;
-    public bool _isShield;
+    public bool _isParrying;
     public Animator _animator;
 
     private void Awake()
@@ -28,6 +28,7 @@ public class Player_Shield : MonoBehaviour
         // 마우스 오른쪽 버튼에서 손을 떼면 방패 들기 중단
         else if (Input.GetMouseButtonUp(1))
         {
+            
             EndShieldDefenc();
         }
     }
@@ -35,17 +36,40 @@ public class Player_Shield : MonoBehaviour
     public void BeginShieldDefenc()
     {
         _isDefending = true;
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             _animator.SetBool("IsDefending", true);
+
         }
-        
+
+
     }
 
     public void EndShieldDefenc()
     {
+
         _isDefending = false;
         _animator.SetBool("IsDefending", false);
-        
+
     }
-}
+
+    public void BeginShieldParrying()
+    {
+        _isParrying = true;
+        if (Input.GetMouseButton(1))
+        {
+            _animator.SetBool("IsDefending", true);
+
+        }
+      
+    }
+    public void EndParrying()
+    {
+        _isParrying = false;
+        _animator.SetTrigger("CancelDefending");
+    }
+    public void ParryingSuccess()
+    {
+        _animator.SetTrigger("ParryingEnd ");
+    }
+ }

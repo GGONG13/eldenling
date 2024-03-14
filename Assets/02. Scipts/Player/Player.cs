@@ -62,10 +62,19 @@ public class Player : MonoBehaviour
         {
             Health = 0;
             HealthSliderUI.value = 0;
+            _playerMove.isAlive = false;
             _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
             _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
             StartCoroutine(DeathWithDelay(5f)); // 사망 처리 지연
         }
+        if(_playerShield._isParrying == true)
+        {
+            damage.Amount = 0;
+            _animator.SetTrigger("Parrying");
+            Debug.Log("패링 성공");
+            
+        }
+
         if(_playerShield._isDefending == true)
         {
             damage.Amount /= 2;
