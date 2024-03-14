@@ -15,11 +15,8 @@ public class UI_InventoryDescription : MonoBehaviour
 
     public void Refresh(ItemData itemData)
     {
-
         NameTextUI.text = itemData.Name;
         DescriptionTextUI.text = itemData.Description;
         BigImageUI.sprite = itemData.BigImage;
-/*        IconNameTextUI.text = itemData.name;
-        IconImageUI.sprite = itemData.Icon;*/
     }
 }

@@ -25,14 +25,15 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
 
     public void OnMouseDown()
     {
-        ChangeWeapon();
-        Time.timeScale = 1.0f;
         if (CurrentitemData.Type == ItemType.Potion)
         {
             InventoryManager.Instance.Remove(CurrentitemData);
-            Player player = GetComponent<Player>();
-            player.Heal(10);
+            /* ItemPotion poition = GetComponent<ItemPotion>();
+               poition.EatPotion();*/
         }
+        ChangeWeapon();
+        Time.timeScale = 1.0f;
+
     }
     public void SetItemData(ItemData itemData)
     {
@@ -55,6 +56,7 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
             return;
         }
         FindObjectOfType<Player>().ActivateItem(CurrentitemData);
+
         Inventory.instance.gameObject.SetActive(false);
     }
 
