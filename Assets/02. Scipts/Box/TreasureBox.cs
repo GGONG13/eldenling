@@ -35,6 +35,7 @@ public class TreasureBox : MonoBehaviour
 
     public void Idle()
     {
+        items[items.Length - 1].SetActive(false);
         _animator.SetTrigger("Idle");
         Player = FindAnyObjectByType<Player>().transform;
         float Distance = Vector3.Distance(transform.position, Player.transform.position);

@@ -178,7 +178,7 @@ public class Boss : MonoBehaviour
     }
     private void Stiffness()
     {
-        PlayerLook();
+        //PlayerLook();
         _stiffTimer += Time.deltaTime;
         if( _stiffTimer > StiffTime )
         {
@@ -188,13 +188,13 @@ public class Boss : MonoBehaviour
     }
     private void NormalAttack()
     {
-        PlayerLook();
+        //PlayerLook();
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: NormalAttack");
     }
     private void CriticalAttack()
     {
-        PlayerLook();
+        //PlayerLook();
         _currentState = BossState.AttackDelay;
         //Debug.Log("Boss: CriticalAttack");
     }
@@ -227,13 +227,13 @@ public class Boss : MonoBehaviour
             _dieCoroutine = StartCoroutine(Die_Coroutine());
         }
     }
-    private void PlayerLook()
+    /*private void PlayerLook()
     {
         Quaternion targetRotation = Quaternion.LookRotation(_target.position - transform.position);
         targetRotation.Normalize();
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * RotationSpeed);
         //this.transform.LookAt(_target.position);
-    }
+    }*/
     private void MoveToRandomPosition()
     {
         Vector3 randomDirection = Random.insideUnitSphere * MovementRange;
@@ -264,7 +264,7 @@ public class Boss : MonoBehaviour
             return;
         }
         Health -= damage.Amount;
-        if (_currentState == BossState.AttackDelay)
+        if (_currentState == BossState.AttackDelay && Health > 0)
         {
             _animator.SetTrigger("Stiffness");
             _horseAnimator.SetTrigger("Stiffness");
@@ -288,8 +288,8 @@ public class Boss : MonoBehaviour
         _agent.isStopped = true;
         _agent.ResetPath();
         BossSliderUI.gameObject.SetActive(false);
+        yield return new WaitForSeconds(3f);
         EnemyFelledImage.gameObject.SetActive(true);
-        yield return new WaitForSeconds(5f);
         //gameObject.SetActive(false);
     }
 }

@@ -12,26 +12,30 @@ public class ItemPickup : MonoBehaviour
     public float _itemSpeed = 5f;
     public Transform Player;
     private bool isCollecting = false;
+    private bool _isPickable = false;
 
-
-
+    private void Start()
+    {
+        _isPickable = true;
+    }
     private void Update()
     {
-        float distance = Vector3.Distance(transform.position, Player.position);
-
-        if (distance <= 3)
+        if (_isPickable)
         {
-            isCollecting = true;
-            if (isCollecting)
+            float distance = Vector3.Distance(transform.position, Player.position);
+            if (distance <= 3 && !isCollecting)
             {
+                isCollecting = true;
                 Pickup();
             }
         }
+
     }
     public void Pickup()
     {
         StartCoroutine(Magnet_Coroutine());
     }
+
 
     private void OnMouseDown()
     {
@@ -55,6 +59,8 @@ public class ItemPickup : MonoBehaviour
         // 아이템 추가 및 인벤토리 업데이트
         InventoryManager.Instance.Add(Item);
         InventoryManager.Instance.ListItem();
+        _isPickable = false;
+     //   isCollecting = true;
         gameObject.SetActive(false);
     }
 }

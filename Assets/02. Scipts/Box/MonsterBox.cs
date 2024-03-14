@@ -45,8 +45,12 @@ public class MonsterBox : MonoBehaviour, IHitable
         _animator = GetComponentInChildren<Animator>();
         _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         _navMeshAgent.speed = moveSpeed;
-        _playerTransform = FindAnyObjectByType<Player>().transform;
-        _player = GetComponentInChildren<Player>();
+        GameObject playerGameObject = GameObject.FindWithTag("Player"); // 플레이어 태그 사용
+        if (playerGameObject != null)
+        {
+            _playerTransform = playerGameObject.transform;
+            _player = playerGameObject.GetComponent<Player>();
+        }
     }
 
     void Update()
@@ -101,7 +105,7 @@ public class MonsterBox : MonoBehaviour, IHitable
     void CloseIdel()
     {
         Health = Maxhealth;
-        RefreshSlider();
+        HealthSlider.gameObject.SetActive(false);
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
         if (distance < 2)
         {
@@ -112,6 +116,7 @@ public class MonsterBox : MonoBehaviour, IHitable
     void Open()
     {
         _animator.SetTrigger("Open");
+        HealthSlider.gameObject.SetActive(true);
         StartCoroutine(OpenCoroutine());
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
         if (distance < 0.8f)
