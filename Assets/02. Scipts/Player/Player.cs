@@ -13,16 +13,11 @@ public class Player : MonoBehaviour
     public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
     public GameObject[] _shields; // 미리 할당된 5개의 쉴드 프리팹
 
-<<<<<<< HEAD
-=======
-    public GameObject SwordPosition;
-    public GameObject ShieldPosiotion;
-
     private Animator _animator;
     private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
     private Player_Shield _playerShield;
 
->>>>>>> 924ee588ed0224a228b96054ca805290f93df867
+
     [Header("체력 슬라이더 UI")]
     public Slider HealthSliderUI;
 
@@ -36,10 +31,6 @@ public class Player : MonoBehaviour
     [Header("무기와 방패 상태 UI POP-UP")]
     public Image SwordIcon;
     public Image ShieldIcon;
-
-
-    private Animator _animator;
-    private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
 
     private void Awake()
     {
@@ -157,7 +148,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            Coin++;
+            Coin += 10;
             Debug.Log($"코인: {Coin}개");
             other.gameObject.SetActive(false);
         }
