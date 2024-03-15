@@ -33,7 +33,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bagic
+  m_Name: Move Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -7779813296636671634}
@@ -66,7 +66,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: AttackCombo
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6103877142822956236}
@@ -164,7 +164,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwordAttack
+  m_Name: SwordAttack Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2059203243143662228}
@@ -605,7 +605,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: Bagic
+    m_Name: Move Layer
     m_StateMachine: {fileID: -8316849282443183647}
     m_Mask: {fileID: 0}
     m_Motions:
@@ -620,7 +620,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: MagicAttack
+    m_Name: MagicAttack Layer
     m_StateMachine: {fileID: 5810496350438809777}
     m_Mask: {fileID: 31900000, guid: 9aca513aa1c0a9b40a9118e92f0a3376, type: 2}
     m_Motions: []
@@ -632,7 +632,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: SwordAttack
+    m_Name: SwordAttack Layer
     m_StateMachine: {fileID: -6753335649220048934}
     m_Mask: {fileID: 31900000, guid: 9aca513aa1c0a9b40a9118e92f0a3376, type: 2}
     m_Motions: []
@@ -960,7 +960,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Nomal_Attack
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1341150365732481174}
@@ -987,7 +987,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MagicAttack
+  m_Name: MagicAttack Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2426115376490833817}

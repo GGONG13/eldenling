@@ -24,10 +24,16 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (targetEnemy != null)
         {
-            player.LookAt(targetEnemy);
+            player.LookAt(new Vector3(targetEnemy.position.x, player.position.y, targetEnemy.position.z));
+
             Vector3 cameraPosition = player.position + player.rotation * cameraOffset;
             transform.position = cameraPosition;
-            transform.LookAt(targetEnemy);
+
+            // Y축 회전을 고정하기 위해 수정된 LookAt 로직
+            Vector3 lookPosition = targetEnemy.position - transform.position;
+            lookPosition.y = 0; // Y축 회전 고정
+            Quaternion rotation = Quaternion.LookRotation(lookPosition);
+            transform.rotation = rotation;
         }
     }
 
