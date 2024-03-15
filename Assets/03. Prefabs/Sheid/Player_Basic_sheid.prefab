@@ -10380,6 +10380,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagicStaff
       objectReference: {fileID: 0}
+    - target: {fileID: 6759754029706040241, guid: a19d200796fdaa347a912a778c28509d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10900,7 +10904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8332568290553208141, guid: 7fbeb5b8235bf7c408beb86c5779f1a5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -6039939989686857361, guid: 7fbeb5b8235bf7c408beb86c5779f1a5, type: 3}
