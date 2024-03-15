@@ -992,12 +992,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5068241501181111115, guid: b980f8638d7f3eb4c8604191ab1e24af, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7756895624769557287, guid: b980f8638d7f3eb4c8604191ab1e24af, type: 3}
       propertyPath: weapon
       value: 
       objectReference: {fileID: 1064307316}
+    - target: {fileID: 7756895624769557287, guid: b980f8638d7f3eb4c8604191ab1e24af, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7756895624769557287, guid: b980f8638d7f3eb4c8604191ab1e24af, type: 3}
       propertyPath: MagicArrowPrefab
       value: 

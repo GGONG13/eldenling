@@ -30,14 +30,14 @@ public class PlayerAttack : MonoBehaviour
             
                 // 첫 번째 공격 실행
             _animator.SetTrigger("Attack");
-            AttackCount++;
+            AttackCount += 1;
             attackTimer = AttackDelayTime;
             _playerMove.ReduceStamina(12);
-
+            
             
             
         }
-        if (Input.GetMouseButtonDown(0) && _playerMove.Stamina >= 12 && AttackCount == 1)
+        else if (Input.GetMouseButtonDown(0) && _playerMove.Stamina >= 12 && AttackCount == 1)
         {
             // 콤보 공격 실행
             _animator.SetTrigger("ComboAttack");
@@ -58,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
         weapon.BeginAttack();
         _playerMove.isAttacking = true;
         _animator.SetBool("isAttacking",true);
+        _animator.ResetTrigger("ComboAttack");
     }
 
     // 기본 공격이 끝났을 때 호출될 메서드
