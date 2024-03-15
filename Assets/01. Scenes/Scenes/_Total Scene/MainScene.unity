@@ -6820,8 +6820,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1846165596}
-  distance: 3
-  height: 2
+  distance: 5
+  height: 4
   smoothSpeed: 0.125
   sensitivity: 1
 --- !u!81 &1256601474
