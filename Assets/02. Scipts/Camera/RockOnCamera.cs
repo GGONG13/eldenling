@@ -4,8 +4,8 @@ public class PlayerCameraController : MonoBehaviour
 {
     public Transform player; // 플레이어의 Transform
     public Transform targetEnemy; // 타겟할 적의 Transform
-    public float cameraDistance = 10.0f; // 플레이어와 카메라 사이의 거리
-    public float cameraHeight = 5.0f; // 카메라의 높이 조정
+    public float cameraDistance = 7.0f; // 플레이어와 카메라 사이의 거리
+    public float cameraHeight = 2.0f; // 카메라의 높이 조정
     public float detectionRadius = 20f; // 타겟 탐지 범위
 
     private Vector3 cameraOffset; // 카메라의 오프셋
@@ -24,10 +24,16 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (targetEnemy != null)
         {
-            player.LookAt(targetEnemy);
+            player.LookAt(new Vector3(targetEnemy.position.x, player.position.y, targetEnemy.position.z));
+
             Vector3 cameraPosition = player.position + player.rotation * cameraOffset;
             transform.position = cameraPosition;
-            transform.LookAt(targetEnemy);
+
+            // Y축 회전을 고정하기 위해 수정된 LookAt 로직
+            Vector3 lookPosition = targetEnemy.position - transform.position;
+            lookPosition.y = 0; // Y축 회전 고정
+            Quaternion rotation = Quaternion.LookRotation(lookPosition);
+            transform.rotation = rotation;
         }
     }
 
