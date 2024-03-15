@@ -34,12 +34,15 @@ public class Player : MonoBehaviour
     public Image ShieldIcon;
     public TextMeshProUGUI StateName;
 
+    public Image YouDiedImage;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _playerShield = GetComponentInChildren<Player_Shield>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
+        YouDiedImage.gameObject.SetActive(false);
     }
     private void Start()
     {
@@ -77,10 +80,7 @@ public class Player : MonoBehaviour
         {
             Health = 0;
             HealthSliderUI.value = 0;
-            _playerMove.isAlive = false;
-            _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
-            _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
-            StartCoroutine(DeathWithDelay(5f)); // 사망 처리 지연
+            Death();
         }
         if(_playerShield._isParrying == true)
         {
@@ -99,16 +99,23 @@ public class Player : MonoBehaviour
         Debug.Log($"Player: {Health}");
     }
 
-    private IEnumerator DeathWithDelay(float delay)
+    private IEnumerator Death_Coroutine()
     {
-        yield return new WaitForSeconds(delay);
-        Death();
+        _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
+        _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
+        yield return new WaitForSeconds(5);
+        gameObject.SetActive(false);
+        _playerMove.isAlive = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        YouDiedImage.gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void Death()
     {
-        gameObject.SetActive(false);
-        _playerMove.isAlive = false; // 추가: PlayerMove 클래스의 isAlive 상태를 false로 설정
+        _playerMove.isAlive = false;        
+        StartCoroutine(Death_Coroutine());
     }
 
     // 체력을 회복하는 메서드

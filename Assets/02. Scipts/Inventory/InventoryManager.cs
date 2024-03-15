@@ -39,7 +39,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        
+        ListItem();
     }
 
     private void Update()
@@ -49,10 +49,6 @@ public class InventoryManager : MonoBehaviour
             bool isActive = !Inventory.activeSelf;
             Inventory.SetActive(isActive); // 인벤토리 UI 활성화/비활성화 토글
                                            // 인벤토리가 활성화되면 마우스 커서를 표시하고, 그렇지 않으면 숨깁니다.
-            if (isActive)
-            {
-                ListItem(); // 인벤토리 UI 업데이트
-            }
 
             UnityEngine.Cursor.visible = isActive;
             // 인벤토리가 활성화되면 마우스 커서를 잠그지 않고, 그렇지 않으면 잠급니다.
@@ -101,6 +97,7 @@ public class InventoryManager : MonoBehaviour
             {
                 return;
             }
+            ItemPotion.Instance.Refresh();
         }
     }
     public void ListItem()

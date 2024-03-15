@@ -35,7 +35,7 @@ public class UI_PopUPItem : MonoBehaviour
         PopUpImage.sprite = icon;
         PopUpText.text = name;
         PopUp.gameObject.SetActive(true);
-        StartCoroutine(HidePopUpAfterDelay(2f)); // ¿¹¸¦ µé¾î 1ÃÊ ÈÄ¿¡ ÆË¾÷À» ¼û±é´Ï´Ù.
+        StartCoroutine(HidePopUpAfterDelay(2f));
     }
 
     private IEnumerator HidePopUpAfterDelay(float delay)

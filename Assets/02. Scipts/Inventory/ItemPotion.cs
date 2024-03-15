@@ -7,13 +7,15 @@ using UnityEngine.UI;
 
 public class ItemPotion : MonoBehaviour
 {
+    public static ItemPotion Instance;
     public ItemData item;
     public Image PositionIcon;
     public TextMeshProUGUI Count;
 
     private void Start()
     {
-        item.Value = 0;
+        Instance = this;
+        item.Value = 1;
         Refresh();
     }
     private void Update()
@@ -34,12 +36,12 @@ public class ItemPotion : MonoBehaviour
         else if (item.Value == 0)
         {
             InventoryManager.Instance.Remove(item);
-            Count.text = "0";
         }
         else
         {
             return;
         }
+        Refresh();
     }
     public void Refresh()
     {
