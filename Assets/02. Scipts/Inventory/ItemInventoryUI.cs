@@ -31,7 +31,6 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
         }
         ChangeWeapon();
         Time.timeScale = 1.0f;
-
     }
     public void SetItemData(ItemData itemData)
     {
