@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public ItemData ItemData;
     public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
     public GameObject[] _shields; // 미리 할당된 5개의 쉴드 프리팹
+    public GameObject _magicwand; // 미리 할당된 1개의 마법봉 프리펩
 
     private Animator _animator;
     private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
@@ -138,6 +139,12 @@ public class Player : MonoBehaviour
                 }
                 _shields[itemData.ID].SetActive(true);
                 ShieldIcon.sprite = itemData.Icon;
+                break;
+            }
+            case ItemType.MagicWand: 
+            {
+                _magicwand.gameObject.SetActive(true);
+                SwordIcon.sprite = itemData.Icon;
                 break;
             }
         }

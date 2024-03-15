@@ -28,8 +28,6 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
         if (CurrentitemData.Type == ItemType.Potion)
         {
             InventoryManager.Instance.Remove(CurrentitemData);
-            /* ItemPotion poition = GetComponent<ItemPotion>();
-               poition.EatPotion();*/
         }
         ChangeWeapon();
         Time.timeScale = 1.0f;
@@ -56,8 +54,6 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
             return;
         }
         FindObjectOfType<Player>().ActivateItem(CurrentitemData);
-
         Inventory.instance.gameObject.SetActive(false);
     }
-
 }

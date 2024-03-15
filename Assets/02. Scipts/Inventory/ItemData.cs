@@ -5,7 +5,8 @@ public enum ItemType
 {
     Sword,
     Shield,
-    Potion
+    Potion,
+    MagicWand
 }
 public class ItemData : ScriptableObject
 {
