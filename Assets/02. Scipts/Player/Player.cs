@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [Header("무기와 방패 상태 UI POP-UP")]
     public Image SwordIcon;
     public Image ShieldIcon;
+    public TextMeshProUGUI StateName;
 
     private void Awake()
     {
@@ -128,6 +129,11 @@ public class Player : MonoBehaviour
                 }
                 _swords[itemData.ID].SetActive(true);
                 SwordIcon.sprite = itemData.Icon;
+                StateName.text = $"SWORD";
+                if (_magicwand.activeInHierarchy == true)
+                {
+                    _magicwand.SetActive(false);
+                }
                 break;
             }
 
@@ -143,8 +149,17 @@ public class Player : MonoBehaviour
             }
             case ItemType.MagicWand: 
             {
+                // 마법봉을 활성화합니다.
                 _magicwand.gameObject.SetActive(true);
+
+                // 소드가 활성화된 상태인지 확인합니다.
+                foreach (var sword in _swords)
+                {
+                    sword.SetActive(false);
+                }
+
                 SwordIcon.sprite = itemData.Icon;
+                StateName.text = $"WAND";
                 break;
             }
         }
