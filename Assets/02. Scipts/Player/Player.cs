@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public ItemData ItemData;
     public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
     public GameObject[] _shields; // 미리 할당된 5개의 쉴드 프리팹
+    public GameObject _magicwand; // 미리 할당된 1개의 마법봉 프리펩
 
     private Animator _animator;
     private PlayerMove _playerMove; // PlayerMove 클래스에 대한 참조
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     [Header("무기와 방패 상태 UI POP-UP")]
     public Image SwordIcon;
     public Image ShieldIcon;
+    public TextMeshProUGUI StateName;
 
     private void Awake()
     {
@@ -127,6 +129,11 @@ public class Player : MonoBehaviour
                 }
                 _swords[itemData.ID].SetActive(true);
                 SwordIcon.sprite = itemData.Icon;
+                StateName.text = $"SWORD";
+                if (_magicwand.activeInHierarchy == true)
+                {
+                    _magicwand.SetActive(false);
+                }
                 break;
             }
 
@@ -138,6 +145,21 @@ public class Player : MonoBehaviour
                 }
                 _shields[itemData.ID].SetActive(true);
                 ShieldIcon.sprite = itemData.Icon;
+                break;
+            }
+            case ItemType.MagicWand: 
+            {
+                // 마법봉을 활성화합니다.
+                _magicwand.gameObject.SetActive(true);
+
+                // 소드가 활성화된 상태인지 확인합니다.
+                foreach (var sword in _swords)
+                {
+                    sword.SetActive(false);
+                }
+
+                SwordIcon.sprite = itemData.Icon;
+                StateName.text = $"WAND";
                 break;
             }
         }
