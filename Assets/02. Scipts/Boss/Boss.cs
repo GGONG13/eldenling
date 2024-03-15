@@ -293,5 +293,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(3f);
         EnemyFelledImage.gameObject.SetActive(true);
         //gameObject.SetActive(false);
+        yield return new WaitForSeconds(3f);
+        EnemyFelledImage.gameObject.SetActive(false);
     }
 }
