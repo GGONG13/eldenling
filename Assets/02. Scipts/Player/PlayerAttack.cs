@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    
     public float AttackDelayTime = 1f;
     private float AttackTimer = 0f;
 
@@ -12,9 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private PlayerMove _playerMove;
     public Weapon weapon; // Weapon 클래스에 대한 참조
 
-    public bool ComboAttack;
+    private bool isComboAttackReady = false; // 콤보 공격이 가능한 상태인지 체크하는 플래그
 
-    public bool _isDefending;
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -24,28 +22,27 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-
-        ComboAttack = false;
         if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && _playerMove.Stamina >= 12)
         {
-            _animator.SetTrigger("Attack");
-            // 이제 Weapon 클래스의 BeginAttack은 애니메이션 이벤트를 통해 호출됩니다.
+            if (!isComboAttackReady)
+            {
+                // 첫 번째 공격 실행
+                _animator.SetTrigger("Attack");
+                isComboAttackReady = true; // 콤보 공격 준비
+            }
+            else
+            {
+                // 콤보 공격 실행
+                _animator.SetTrigger("ComboAttack");
+                isComboAttackReady = false; // 콤보 공격 사용 후 초기화
+            }
             AttackTimer = AttackDelayTime;
-        }
-        if (Input.GetMouseButtonDown(0) && _playerMove.isAttacking == true && _playerMove.Stamina >= 12)
-        {
-            _animator.SetTrigger("ComboAttack");
-            AttackTimer = AttackDelayTime;
+            _playerMove.ReduceStamina(12);
         }
 
         if (AttackTimer > 0f)
         {
             AttackTimer -= Time.deltaTime;
-            if (AttackTimer <= 0f)
-            {
-                // AttackTimer가 0에 도달하면 공격 상태를 리셋합니다.
-                // EndAttack은 애니메이션 이벤트를 통해 호출됩니다.
-            }
         }
     }
 
@@ -55,7 +52,6 @@ public class PlayerAttack : MonoBehaviour
         weapon.BeginAttack();
         _playerMove.isAttacking = true;
         _animator.SetBool("isAttacking", _playerMove.isAttacking);
-        _playerMove.ReduceStamina(12);
     }
 
     public void EndWeaponAttack()
@@ -63,8 +59,11 @@ public class PlayerAttack : MonoBehaviour
         weapon.EndAttack();
         _playerMove.isAttacking = false;
         _animator.SetBool("isAttacking", _playerMove.isAttacking);
+    }
 
-        // ComboAttack 트리거 리셋
-        _animator.ResetTrigger("ComboAttack");
+    // 콤보 공격이 가능한 상태를 리셋하는 메서드, 공격 애니메이션의 끝부분에서 호출
+    public void ResetComboAttack()
+    {
+        isComboAttackReady = false;
     }
 }
