@@ -472,10 +472,10 @@ AnimatorStateMachine:
     m_Position: {x: 310, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4830267804071234672}
-    m_Position: {x: 270, y: 380, z: 0}
+    m_Position: {x: 290, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1497889612108934955}
-    m_Position: {x: 610, y: 400, z: 0}
+    m_Position: {x: 640, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -120173867837094973}
     m_Position: {x: 340, y: 10, z: 0}
@@ -835,6 +835,18 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
+    m_Name: HandSword
+    m_StateMachine: {fileID: -2808579048018828933}
+    m_Mask: {fileID: 0}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 1
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: Staff
     m_StateMachine: {fileID: -8316849282443183647}
     m_Mask: {fileID: 0}
@@ -845,7 +857,7 @@ AnimatorController:
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
+    m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -853,18 +865,6 @@ AnimatorController:
     m_Name: MagicAttack
     m_StateMachine: {fileID: 5810496350438809777}
     m_Mask: {fileID: 31900000, guid: 9aca513aa1c0a9b40a9118e92f0a3376, type: 2}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
-    m_IKPass: 0
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
-    m_Name: HandSword
-    m_StateMachine: {fileID: -2808579048018828933}
-    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
