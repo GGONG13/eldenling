@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3012298513691312965}
   - component: {fileID: -6039939989686857361}
   m_Layer: 0
-  m_Name: SM_greatsword_unsheathed
+  m_Name: Sword A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
