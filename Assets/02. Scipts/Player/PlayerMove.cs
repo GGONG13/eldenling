@@ -126,7 +126,7 @@ public class PlayerMove : MonoBehaviour
 
     private void UpdateStamina()
     {
-        if (!isAttacking && Time.time > lastStaminaUseTime + staminaRecoveryDelay && Stamina < MaxStamina)
+        if ((!isAttacking || _isRolling == false )&& Time.time > lastStaminaUseTime + staminaRecoveryDelay && Stamina < MaxStamina)
         {
             Stamina += staminaRecoveryRate * Time.deltaTime;
             Stamina = Mathf.Clamp(Stamina, 0, MaxStamina);
