@@ -70,7 +70,6 @@ public class InventoryManager : MonoBehaviour
             newItem.Value = 1;
             items.Add(newItem);
         }
-
     }
     public void Remove(ItemData item)
     {

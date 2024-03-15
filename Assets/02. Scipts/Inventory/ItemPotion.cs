@@ -13,7 +13,7 @@ public class ItemPotion : MonoBehaviour
 
     private void Start()
     {
-        item.Value = 1;
+        item.Value = 0;
         Refresh();
     }
     private void Update()

@@ -14,6 +14,7 @@ public class NPC : MonoBehaviour
     public TextMeshProUGUI CoinText;
     public TextMeshProUGUI InfoText;
     public GameObject[] PotionSlot;
+    public GameObject[] PotionObjects;
     private Transform _player;
 
     private void Start()
@@ -54,11 +55,13 @@ public class NPC : MonoBehaviour
             player.Coin -= 10;
             InventoryManager.Instance.Add(item);
             InventoryManager.Instance.ListItem();
+           // FindAnyObjectByType<ItemPotion>().Refresh();
             for (int i = 0; i < PotionSlot.Length; i++)
             {
                 if (PotionSlot[i].activeSelf)
                 {
                     PotionSlot[i].SetActive(false);
+                    PotionObjects[i].SetActive(false);
                     break; 
                 }
             }
