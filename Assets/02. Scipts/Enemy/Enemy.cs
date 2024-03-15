@@ -148,6 +148,7 @@ public class Enemy : MonoBehaviour
         {
             _animator.SetTrigger("Attack");
             _attackTimer = 0;
+            StartCoroutine(AttackCooldownCoroutine());
         }
         if (Vector3.Distance(transform.position, _target.position) > FindDistance)
         {
@@ -156,6 +157,11 @@ public class Enemy : MonoBehaviour
             _animator.SetTrigger("AttackToTrace");
             _state = EnemyState.Trace;
         }
+    }
+    private IEnumerator AttackCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _animator.SetTrigger("AttackCooldown");
     }
     private void Damaged()
     {
