@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: f8707db76c8233e459affbe0aa44b644, type: 3}
       propertyPath: m_Name
-      value: big_round_shield
+      value: Shield E
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f8707db76c8233e459affbe0aa44b644, type: 3}
       propertyPath: m_RootOrder
@@ -85,4 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 943e3ec9708a03c418d87b03d5827593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 39643d1565d4f27488a497dddcb6bcac, type: 2}
+  Item: {fileID: 11400000, guid: 0bfe707634fc23f4a8ea1a7c675766cb, type: 2}
+  _itemSpeed: 5
+  Player: {fileID: 0}

@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 1e038924c24dd114b83d656844a8161f, type: 3}
       propertyPath: m_Name
-      value: SwordE_sword2h
+      value: Sword E
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1e038924c24dd114b83d656844a8161f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1e038924c24dd114b83d656844a8161f, type: 3}
       propertyPath: m_RootOrder
@@ -90,5 +90,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 52df4eabf1bd5fd4f96ceb5c3402cf24, type: 2}
-  _itemSpeed: 2
+  _itemSpeed: 5
   Player: {fileID: 0}
