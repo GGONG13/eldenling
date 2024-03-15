@@ -2926,6 +2926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackDelayTime: 1
+  AttackCount: 0
   weapon: {fileID: 1696116687665296360}
 --- !u!1 &1251728671365657055
 GameObject:
@@ -6876,7 +6877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3377466818908480714 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4849729317103273132, guid: de22ddc2dda5c2640bf2566844f34414, type: 3}
