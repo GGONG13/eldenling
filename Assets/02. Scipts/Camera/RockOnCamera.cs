@@ -6,7 +6,7 @@ public class PlayerCameraController : MonoBehaviour
     public Transform targetEnemy; // 타겟할 적의 Transform
     public float cameraDistance = 10.0f; // 플레이어와 카메라 사이의 거리
     public float cameraHeight = 5.0f; // 카메라의 높이 조정
-    public float detectionRadius = 15.0f; // 타겟 탐지 범위
+    public float detectionRadius = 20f; // 타겟 탐지 범위
 
     private Vector3 cameraOffset; // 카메라의 오프셋
 
