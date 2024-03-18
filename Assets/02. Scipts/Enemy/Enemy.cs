@@ -45,10 +45,10 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        Init();
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
-        Init();
     }
     private void Init()
     {
@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
         _patrolTimer = 0;
         Destination = transform.position;
         StartPosition = transform.position;
+        HealthSliderUI.gameObject.SetActive(true);
         RefreshUI();
     }
 
@@ -236,7 +237,7 @@ public class Enemy : MonoBehaviour
         HealthSliderUI.gameObject.SetActive(false);       
         yield return new WaitForSeconds(1f);
         CoinFactory.instance.CoinDrop(transform.position);
-        //gameObject.SetActive(false);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }
