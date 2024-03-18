@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public enum BossState
 {
@@ -29,18 +27,18 @@ public class Boss : MonoBehaviour
     public int MaxHealth = 500;
     public Slider BossSliderUI;
     public Image EnemyFelledImage;
-    //public int NormalDamage = 5;
-    //public int CriticalDamage = 7;
     public float MovementRange = 15f;
+    public float MoveLimit = 20f;
     public float AttackRadius = 15;
     public float ViewAngle = 90;
     
     private Vector3 Destination;
+    private Vector3 StartPosition;
     private Transform _target; 
     public float FindDistance = 12f;
     public float RunAttackDistance = 8f;
     public float AttackDistance = 5f;
-    public float StopDistance = 1.5f;
+    public float StopDistance = 2f;
     public float DelayTime = 3f;
     private float _delayTimer = 0f;
     public float StiffTime = 2f;
@@ -57,6 +55,7 @@ public class Boss : MonoBehaviour
         //_animator = GetComponent<Animator>();
         originalSpeed = _agent.speed;
         Destination = transform.position;
+        StartPosition = transform.position;
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
         _stiffTimer = 0f;
@@ -106,6 +105,11 @@ public class Boss : MonoBehaviour
             //Debug.Log("Boss: Patrol -> Trace");
             _currentState = BossState.Trace;
             _animator.SetTrigger("PatrolToTrace");
+        }
+        if (Vector3.Distance(transform.position, StartPosition) > MoveLimit)
+        {
+            Destination = StartPosition;
+            _agent.SetDestination(Destination);
         }
     }
     private void Trace()
