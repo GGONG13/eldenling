@@ -68,6 +68,11 @@ public class Player_Shield : MonoBehaviour
         _isParrying = false;
         _animator.SetTrigger("CancelDefending");
     }
+
+    public void RealEneParrying()
+    {
+        _animator.ResetTrigger("CancelDefending");
+    }
     public void ParryingSuccess()
     {
         _animator.SetTrigger("ParryingEnd ");
