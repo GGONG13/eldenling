@@ -10,6 +10,7 @@ public class MagicArrow : MonoBehaviour
     private Transform target; // 화살이 추적할 타겟 적
     public float speed = 5f; // 화살의 속도
     public float rotateSpeed = 200f; // 화살이 회전하는 속도
+    public GameObject MagicExplosion;
 
     void Start()
     {
@@ -56,6 +57,8 @@ public class MagicArrow : MonoBehaviour
             // 적 객체로부터 Boss 또는 Enemy 스크립트를 가져옴
             Boss boss = other.GetComponent<Boss>();
             Enemy enemyScript = other.GetComponent<Enemy>();
+
+            Instantiate(MagicExplosion, transform.position, Quaternion.identity);
             if (boss != null)
             {
                 // Boss에게 데미지를 줌

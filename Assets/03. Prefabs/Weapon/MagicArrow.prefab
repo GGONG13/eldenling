@@ -125,6 +125,7 @@ MonoBehaviour:
   magicRadius: 10
   speed: 10
   rotateSpeed: 200
+  MagicExplosion: {fileID: 443653445314069269, guid: 7e3e8e2f6ecdbb04a982af0a14f2d887, type: 3}
 --- !u!54 &-8518415959086140924
 Rigidbody:
   m_ObjectHideFlags: 0
