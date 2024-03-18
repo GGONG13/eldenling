@@ -65,7 +65,11 @@ public class PlayerMove : MonoBehaviour
             HandleRolling();
             CheckMovementState();
         }
-         
+        if (!_characterController.isGrounded)
+        {
+            Vector3 gravityMove = Vector3.down * 9.82f * Time.deltaTime;
+            _characterController.Move(gravityMove);
+        }
     }
     void CheckMovementState()
     {
