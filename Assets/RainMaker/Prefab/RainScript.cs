@@ -19,6 +19,22 @@ namespace DigitalRuby.RainMaker
         [Tooltip("The top y value of the mist particles")]
         public float RainMistHeight = 3.0f;
 
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player")) // "Player"는 플레이어 게임 오브젝트의 태그입니다.
+            {
+                StartFollowingCamera(); // 플레이어가 영역에 진입하면 카메라를 따라가기 시작합니다.
+                Debug.Log("플레이어 감지");
+            }
+        }
+
+
+        void StartFollowingCamera()
+        {
+            FollowCamera = true;
+        }
+
         private void UpdateRain()
         {
             // keep rain and mist above the player
@@ -60,6 +76,7 @@ namespace DigitalRuby.RainMaker
         protected override void Start()
         {
             base.Start();
+            FollowCamera = false;
         }
 
         protected override void Update()

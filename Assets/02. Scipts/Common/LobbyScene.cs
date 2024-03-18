@@ -11,22 +11,56 @@ public enum SceneName
 }
 public class LobbyScene : MonoBehaviour
 {
-    public Image Highlight;
+    public Image StartImage;
+    public Image InfoImage;
+    public Image BackImage;
+
+    public Image InfoUIImage;
+
     private void Start()
     {
-        Highlight.gameObject.SetActive(false);
+        StartImage.gameObject.SetActive(false);
+        InfoImage.gameObject.SetActive(false);
+        BackImage.gameObject.SetActive(false);
+        InfoUIImage.gameObject.SetActive(false);
     }
     public void OnClickStartButton()
     {
         SceneManager.LoadScene((int)SceneName.Main);
     }
-    public void OnPointerEnter()
+    public void OnClickInfoButton()
     {
-        Highlight.gameObject.SetActive(true);
+        InfoUIImage.gameObject.SetActive(true);
+    }
+    public void OnClickBackButton()
+    {
+        InfoUIImage.gameObject.SetActive(false);
+    }
+    public void OnPointerStartEnter()
+    {
+        StartImage.gameObject.SetActive(true);
     }
 
-    public void OnPointerExit()
+    public void OnPointerStartExit()
     {
-        Highlight.gameObject.SetActive(false);
+        StartImage.gameObject.SetActive(false);
+    }
+    public void OnPointerInfoEnter()
+    {
+        InfoImage.gameObject.SetActive(true);
+    }
+
+    public void OnPointerInfoExit()
+    {
+        InfoImage.gameObject.SetActive(false);
+    }
+    public void OnPointerBackEnter()
+    {
+        BackImage.gameObject.SetActive(true);
+    }
+
+    public void OnPointerBackExit()
+    {
+        BackImage.gameObject.SetActive(false);
     }
 }
