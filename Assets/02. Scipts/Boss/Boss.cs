@@ -62,6 +62,7 @@ public class Boss : MonoBehaviour
         EnemyFelledImage.gameObject.SetActive(false);
         _currentState = BossState.Patrol;
         Health = MaxHealth;
+        BossSliderUI.gameObject.SetActive(false);
         RefreshUI();
     }
     private void Update()
@@ -115,6 +116,7 @@ public class Boss : MonoBehaviour
     private void Trace()
     {
         PlayerTrace();
+        BossSliderUI.gameObject.SetActive(true);
         if (Vector3.Distance(_target.position, transform.position) <= RunAttackDistance)
         {
             //Debug.Log("Boss: Trace -> RunAttack");
@@ -297,7 +299,9 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(3f);
         EnemyFelledImage.gameObject.SetActive(true);
         //gameObject.SetActive(false);
-        yield return new WaitForSeconds(3f);
-        EnemyFelledImage.gameObject.SetActive(false);
+
+        // Ending Scene으로 이동..?
+        //yield return new WaitForSeconds(3f);
+        //EnemyFelledImage.gameObject.SetActive(false);
     }
 }
