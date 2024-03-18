@@ -23,13 +23,13 @@ public class Player_Shield : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && playerMove._isRolling == false)
         {
             BeginShieldDefenc();
-            _animator.SetTrigger("ShieldUP");
+            _animator.SetBool("ShieldUP",true);
         }
         // 마우스 오른쪽 버튼에서 손을 떼면 방패 들기 중단
         else if (Input.GetMouseButtonUp(1))
         {
-            
             EndShieldDefenc();
+            _animator.SetBool("ShieldUP", false);
         }
     }
 

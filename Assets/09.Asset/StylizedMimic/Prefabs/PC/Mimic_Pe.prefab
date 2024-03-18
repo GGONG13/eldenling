@@ -636,7 +636,7 @@ MonoBehaviour:
   AttactDistance: 2.5
   FollowDistance: 2
   HealthSlider: {fileID: 3075732469778155605}
-  Damage: 0
+  Damage: 10
 --- !u!195 &-2644687153482919759
 NavMeshAgent:
   m_ObjectHideFlags: 0
