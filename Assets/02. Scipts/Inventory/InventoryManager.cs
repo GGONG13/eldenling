@@ -79,8 +79,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void Remove(ItemData item)
     {
-        if (item.Type == ItemType.Potion)
-        {
+
             if (items[item.ID].Value > 0)
             {
                 items[item.ID].Value -= 1; // 아이템의 수량을 감소
@@ -98,7 +97,7 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
             ItemPotion.Instance.Refresh();
-        }
+        
     }
     public void ListItem()
     {
