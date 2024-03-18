@@ -14,6 +14,7 @@ public class ItemPotion : MonoBehaviour
 
     private void Start()
     {
+
         Instance = this;
         item.Value = 1;
         Refresh();

@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
@@ -27,6 +28,7 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
     {
         if (CurrentitemData.Type == ItemType.Potion)
         {
+            Debug.Log("Æ÷¼Ç ¸Ô´Â´Ù");
             InventoryManager.Instance.Remove(CurrentitemData);
         }
         ChangeWeapon();
