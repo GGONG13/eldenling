@@ -20,7 +20,7 @@ public enum MonsterBoxState
 }
 public class MonsterBox : MonoBehaviour, IHitable
 {
-    public static MonsterBoxState State = MonsterBoxState.CloseIdel;
+    public MonsterBoxState State = MonsterBoxState.CloseIdel;
 
 
     public float FindDistance = 6;
