@@ -8,6 +8,11 @@ using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
+
+    [Header("무기 교체 스크립트")]
+    public MonoBehaviour SwordScript; // 근접 무기 스크립트 참조
+    public MonoBehaviour WandScript; // 원거리 무기 스크립트 참조
+
     [Header("Inventory")]
     public ItemData ItemData;
     public GameObject[] _swords; // 미리 할당된 5개의 무기 프리팹
@@ -36,6 +41,8 @@ public class Player : MonoBehaviour
 
     public Image YouDiedImage;
 
+
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -59,6 +66,8 @@ public class Player : MonoBehaviour
             ItemSwitching shieldItem = _shields[0].GetComponent<ItemSwitching>();
             ShieldIcon.sprite = shieldItem.Item.Icon;
         }
+        SwordScript.enabled = true;
+        WandScript.enabled = false; 
     }
     private void Update()
     {
@@ -73,9 +82,6 @@ public class Player : MonoBehaviour
             Debug.Log("피했다"); // 무적 상태이거나 이미 사망했을 때 공격을 피했다는 메시지 출력
             return; // 무적 상태이거나 이미 사망한 경우 함수 종료
         }
-
-        
-       
         if (Health <= 0)
         {
             Health = 0;
@@ -137,13 +143,15 @@ public class Player : MonoBehaviour
                 _swords[itemData.ID].SetActive(true);
                 SwordIcon.sprite = itemData.Icon;
                 StateName.text = $"SWORD";
+                SwordScript.enabled = true;
                 if (_magicwand.activeInHierarchy == true)
                 {
                     _magicwand.SetActive(false);
+                    WandScript.enabled = false;
                 }
+                
                 break;
             }
-
             case ItemType.Shield:
             {
                 foreach (var shield in _shields)
@@ -158,11 +166,12 @@ public class Player : MonoBehaviour
             {
                 // 마법봉을 활성화합니다.
                 _magicwand.gameObject.SetActive(true);
-
+                WandScript.enabled= true;
                 // 소드가 활성화된 상태인지 확인합니다.
                 foreach (var sword in _swords)
                 {
                     sword.SetActive(false);
+                    SwordScript.enabled= false;
                 }
 
                 SwordIcon.sprite = itemData.Icon;

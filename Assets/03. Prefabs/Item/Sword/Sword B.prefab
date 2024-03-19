@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 0d855ceaab5d3304b9be25fbb32e729a, type: 3}
       propertyPath: m_Name
-      value: SwordB_longspear
+      value: Sword B
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d855ceaab5d3304b9be25fbb32e729a, type: 3}
       propertyPath: m_RootOrder
@@ -59,7 +59,11 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 0d855ceaab5d3304b9be25fbb32e729a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 83626adc880e8144a805a03a79375434, type: 2}
+      objectReference: {fileID: 2100000, guid: 7b65da84d2eecc344bc6b6e1589fc055, type: 2}
+    - target: {fileID: 3300000, guid: 0d855ceaab5d3304b9be25fbb32e729a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6765171786175112997, guid: 914c15d09619bd14f956ad47ed2d7cf6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -86,3 +90,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 4a76e73b5deb3a5409ace4e2c3bd4b47, type: 2}
+  _itemSpeed: 5
+  Player: {fileID: 0}

@@ -19,5 +19,5 @@ MonoBehaviour:
   Name: Magic Wand
   Description: This is...
   Value: 1
-  Icon: {fileID: 21300000, guid: 42af2cf083b70ea44b1cdc0a139f2388, type: 3}
+  Icon: {fileID: 21300000, guid: c67f32a09e0f7a64ab3fea2845415d83, type: 3}
   BigImage: {fileID: 21300000, guid: db00c076e2f69a442bdbeac002102d4d, type: 3}
