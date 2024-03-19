@@ -22,6 +22,8 @@ public class InventoryManager : MonoBehaviour
 
     public List<ItemInventoryUI> ItemInventoryUISlots;
 
+
+
     public GameObject StateUIPopUp;
 
     public delegate void OnItemChanged();
@@ -75,6 +77,7 @@ public class InventoryManager : MonoBehaviour
         {
             existingItem.Value += 1;
         }
+
         else
         {
             newItem.Value = 1;
