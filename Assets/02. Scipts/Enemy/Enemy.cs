@@ -121,6 +121,12 @@ public class Enemy : MonoBehaviour
             _animator.SetTrigger("ReturnToIdle");
             _state = EnemyState.Idle;
         }
+        if (Vector3.Distance(transform.position, _target.position) <= FindDistance)
+        {
+            //Debug.Log("Enemy: Return -> Trace");
+            _animator.SetTrigger("ReturnToTrace");
+            _state = EnemyState.Trace;
+        }
     }
     public void Trace()
     {

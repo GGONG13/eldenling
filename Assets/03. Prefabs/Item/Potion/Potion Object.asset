@@ -18,6 +18,6 @@ MonoBehaviour:
   Type: 2
   Name: Potion
   Description: This is a Potion
-  Value: 1
-  Icon: {fileID: 21300000, guid: eaffc20b940751240bb1cde78f2b8aee, type: 3}
+  Value: 0
+  Icon: {fileID: 21300000, guid: 1af148c46891de34b9eba870e9011235, type: 3}
   BigImage: {fileID: 21300000, guid: eaec1b75186cbab4f9f9007bf8fdf609, type: 3}
