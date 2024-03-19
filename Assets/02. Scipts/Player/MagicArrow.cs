@@ -10,12 +10,18 @@ public class MagicArrow : MonoBehaviour
     private Transform target; // 화살이 추적할 타겟 적
     public float speed = 5f; // 화살의 속도
     public float rotateSpeed = 200f; // 화살이 회전하는 속도
-    public GameObject MagicExplosion;
+    public GameObject MagicExplosion; // 마법 폭발 효과 프리팹
 
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트를 가져옴
         target = FindClosestEnemy(); // 가장 가까운 적을 찾음
+
+        // 주변에 감지된 적이 없으면 3초 뒤 파괴
+        if (target == null)
+        {
+            Destroy(gameObject, 3f);
+        }
     }
 
     void FixedUpdate()
@@ -54,11 +60,11 @@ public class MagicArrow : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            Instantiate(MagicExplosion, transform.position, Quaternion.identity); // 마법 폭발 효과 생성
             // 적 객체로부터 Boss 또는 Enemy 스크립트를 가져옴
             Boss boss = other.GetComponent<Boss>();
             Enemy enemyScript = other.GetComponent<Enemy>();
 
-            Instantiate(MagicExplosion, transform.position, Quaternion.identity);
             if (boss != null)
             {
                 // Boss에게 데미지를 줌
