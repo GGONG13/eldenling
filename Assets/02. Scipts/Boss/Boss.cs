@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum BossState
@@ -298,10 +299,7 @@ public class Boss : MonoBehaviour
         BossSliderUI.gameObject.SetActive(false);
         yield return new WaitForSeconds(3f);
         EnemyFelledImage.gameObject.SetActive(true);
-        //gameObject.SetActive(false);
-
-        // Ending Scene으로 이동..?
-        //yield return new WaitForSeconds(3f);
-        //EnemyFelledImage.gameObject.SetActive(false);
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene((int)SceneName.Ending);
     }
 }

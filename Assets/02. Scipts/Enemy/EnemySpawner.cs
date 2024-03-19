@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
     //public int MaxSpawn = 30;
     private int spawnCount = 0;
+    public int SpawnRange = 10;
 
     public NavMeshSurface navMeshSurface; // NavMeshSurface 참조
     private bool spawnEnabled = true;
@@ -66,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 enemy.transform.position = randomPosition;
                 enemy.gameObject.SetActive(true);
-                Debug.Log($"{spawnCount}");
+                //Debug.Log($"{spawnCount}");
             }
         }
     }
@@ -92,9 +93,9 @@ public class EnemySpawner : MonoBehaviour
         // NavMesh 영역에서 유효한 랜덤 위치 찾기
         while (!found)
         {
-            Vector3 randomDirection = Random.insideUnitSphere * Random.Range(0f, 10f);
+            Vector3 randomDirection = Random.insideUnitSphere * Random.Range(0, SpawnRange);
             randomDirection += transform.position;
-            if (NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomDirection, out hit, SpawnRange, NavMesh.AllAreas))
             {
                 randomPosition = hit.position;
                 found = true;
