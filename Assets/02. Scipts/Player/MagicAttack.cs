@@ -11,31 +11,24 @@ public class MagicAttack : MonoBehaviour
     public Transform MagicPosition;
 
     private Animator _animator;
-    // PlayerMove _playerMove 참조 및 사용 제거
     public Weapon weapon; // Weapon 클래스에 대한 참조
     private PlayerMove _playerMove;
-
-    public bool _isShild;
     private Player_Shield _playerShield;
-    
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _playerMove = GetComponent<PlayerMove>();
         weapon = GetComponentInChildren<Weapon>();
-        _playerShield=GetComponent<Player_Shield>();
+        _playerShield = GetComponent<Player_Shield>();
     }
-    private void Start()
-    {
-              
-    }
+
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && _playerShield._isDefending == false)
+        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25)
         {
             _animator.SetTrigger("MagicAttack");
-            
+            _playerMove.ReduceStamina(25); // 스태미너 감소 적용
             AttackTimer = AttackDelayTime;
         }
 
@@ -45,29 +38,20 @@ public class MagicAttack : MonoBehaviour
         }
     }
 
-    // 애니메이션 이벤트를 위한 메서드에서 isAttacking 상태 변경 코드 제거
     public void BeginWeaponAttack()
     {
-        _playerMove.isAttacking = false;
-        weapon.BeginAttack();
-        
-        // 여기서 스태미너 감소 코드만 유지
+        // 공격 시작 시 처리할 내용이 있다면 여기에 추가
     }
 
     public void WeaponAttack()
     {
-       
-        
-            Instantiate(MagicArrowPrefab, MagicPosition.position, MagicPosition.rotation);
-        
-        
+        Instantiate(MagicArrowPrefab, MagicPosition.position, MagicPosition.rotation);
     }
+
     public void EndWeaponAttack()
     {
         _playerMove.isAttacking = false;
         weapon.EndAttack();
-        // ComboAttack 트리거 리셋
-
-        _animator.ResetTrigger("ComboAttack");
+        _animator.ResetTrigger("ComboAttack"); // ComboAttack 트리거 리셋
     }
 }
