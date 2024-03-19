@@ -25,7 +25,7 @@ public class EndingScene : MonoBehaviour
         yield return new WaitForSeconds(TextTime);
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);
-        EndingText.text = "[ Team Members ]\n공지수 이성민 김예은";
+        EndingText.text = "[ Team Members ]\n공지수  이성민  김예은";
         yield return new WaitForSeconds(TextTime);
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);
