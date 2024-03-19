@@ -15,12 +15,11 @@ public class NPC : MonoBehaviour
     public TextMeshProUGUI InfoText;
     public GameObject[] PotionSlot;
     public GameObject[] PotionObjects;
-    private Transform _player;
 
     private void Start()
     {
         Store.gameObject.SetActive(false);
-        _player = FindAnyObjectByType<Player>().transform;
+        InfoText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -34,17 +33,6 @@ public class NPC : MonoBehaviour
             UnityEngine.Cursor.lockState = Setactive ? CursorLockMode.None : CursorLockMode.Locked;
             Player player = FindAnyObjectByType<Player>();
             CoinText.text = $"소지 코인 : {player.Coin}개";
-        }
-
-        if (Vector3.Distance(transform.position, _player.position) > 2)
-        {
-            Store.gameObject.SetActive(false);
-            InfoText.gameObject.SetActive(false);
-        }
-
-        if (Vector3.Distance(transform.position, _player.position) <= 3)
-        {
-            InfoText.gameObject.SetActive(true);
         }
     }
     public void BuyPotion()
@@ -69,6 +57,22 @@ public class NPC : MonoBehaviour
         else
         {
             Debug.Log("코인이 부족합니다.");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            InfoText.gameObject.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Store.gameObject.SetActive(false);
+            InfoText.gameObject.SetActive(false);
         }
     }
 }

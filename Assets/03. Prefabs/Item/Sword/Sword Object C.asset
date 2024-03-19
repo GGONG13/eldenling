@@ -19,5 +19,5 @@ MonoBehaviour:
   Name: Sword 2
   Description: this is ...
   Value: 1
-  Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  Icon: {fileID: 21300000, guid: e776e1ecd0222f743a8a5882a6debcdc, type: 3}
   BigImage: {fileID: 21300000, guid: 7aaf83d73ee6ac04ba8a1ce24a5d6032, type: 3}

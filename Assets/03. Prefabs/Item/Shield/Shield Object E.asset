@@ -19,5 +19,5 @@ MonoBehaviour:
   Name: Shield 4
   Description: This is..
   Value: 1
-  Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Icon: {fileID: 21300000, guid: 75e9f34d67e41cd449563e8ccb0807f2, type: 3}
   BigImage: {fileID: 21300000, guid: 4c36e9395a202284fa3f33754eee8fd8, type: 3}
