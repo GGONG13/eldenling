@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     int channelIndex;
 
     public enum Bgm {LobbyScene, EndingScene, }
-    public enum Sfx {Walk, Run, Sword, Shield}
+    public enum Sfx {Walk, Run, Sword, Shield, EnemyAttack}
 
     public static AudioManager instance;
 
@@ -53,18 +53,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySfx(Sfx sfx)
     {
-        if (sfx == Sfx.Walk || sfx == Sfx.Run) // 발자국 소리일 때만 루프 재생
-        {
-            int loopIndex = (channelIndex + 1) % Channels;
-
-            if (!SfxPlayer[loopIndex].isPlaying)
-            {
-                SfxPlayer[loopIndex].clip = SfxClips[(int)sfx];
-                SfxPlayer[loopIndex].loop = true;
-                SfxPlayer[loopIndex].Play();
-                channelIndex = loopIndex;
-            }
-        }
         for (int i = 0; i < SfxPlayer.Length; i++)
         {
             int loopIndex = (i + channelIndex) % SfxPlayer.Length;

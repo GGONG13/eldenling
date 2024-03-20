@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             damage.Amount = 0;
             _animator.SetTrigger("Parrying");
             Debug.Log("패링 성공");
-            
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Shield);
         }
 
         if(_playerShield._isDefending == true)
