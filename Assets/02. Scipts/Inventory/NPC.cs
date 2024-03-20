@@ -24,16 +24,7 @@ public class NPC : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            animator.SetTrigger("Hi");
-            bool Setactive = !Store.gameObject.activeSelf;
-            Store.gameObject.SetActive(Setactive);
-            UnityEngine.Cursor.visible = Setactive;
-            UnityEngine.Cursor.lockState = Setactive ? CursorLockMode.None : CursorLockMode.Locked;
-            Player player = FindAnyObjectByType<Player>();
-            CoinText.text = $"소지 코인 : {player.Coin}개";
-        }
+
     }
     public void BuyPotion()
     {
@@ -67,6 +58,21 @@ public class NPC : MonoBehaviour
             InfoText.gameObject.SetActive(true);
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player")&&Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetTrigger("Hi");
+            bool Setactive = !Store.gameObject.activeSelf;
+            Store.gameObject.SetActive(Setactive);
+            UnityEngine.Cursor.visible = Setactive;
+            UnityEngine.Cursor.lockState = Setactive ? CursorLockMode.None : CursorLockMode.Locked;
+            Player player = FindObjectOfType<Player>();
+            CoinText.text = $"소지 코인 : {player.Coin}개";
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

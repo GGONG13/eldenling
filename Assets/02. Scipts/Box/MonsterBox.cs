@@ -26,6 +26,8 @@ public class MonsterBox : MonoBehaviour, IHitable
     public float FindDistance = 6;
     public float AttactDistance = 2.5f;
     public float FollowDistance = 2f;
+    public float AttackTime = 1f;
+    private float _attackTimer = 0f;
 
     private float moveSpeed = 5f;
     private Vector3 _dir;
@@ -33,8 +35,8 @@ public class MonsterBox : MonoBehaviour, IHitable
     private Transform _playerTransform;
     private Player _player;
     private NavMeshAgent _navMeshAgent;
-    private int Health;
-    private int Maxhealth = 10;
+    public int Health;
+    public int Maxhealth = 40;
 
     public Slider HealthSlider;
     public int Damage = 10;
@@ -42,6 +44,7 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     private void Start()
     {
+        Health = Maxhealth;
         _animator = GetComponentInChildren<Animator>();
         _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         _navMeshAgent.speed = moveSpeed;
@@ -145,13 +148,15 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     void Attack()
     {
+        _attackTimer += Time.deltaTime;
         _animator.SetTrigger($"Attack {Random.Range(1, 4)}");
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
-/*        if (distance <= AttactDistance) // 공격 거리 내에 있을 때
+        if (distance <= AttactDistance && _attackTimer > AttackTime) // 공격 거리 내에 있을 때
         {
             DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
             _player.Hit(damageInfo);
-        }*/
+            _attackTimer = 0;
+        }
         if (distance < 1)
         {
             State = MonsterBoxState.OpenIdel;
@@ -228,7 +233,7 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     IEnumerator DeathCoroutine()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(5f);
         this.gameObject.SetActive(false);
     }
 

@@ -9,7 +9,8 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
+public class ItemInventoryUI
+    : MonoBehaviour, IPointerEnterHandler
 {
     public TextMeshProUGUI itemIconNameText;
     public TextMeshProUGUI itemNameText;
@@ -45,7 +46,6 @@ public class ItemInventoryUI : MonoBehaviour, IPointerEnterHandler
     }
     public void UpdateItemUI()
     {
-        // CurrentitemData = InventoryManager.Instance.itemDic[id];
         Inventory.instance.InventoryDescriptionUI.Refresh(CurrentitemData);
     }
     public void ChangeWeapon()

@@ -5,7 +5,7 @@ namespace DigitalRuby.RainMaker
 {
     public class DemoScript : MonoBehaviour
     {
-        public RainScript RainScript;
+        public RainScriptFollow RainScript;
         public UnityEngine.UI.Toggle MouseLookToggle;
         public UnityEngine.UI.Toggle FlashlightToggle;
         public UnityEngine.UI.Slider RainSlider;

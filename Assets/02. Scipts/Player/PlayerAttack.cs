@@ -33,8 +33,8 @@ public class PlayerAttack : MonoBehaviour
             AttackCount += 1;
             attackTimer = AttackDelayTime;
             _playerMove.ReduceStamina(12);
-            
-            
+
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Sword);
             
         }
         else if (Input.GetMouseButtonDown(0) && _playerMove.Stamina >= 12 && AttackCount == 1)
@@ -44,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
             AttackCount--;
             attackTimer = AttackDelayTime;
             _playerMove.ReduceStamina(12);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Sword);
         }
 
         if (attackTimer > 0f)

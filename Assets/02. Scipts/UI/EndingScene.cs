@@ -11,6 +11,7 @@ public class EndingScene : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.instance.PlayBgm(AudioManager.Bgm.EndingScene);
         StartCoroutine(ChangeTextCoroutine());
     }
     private IEnumerator ChangeTextCoroutine()
