@@ -247,6 +247,7 @@ MonoBehaviour:
   type: 0
   Damage: 20
   _isAttacking: 0
+  TrailEffect: {fileID: 8306362267016975495}
   _animator: {fileID: 0}
 --- !u!54 &5820570347920723477
 Rigidbody:

@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioClip[] BgmClips;
-    public float BgmVolume;
+    public float BgmVolume = 1;
     AudioSource BgmPlayer;
 
     public AudioClip[] SfxClips;
@@ -14,8 +14,8 @@ public class AudioManager : MonoBehaviour
     AudioSource[] SfxPlayer;
     int channelIndex;
 
-    public enum Bgm { }
-    public enum Sfx { }
+    public enum Bgm {LobbyScene, EndingScene, }
+    public enum Sfx {Walk, Run, Sword, Shield, EnemyAttack}
 
     public static AudioManager instance;
 
@@ -65,6 +65,23 @@ public class AudioManager : MonoBehaviour
             SfxPlayer[loopIndex].clip = SfxClips[(int)sfx];
             SfxPlayer[loopIndex].Play();
             break;
+        }
+    }
+    public void StopBgm()
+    {
+        if (BgmPlayer.isPlaying)
+        {
+            BgmPlayer.Stop();
+        }
+    }
+    public void StopSfx(Sfx sfx)
+    {
+        for (int i = 0; i < SfxPlayer.Length; i++)
+        {
+            if (SfxPlayer[i].clip == SfxClips[(int)sfx])
+            {
+                SfxPlayer[i].Stop();
+            }
         }
     }
 }

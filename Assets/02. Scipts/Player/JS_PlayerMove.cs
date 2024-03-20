@@ -13,7 +13,7 @@ public class JS_PlayerMove : MonoBehaviour
 
     public float speed;
 
-    private float _gravity = -20;
+    //private float _gravity = -20;
     // - 누적할 중력 변수: y축 속도
     public float _yVelocity = 0f;
 
@@ -23,14 +23,14 @@ public class JS_PlayerMove : MonoBehaviour
     private float rollTimer;
     private Vector3 rollDirection;
 
-    private bool SwordON = false;
+    //private bool SwordON = false;
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
         isRolling = false;
-        SwordON = false;
+        //SwordON = false;
     }
 
     private void Update()
@@ -87,7 +87,7 @@ public class JS_PlayerMove : MonoBehaviour
     }
     public IEnumerator Sword_Coroutine()
     {
-        SwordON = true;
+        //SwordON = true;
         _animator.SetLayerWeight(2, 1f);
         _animator.SetTrigger("SwordMotion");
         UpdateSwordAnimation(1);

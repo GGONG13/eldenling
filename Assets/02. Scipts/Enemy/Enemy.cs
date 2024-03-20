@@ -153,6 +153,7 @@ public class Enemy : MonoBehaviour
         _attackTimer += Time.deltaTime;
         if (_attackTimer >= AttackDelay && Vector3.Distance(transform.position, _target.position) <= AttackDistance)
         {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.EnemyAttack);
             _animator.SetTrigger("Attack");
             _attackTimer = 0;
             StartCoroutine(AttackCooldownCoroutine());
