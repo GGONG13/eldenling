@@ -233,6 +233,7 @@ public class Boss : MonoBehaviour
     {
         if (_dieCoroutine == null)
         {
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BossDie);
             _dieCoroutine = StartCoroutine(Die_Coroutine());
         }
     }
@@ -272,6 +273,7 @@ public class Boss : MonoBehaviour
         {
             return;
         }
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.BossHit);
         Health -= damage.Amount;
         if (_currentState == BossState.AttackDelay && Health > 0)
         {
