@@ -45,6 +45,7 @@ public class Weapon : MonoBehaviour
         {
             Boss boss = other.GetComponent<Boss>();
             Enemy enemy = other.GetComponent<Enemy>();
+            MonsterBox monsterBox = other.GetComponent<MonsterBox>(); 
             if (boss != null)
             {
                 // 적에게 데미지를 주는 로직
@@ -57,6 +58,12 @@ public class Weapon : MonoBehaviour
                 // 적에게 데미지를 주는 로직
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 enemy.Hit(damageInfo);
+                _hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
+            }
+            if (monsterBox != null)
+            {
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
+                monsterBox.Hit(damageInfo);
                 _hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
             }
         }

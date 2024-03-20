@@ -64,7 +64,7 @@ public class MagicArrow : MonoBehaviour
             // 적 객체로부터 Boss 또는 Enemy 스크립트를 가져옴
             Boss boss = other.GetComponent<Boss>();
             Enemy enemyScript = other.GetComponent<Enemy>();
-
+            MonsterBox monsterBox = other.GetComponent<MonsterBox>();
             if (boss != null)
             {
                 // Boss에게 데미지를 줌
@@ -77,6 +77,12 @@ public class MagicArrow : MonoBehaviour
                 // Enemy에게 데미지를 줌
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
                 enemyScript.Hit(damageInfo);
+                Destroy(gameObject); // 화살 파괴
+            }
+            if (monsterBox != null)
+            {
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, damage);
+                monsterBox.Hit(damageInfo);
                 Destroy(gameObject); // 화살 파괴
             }
         }
