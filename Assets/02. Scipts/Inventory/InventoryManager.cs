@@ -92,6 +92,7 @@ public class InventoryManager : MonoBehaviour
             itemToRemove.Value -= 1;
             int index = items.IndexOf(itemToRemove);
             ItemInventoryUISlots[index].countitemText.text = itemToRemove.Value.ToString();
+            FindObjectOfType<Player>().Heal(10);
             Debug.Log("포션이 깎여야함");
 
             if (itemToRemove.Value == 0)

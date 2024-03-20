@@ -34,7 +34,7 @@ public class MonsterBox : MonoBehaviour, IHitable
     private Player _player;
     private NavMeshAgent _navMeshAgent;
     private int Health;
-    private int Maxhealth = 10;
+    private int Maxhealth = 40;
 
     public Slider HealthSlider;
     public int Damage = 10;
@@ -42,6 +42,7 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     private void Start()
     {
+        Health = Maxhealth;
         _animator = GetComponentInChildren<Animator>();
         _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         _navMeshAgent.speed = moveSpeed;
