@@ -12,6 +12,9 @@ public class ItemPotion : MonoBehaviour
     public Image PositionIcon;
     public TextMeshProUGUI Count;
 
+    public GameObject HealingEffect;
+    public Transform HealingPosition;
+
     private void Start()
     {
         Instance = this;
@@ -31,8 +34,9 @@ public class ItemPotion : MonoBehaviour
         if (item.Value > 0)
         {
             item.Value -= 1;
-            FindObjectOfType<Player>().Heal(10);
+            FindObjectOfType<Player>().Heal(60);
             Debug.Log("포션? 먹어야하는데?");
+            Instantiate(HealingEffect, HealingPosition.position, HealingPosition.rotation);
         }
         else if (item.Value == 0)
         {

@@ -188,7 +188,7 @@ public class MonsterBox : MonoBehaviour, IHitable
     {
         _animator.SetTrigger("Stan");
         State = MonsterBoxState.Stun;
-        return;
+        StartCoroutine(StanCoroutine());
     }
 
 
@@ -233,7 +233,7 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     IEnumerator DeathCoroutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         this.gameObject.SetActive(false);
     }
 
@@ -241,6 +241,12 @@ public class MonsterBox : MonoBehaviour, IHitable
     {
         yield return new WaitForSeconds(3f);
         State = MonsterBoxState.OpenIdel;
+    }
+
+    IEnumerator StanCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        State = MonsterBoxState.Attack;
     }
 
     void RefreshSlider()

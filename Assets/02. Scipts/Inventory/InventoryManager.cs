@@ -43,6 +43,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         ListItem();
+        items[items.Count - 1].Value = 1;
     }
 
     private void Update()
