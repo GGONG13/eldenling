@@ -22,8 +22,6 @@ public class InventoryManager : MonoBehaviour
 
     public List<ItemInventoryUI> ItemInventoryUISlots;
 
-
-
     public GameObject StateUIPopUp;
 
     public delegate void OnItemChanged();
