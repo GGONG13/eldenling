@@ -16,7 +16,7 @@ MonoBehaviour:
   Position: {x: 0, y: 0, z: 0}
   ID: 0
   Type: 0
-  Name: DefultSword
+  Name: Default Sword
   Description: this is ...
   Value: 1
   Icon: {fileID: 21300000, guid: 0947e2b38eb9f6e46be815b33759025b, type: 3}

@@ -9,7 +9,7 @@ public enum TreasureBoxState
 }
 public class TreasureBox : MonoBehaviour
 {
-    public static TreasureBoxState State = TreasureBoxState.Idle;
+    public TreasureBoxState State = TreasureBoxState.Idle;
     private Transform Player;
     public GameObject[] items;
     public Animator _animator;

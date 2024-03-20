@@ -8,5 +8,6 @@ public class ShieldObject : ItemData
     private void Awake()
     {
         Type = ItemType.Shield;
+        Value = 1;
     }
 }
