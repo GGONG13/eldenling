@@ -19,6 +19,7 @@ public class LobbyScene : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.instance.PlayBgm(AudioManager.Bgm.LobbyScene);
         StartImage.gameObject.SetActive(false);
         InfoImage.gameObject.SetActive(false);
         BackImage.gameObject.SetActive(false);
@@ -26,6 +27,7 @@ public class LobbyScene : MonoBehaviour
     }
     public void OnClickStartButton()
     {
+        AudioManager.instance.StopBgm();
         SceneManager.LoadScene((int)SceneName.Main);
     }
     public void OnClickInfoButton()

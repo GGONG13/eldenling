@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioClip[] BgmClips;
-    public float BgmVolume;
+    public float BgmVolume = 1;
     AudioSource BgmPlayer;
 
     public AudioClip[] SfxClips;
@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
     AudioSource[] SfxPlayer;
     int channelIndex;
 
-    public enum Bgm { }
+    public enum Bgm {LobbyScene, EndingScene, }
     public enum Sfx { }
 
     public static AudioManager instance;
@@ -65,6 +65,13 @@ public class AudioManager : MonoBehaviour
             SfxPlayer[loopIndex].clip = SfxClips[(int)sfx];
             SfxPlayer[loopIndex].Play();
             break;
+        }
+    }
+    public void StopBgm()
+    {
+        if (BgmPlayer.isPlaying)
+        {
+            BgmPlayer.Stop();
         }
     }
 }
