@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI StateTextUI;
 
-    public UI_GameoverPopup GameoverUI;
+    //public UI_GameoverPopup GameoverUI;
 
     public void Awake()
     {
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-      //  StartCoroutine(Start_Coroutine());
+        //StartCoroutine(Start_Coroutine());
     }
 
     private IEnumerator Start_Coroutine()
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         state = State.GameOver;
         StateTextUI.gameObject.SetActive(true);
         Refresh();
-        GameoverUI.Open();
+        //GameoverUI.Open();
     }
 
     public void Refresh()

@@ -108,11 +108,13 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
 
             _characterController.Move(direction.normalized * (_isRunning ? runSpeed : moveSpeed) * Time.deltaTime);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Walk);
         }
         else
         {
             _isWalking = false;
             _animator.SetBool("Walk", _isWalking);
+            AudioManager.instance.StopSfx(AudioManager.Sfx.Walk);
         }
 
         if (Input.GetKey(KeyCode.LeftShift) && Stamina > UseRunningStamina)
@@ -120,11 +122,13 @@ public class PlayerMove : MonoBehaviour
             _isRunning = true;
             _animator.SetBool("Run", true);
             ReduceStamina(UseRunningStamina * Time.deltaTime);
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Run);
         }
         else
         {
             _isRunning = false;
             _animator.SetBool("Run", _isRunning);
+            AudioManager.instance.StopSfx(AudioManager.Sfx.Run);
         }
     }
 
