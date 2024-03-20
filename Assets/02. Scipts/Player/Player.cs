@@ -110,17 +110,17 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
         _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
         yield return new WaitForSeconds(5);
+        YouDiedImage.gameObject.SetActive(true);
         gameObject.SetActive(false);
         _playerMove.isAlive = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        YouDiedImage.gameObject.SetActive(true);
         Time.timeScale = 0;
     }
 
     public void Death()
     {
-        _playerMove.isAlive = false;        
+        //_playerMove.isAlive = false;        
         StartCoroutine(Death_Coroutine());
     }
 
