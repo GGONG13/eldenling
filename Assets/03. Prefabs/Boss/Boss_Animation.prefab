@@ -1935,7 +1935,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1.1, y: 0, z: -3.19}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4636992140552150354}
@@ -2004,6 +2004,7 @@ MonoBehaviour:
   BossSliderUI: {fileID: 0}
   EnemyFelledImage: {fileID: 0}
   MovementRange: 15
+  MoveLimit: 20
   AttackRadius: 15
   ViewAngle: 90
   FindDistance: 12
@@ -2012,8 +2013,9 @@ MonoBehaviour:
   StopDistance: 1.5
   DelayTime: 3
   StiffTime: 1
-  newSpeed: 5
-  duration: 3
+  NewSpeed: 5
+  Duration: 3
+  RotationSpeed: 0.5
 --- !u!143 &1638634912163851178
 CharacterController:
   m_ObjectHideFlags: 0
