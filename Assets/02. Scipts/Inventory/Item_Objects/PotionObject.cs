@@ -9,5 +9,6 @@ public class PotionObject : ItemData
     private void Awake()
     {
         Type = ItemType.Potion;
+        Value = 1;
     }
 }

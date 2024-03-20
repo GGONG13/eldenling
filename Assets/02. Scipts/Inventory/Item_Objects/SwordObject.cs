@@ -7,5 +7,6 @@ public class SwordObject : ItemData
     public void Awake()
     {
         Type = ItemType.Sword;
+        Value = 1;
     }
 }

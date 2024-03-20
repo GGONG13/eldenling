@@ -16,7 +16,7 @@ MonoBehaviour:
   Position: {x: 0, y: 0, z: 0}
   ID: 0
   Type: 1
-  Name: DefultShield
+  Name: Default Shield
   Description: This is..
   Value: 1
   Icon: {fileID: 21300000, guid: dc4f0180af418ba4185033466c0eaded, type: 3}

@@ -8,5 +8,6 @@ public class MagicWand : ItemData
     private void Awake()
     {
         Type = ItemType.MagicWand;
+        Value = 1;
     }
 }
