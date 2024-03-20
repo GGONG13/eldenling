@@ -238,6 +238,8 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: f1ace6c999316d74d8487f81cbdedd32, type: 2}
   PositionIcon: {fileID: 0}
   Count: {fileID: 0}
+  HealEffect: {fileID: 9017484664307500583, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
+  HealingPosition: {fileID: 0}
 --- !u!4 &4208925497359007211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4dedc6f61e26b904992248940b2fc945, type: 3}
