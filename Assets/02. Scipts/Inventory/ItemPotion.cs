@@ -35,7 +35,6 @@ public class ItemPotion : MonoBehaviour
         {
             item.Value -= 1;
             FindObjectOfType<Player>().Heal(60);
-            Debug.Log("포션? 먹어야하는데?");
             Instantiate(HealingEffect, HealingPosition.position, HealingPosition.rotation);
         }
         else if (item.Value == 0)
