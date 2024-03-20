@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace DigitalRuby.RainMaker
 {
-    public class RainScript : BaseRainScript
+    public class RainScriptFollow : BaseRainScript
     {
         [Tooltip("The height above the camera that the rain will start falling from")]
         public float RainHeight = 25.0f;
