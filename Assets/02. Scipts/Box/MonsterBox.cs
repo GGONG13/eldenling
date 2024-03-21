@@ -157,13 +157,15 @@ public class MonsterBox : MonoBehaviour, IHitable
             _player.Hit(damageInfo);
             _attackTimer = 0;
         }
-        if (distance < 1)
-        {
-            State = MonsterBoxState.OpenIdel;
-        }
-        else if (distance > FollowDistance) // FollowDistance보다 멀어진 경우 Run 상태로 전환
+        // 'Run' 상태로 플레이어를 쫓아가는 조건 (플레이어와의 거리가 공격 거리보다 크고, FollowDistance 이하일 때)
+        else if (distance > AttactDistance && distance <= FollowDistance)
         {
             State = MonsterBoxState.Run;
+        }
+        // 플레이어와의 거리가 FollowDistance보다 멀어지면 'OpenIdel' 상태로 전환
+        else if (distance > FollowDistance)
+        {
+            State = MonsterBoxState.OpenIdel;
         }
     }
 
