@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public State state { get; private set; } = State.Ready;
-    public UI_GameoverPopup GameoverUI;
 
     public void Awake()
     {
@@ -37,8 +36,6 @@ public class GameManager : MonoBehaviour
     public void PlayerDie()
     {
         state = State.PlayerDie;
-        GameoverUI.gameObject.SetActive(true);
-        //GameoverUI.Open();
     } 
     public void BossDie()
     {
