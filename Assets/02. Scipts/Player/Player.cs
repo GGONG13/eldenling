@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
 
     public GameObject SwitchingVFX;
 
+    public GameObject PerringVFX;
+    public Transform PerringPosition;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -95,6 +98,7 @@ public class Player : MonoBehaviour
             damage.Amount = 0;
             _animator.SetTrigger("Parrying");
             Debug.Log("패링 성공");
+            Instantiate(PerringVFX, PerringPosition.position, PerringPosition.rotation);
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Shield);
         }
 
