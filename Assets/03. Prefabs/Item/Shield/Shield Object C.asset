@@ -16,8 +16,8 @@ MonoBehaviour:
   Position: {x: 0, y: 0, z: 0}
   ID: 2
   Type: 1
-  Name: Shield 2
-  Description: This is..
+  Name: "\uD504\uB9AC\uB4DC\uC6EC"
+  Description: "\uC6EC\uB514\uAC00 \uC4F8 \uAC83 \uAC19\uC740 \uBC29\uD328\uC774\uB2E4."
   Value: 1
   Icon: {fileID: 21300000, guid: f4fdb5d05a0e9d14f8038aa39764b63f, type: 3}
   BigImage: {fileID: 21300000, guid: 46cfb99dd8338c7478e02a32def5d65b, type: 3}

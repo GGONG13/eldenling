@@ -16,8 +16,8 @@ MonoBehaviour:
   Position: {x: 0, y: 0, z: 0}
   ID: 4
   Type: 0
-  Name: Sword 4
-  Description: this is ...
+  Name: "\uAD6C\uB9AC\uAC00\uB77C\uAC80"
+  Description: "\uAD6C\uB9AC\uAC00 \uAC00\uB77C\uAC00\uB77C\uD558\uB294 \uAC80\uC774\uB2E4."
   Value: 1
   Icon: {fileID: 21300000, guid: 031705a6502986b458532f33fbd94f28, type: 3}
   BigImage: {fileID: 21300000, guid: ce5f1c90f8f09634595893196b75b023, type: 3}

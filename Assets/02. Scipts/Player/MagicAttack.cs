@@ -15,7 +15,6 @@ public class MagicAttack : MonoBehaviour
     public Weapon weapon; // Weapon 클래스에 대한 참조
     private PlayerMove _playerMove;
     private Player_Shield _playerShield;
-    public InventoryManager inventoryManager;
 
     private void Awake()
     {
@@ -23,12 +22,11 @@ public class MagicAttack : MonoBehaviour
         _playerMove = GetComponent<PlayerMove>();
         weapon = GetComponentInChildren<Weapon>();
         _playerShield = GetComponent<Player_Shield>();
-        inventoryManager = GetComponentInChildren<InventoryManager>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25 && inventoryManager.isActive == false)
+        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25 && InventoryManager.Instance.isActive == false)
         {
             _animator.SetTrigger("MagicAttack");
             _playerMove.ReduceStamina(25); // 스태미너 감소 적용

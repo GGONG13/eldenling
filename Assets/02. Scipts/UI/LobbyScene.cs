@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public enum SceneName
 {
     Lobby,  //0
-    Main,   //1
-    Ending  //2
+    Loading,//1
+    Main,   //2
+    Ending  //3
 }
 public class LobbyScene : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class LobbyScene : MonoBehaviour
     public void OnClickStartButton()
     {
         AudioManager.instance.StopBgm();
-        SceneManager.LoadScene((int)SceneName.Main);
+        SceneManager.LoadScene((int)SceneName.Loading);
     }
     public void OnClickInfoButton()
     {
