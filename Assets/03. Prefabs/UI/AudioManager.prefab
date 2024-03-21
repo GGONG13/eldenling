@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BgmClips:
-  - {fileID: 8300000, guid: c3602cd1d7428ff4fa6862efb701d51a, type: 3}
-  - {fileID: 8300000, guid: 2486796d55f2aee41b1c0d6a30dabd15, type: 3}
+  - {fileID: 8300000, guid: 9336e75c46ace804281c220b85f82a6a, type: 3}
+  - {fileID: 8300000, guid: e69ef035dbf56a849a7e10007cbe561d, type: 3}
   BgmVolume: 1
   SfxClips:
   - {fileID: 8300000, guid: 149b7912a7abe0b47bcbfa68d567da04, type: 3}
