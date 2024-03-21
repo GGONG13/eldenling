@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI StateTextUI;
 
-    //public UI_GameoverPopup GameoverUI;
+    public UI_GameoverPopup GameoverUI;
 
     public void Awake()
     {
