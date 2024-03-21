@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
     public Image YouDiedImage;
 
-
+    public GameObject SwitchingVFX;
 
     private void Awake()
     {
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
         YouDiedImage.gameObject.SetActive(false);
+        SwitchingVFX.gameObject.SetActive(false);
     }
     private void Start()
     {
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
     }
     public void ActivateItem(ItemData itemData)
     {
+        SwitchVFX();
         switch (itemData.Type)
         {
             case ItemType.Sword:
@@ -196,5 +198,15 @@ public class Player : MonoBehaviour
     {
         CoinUI.text = $"코인 : {Coin}개";
     }
-
+    public void SwitchVFX()
+    {
+        SwitchingVFX.transform.position = FindAnyObjectByType<Player>().transform.position;
+        SwitchingVFX.gameObject.SetActive(true);
+        StartCoroutine(ShowVFX_Coroutine());
+    }
+    IEnumerator ShowVFX_Coroutine()
+    {
+        yield return new WaitForSeconds(1);
+        SwitchingVFX.gameObject.SetActive(false);
+    }
 }

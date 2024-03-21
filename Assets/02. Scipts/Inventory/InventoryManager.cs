@@ -29,6 +29,7 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject HealingEffect;
     public Transform HealingPosition;
+    public bool isActive;
 
     private void Awake()
     {
@@ -61,7 +62,6 @@ public class InventoryManager : MonoBehaviour
             // 인벤토리가 활성화되면 마우스 커서를 잠그지 않고, 그렇지 않으면 잠급니다.
             UnityEngine.Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
             Time.timeScale = isActive ? 0 : 1;
-
         }
         if (Inventory.activeInHierarchy == false)
         {
