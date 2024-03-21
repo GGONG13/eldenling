@@ -9,6 +9,7 @@ TagManager:
   - Boss
   - Enemy
   - Coin
+  - Mimix
   layers:
   - Default
   - TransparentFX

@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
 
     public void Hit(DamageInfo damage)
     {
+        Health -= damage.Amount;
         if (_playerMove.isInvincible || !_playerMove.isAlive)
         {
             Debug.Log("피했다"); // 무적 상태이거나 이미 사망했을 때 공격을 피했다는 메시지 출력
@@ -106,7 +107,6 @@ public class Player : MonoBehaviour
             damage.Amount /= 2;
             _playerMove.ReduceStamina(15);
         }
-        Health -= damage.Amount;
         Debug.Log($"Player: {Health}");
     }
 
@@ -124,8 +124,7 @@ public class Player : MonoBehaviour
     }
 
     public void Death()
-    {
-        //_playerMove.isAlive = false;        
+    {       
         StartCoroutine(Death_Coroutine());
     }
 

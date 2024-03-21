@@ -63,7 +63,6 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("F ´­·¶À½");
             animator.SetTrigger("Hi");
             bool Setactive = !Store.gameObject.activeSelf;
             Store.gameObject.SetActive(Setactive);

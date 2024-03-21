@@ -18,19 +18,19 @@ public class EndingScene : MonoBehaviour
     {
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);
-        EndingText.text = "[ Original Game ]\nELDEN RING";
+        EndingText.text = "- Original Game -\n\nELDEN RING";
         yield return new WaitForSeconds(TextTime);
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);
-        EndingText.text = "[ Production Team ]\n이게 왜 돼지";
+        EndingText.text = "- Production Team -\n\n이게 왜 돼지";
         yield return new WaitForSeconds(TextTime);
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);
-        EndingText.text = "[ Team Members ]\n공지수  이성민  김예은";
+        EndingText.text = "- Team Members -\n\n공지수  이성민  김예은";
         yield return new WaitForSeconds(TextTime);
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);
-        EndingText.text = "[ Production Period ]\n24.03.04 ~ 24.03.22";
+        EndingText.text = "- Production Period -\n\n24.03.05 ~ 24.03.22";
         yield return new WaitForSeconds(TextTime);
         EndingText.text = string.Empty;
         yield return new WaitForSeconds(1);

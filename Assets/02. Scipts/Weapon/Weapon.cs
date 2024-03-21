@@ -15,6 +15,11 @@ public class Weapon : MonoBehaviour
 
     public TrailRenderer TrailEffect;
     public Animator _animator;
+
+    private bool _hasDealtDamageToBoss = false;
+    private bool _hasDealtDamageToEnemy = false;
+    private bool _hasDealtDamageToMonsterBox = false;
+
     private void Awake()
     {
         // 해당 게임 오브젝트에 있는 Animator 컴포넌트 참조를 가져옴
@@ -26,7 +31,9 @@ public class Weapon : MonoBehaviour
     public void BeginAttack()
     {
         _isAttacking = true;
-        _hasDealtDamage = false; // 새로운 공격이 시작되면 데미지를 준 적이 없다고 리셋
+        _hasDealtDamageToBoss = false;
+        _hasDealtDamageToEnemy = false;
+        _hasDealtDamageToMonsterBox = false;
         TrailEffect.enabled = true;
     }
 
@@ -34,40 +41,41 @@ public class Weapon : MonoBehaviour
     public void EndAttack()
     {
         _isAttacking = false;
-        _hasDealtDamage = false; // 공격이 종료되면 다음 공격을 위해 리셋
+        _hasDealtDamageToBoss = false;
+        _hasDealtDamageToEnemy = false;
+        _hasDealtDamageToMonsterBox = false;
         TrailEffect.enabled = false;
     }
 
     // 트리거에 적 캐릭터가 들어왔는지 검사
     private void OnTriggerEnter(Collider other)
     {
-        if (_isAttacking && !_hasDealtDamage && other.CompareTag("Enemy"))
+        if (_isAttacking && other.CompareTag("Enemy"))
         {
-            Boss boss = other.GetComponent<Boss>();
-            Enemy enemy = other.GetComponent<Enemy>();
-            MonsterBox monsterBox = other.GetComponent<MonsterBox>(); 
-            if (boss != null)
+            if (other.TryGetComponent<Boss>(out Boss boss) && !_hasDealtDamageToBoss)
             {
-                // 적에게 데미지를 주는 로직
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 boss.Hit(damageInfo);
-                _hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
+                _hasDealtDamageToBoss = true;
             }
-            if (enemy != null)
+            else if (other.TryGetComponent<Enemy>(out Enemy enemy) && !_hasDealtDamageToEnemy)
             {
-                // 적에게 데미지를 주는 로직
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 enemy.Hit(damageInfo);
-                _hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
-            }
-            if (monsterBox != null)
-            {
-                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
-                monsterBox.Hit(damageInfo);
-                _hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
+                _hasDealtDamageToEnemy = true;
             }
         }
     }
-
-    
+    private void OnTriggerStay(Collider other)
+    {
+        if (_isAttacking && other.CompareTag("Mimix"))
+        {
+            if (other.TryGetComponent<MonsterBox>(out MonsterBox monsterBox) && !_hasDealtDamageToMonsterBox)
+            {
+                DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
+                monsterBox.Hit(damageInfo);
+                _hasDealtDamageToMonsterBox = true;
+            }
+        }
+    }
 }
