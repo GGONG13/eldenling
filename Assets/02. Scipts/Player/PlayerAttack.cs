@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator _animator;
     private PlayerMove _playerMove;
     public Weapon weapon; // Weapon 클래스에 대한 참조
-
+    public InventoryManager inventoryManager;
     
 
     private void Awake()
@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerMove = GetComponent<PlayerMove>();
         weapon = GetComponentInChildren<Weapon>();
+        inventoryManager = GetComponentInChildren<InventoryManager>();
     }
 
     private void Start()
