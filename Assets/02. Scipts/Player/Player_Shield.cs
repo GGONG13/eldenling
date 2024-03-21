@@ -9,6 +9,9 @@ public class Player_Shield : MonoBehaviour
     public bool _isParrying;
     public Animator _animator;
 
+    public GameObject ShieldEffect;
+    public GameObject DefenseEffect;
+
     private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
@@ -23,7 +26,7 @@ public class Player_Shield : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && playerMove._isRolling == false)
         {
             BeginShieldDefenc();
-            _animator.SetBool("ShieldUP",true);
+            _animator.SetBool("ShieldUP", true);
         }
         // 마우스 오른쪽 버튼에서 손을 떼면 방패 들기 중단
         else if (Input.GetMouseButtonUp(1))
@@ -31,14 +34,25 @@ public class Player_Shield : MonoBehaviour
             EndShieldDefenc();
             _animator.SetBool("ShieldUP", false);
         }
+
+        if(_isDefending == true)
+        {
+            DefenseEffect.SetActive(true);
+        }
+        else if (_isDefending == false)
+        {
+            DefenseEffect.SetActive(false);
+        }
     }
 
     public void BeginShieldDefenc()
     {
         _isDefending = true;
+        
         if (Input.GetMouseButton(1))
         {
             _animator.SetBool("IsDefending", true);
+            
 
         }
 
@@ -47,7 +61,7 @@ public class Player_Shield : MonoBehaviour
 
     public void EndShieldDefenc()
     {
-
+        
         _isDefending = false;
         _animator.SetBool("IsDefending", false);
 
@@ -55,6 +69,7 @@ public class Player_Shield : MonoBehaviour
 
     public void BeginShieldParrying()
     {
+        ShieldEffect.SetActive(true);
         _isParrying = true;
         if (Input.GetMouseButton(1))
         {
@@ -71,6 +86,7 @@ public class Player_Shield : MonoBehaviour
 
     public void RealEneParrying()
     {
+        ShieldEffect.SetActive(false);
         _animator.ResetTrigger("CancelDefending");
     }
     public void ParryingSuccess()
