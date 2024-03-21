@@ -57,13 +57,14 @@ public class PlayerMove : MonoBehaviour
         {
             return;
         }
-
+        HandleMovement();
         UpdateStamina();
+        CheckMovementState();
         if (!isAttacking )
         {
-            HandleMovement();
+            
             HandleRolling();
-            CheckMovementState();
+            
         }
         if (!_characterController.isGrounded)
         {
