@@ -19,7 +19,7 @@ namespace DigitalRuby.RainMaker
         public Camera Camera;
 
         [Tooltip("Whether rain should follow the camera. If false, rain must be moved manually and will not follow the camera.")]
-        public bool FollowCamera = true;
+        public bool FollowCamera = false;
 
         [Tooltip("Light rain looping clip")]
         public AudioClip RainSoundLight;
@@ -169,7 +169,7 @@ namespace DigitalRuby.RainMaker
                             audioSourceRainCurrent.Stop();
                         }
                         audioSourceRainCurrent = newSource;
-                        audioSourceRainCurrent.Play(1.0f);
+                        audioSourceRainCurrent.Play(0.5f);
                     }
                     if (RainFallParticleSystem != null)
                     {
@@ -213,7 +213,7 @@ namespace DigitalRuby.RainMaker
 
         protected virtual void Start()
         {
-
+            FollowCamera = false;
 #if DEBUG
 
             if (RainFallParticleSystem == null)
@@ -333,7 +333,7 @@ namespace DigitalRuby.RainMaker
             AudioSource.playOnAwake = false;
             AudioSource.volume = 0.0f;
             AudioSource.Stop();
-            TargetVolume = 1.0f;
+            TargetVolume = 0.5f;
         }
 
         public void Play(float targetVolume)

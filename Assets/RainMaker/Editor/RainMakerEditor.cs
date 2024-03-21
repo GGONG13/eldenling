@@ -52,7 +52,7 @@ namespace DigitalRuby.RainMaker
         }
     }
 
-    [CustomEditor(typeof(RainScriptFollow))]
+    [CustomEditor(typeof(RainScript))]
     public class RainMakerEditor3D : RainMakerEditor
     {
     }
