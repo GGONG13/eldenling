@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && attackTimer <= 0f && _playerMove.Stamina >= 12 && AttackCount == 0)
+        if (Input.GetMouseButtonDown(0) && attackTimer <= 0f && _playerMove.Stamina >= 12 && AttackCount == 0 && inventoryManager.isActive == false)
         {
             
                 // 첫 번째 공격 실행
