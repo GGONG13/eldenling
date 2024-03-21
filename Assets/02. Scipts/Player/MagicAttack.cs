@@ -8,6 +8,7 @@ public class MagicAttack : MonoBehaviour
     private float AttackTimer = 0f;
 
     public GameObject MagicArrowPrefab;
+    public GameObject MagicCircle;
     public Transform MagicPosition;
 
     private Animator _animator;
@@ -46,6 +47,7 @@ public class MagicAttack : MonoBehaviour
     public void WeaponAttack()
     {
         Instantiate(MagicArrowPrefab, MagicPosition.position, MagicPosition.rotation);
+        Instantiate(MagicCircle, MagicPosition.position, MagicPosition.rotation);
     }
 
     public void EndWeaponAttack()
