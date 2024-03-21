@@ -26,7 +26,7 @@ public class MagicAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25)
+        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25 && InventoryManager.Instance.isActive == false)
         {
             _animator.SetTrigger("MagicAttack");
             _playerMove.ReduceStamina(25); // 스태미너 감소 적용

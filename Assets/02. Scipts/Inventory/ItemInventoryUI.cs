@@ -20,6 +20,7 @@ public class ItemInventoryUI
     public TextMeshProUGUI countitemText;
     public ItemData CurrentitemData;
 
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         UpdateItemUI();
@@ -57,4 +58,5 @@ public class ItemInventoryUI
         FindObjectOfType<Player>().ActivateItem(CurrentitemData);
         Inventory.instance.gameObject.SetActive(false);
     }
+
 }

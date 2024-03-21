@@ -9,7 +9,6 @@ public class PlayerAttack : MonoBehaviour
     private Animator _animator;
     private PlayerMove _playerMove;
     public Weapon weapon; // Weapon 클래스에 대한 참조
-
     
 
     private void Awake()
@@ -25,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && attackTimer <= 0f && _playerMove.Stamina >= 12 && AttackCount == 0)
+        if (Input.GetMouseButtonDown(0) && attackTimer <= 0f && _playerMove.Stamina >= 12 && AttackCount == 0 && InventoryManager.Instance.isActive == false)
         {
             
                 // 첫 번째 공격 실행
