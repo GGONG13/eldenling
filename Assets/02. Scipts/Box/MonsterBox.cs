@@ -196,17 +196,13 @@ public class MonsterBox : MonoBehaviour, IHitable
 
     public void Hit (DamageInfo damage)
     {
-
         Health -= damage.Amount;
+        Debug.Log("¹Ì¹Í ¸Â´Â Áß");
         Stan();
         RefreshSlider();
         if (Health <= 0)
         {
             State = MonsterBoxState.Death;
-        }
-        if (State == MonsterBoxState.Death)
-        {
-            return;
         }
     }
     public void Hit (int damageAmount)

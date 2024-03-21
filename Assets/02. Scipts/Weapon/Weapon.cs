@@ -45,7 +45,8 @@ public class Weapon : MonoBehaviour
         {
             Boss boss = other.GetComponent<Boss>();
             Enemy enemy = other.GetComponent<Enemy>();
-            MonsterBox monsterBox = other.GetComponent<MonsterBox>(); 
+            MonsterBox monsterBox = other.GetComponent<MonsterBox>();
+            Debug.Log("미믹을 참조하고 있냐?");
             if (boss != null)
             {
                 // 적에게 데미지를 주는 로직
@@ -65,6 +66,7 @@ public class Weapon : MonoBehaviour
                 DamageInfo damageInfo = new DamageInfo(DamageType.Normal, Damage);
                 monsterBox.Hit(damageInfo);
                 _hasDealtDamage = true; // 데미지를 주었으므로 true로 설정
+                Debug.Log("미믹 때리는 중");
             }
         }
     }

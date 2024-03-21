@@ -16,8 +16,8 @@ MonoBehaviour:
   Position: {x: 0, y: 0, z: 0}
   ID: 0
   Type: 2
-  Name: Potion
-  Description: This is a Potion
-  Value: 0
+  Name: "\uCCB4\uB825 \uD68C\uBCF5 \uD3EC\uC158"
+  Description: "\uBA39\uC73C\uBA74 HP 60\uC774 \uCC44\uC6CC\uC9C4\uB2E4."
+  Value: 1
   Icon: {fileID: 21300000, guid: 1af148c46891de34b9eba870e9011235, type: 3}
   BigImage: {fileID: 21300000, guid: eaec1b75186cbab4f9f9007bf8fdf609, type: 3}
