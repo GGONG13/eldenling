@@ -39,17 +39,12 @@ public class Player : MonoBehaviour
     public Image ShieldIcon;
     public TextMeshProUGUI StateName;
 
-    public Image YouDiedImage;
-
-
-
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _playerShield = GetComponentInChildren<Player_Shield>();
         _playerMove = GetComponent<PlayerMove>(); // PlayerMove 클래스에 대한 참조 초기화
         Health = MaxHealth;
-        YouDiedImage.gameObject.SetActive(false);
     }
     private void Start()
     {
@@ -110,7 +105,6 @@ public class Player : MonoBehaviour
         _animator.SetTrigger("Die"); // 사망 애니메이션 트리거
         _playerMove.OnPlayerDeath(); // PlayerMove 클래스에서 이동 및 액션 처리 중지
         yield return new WaitForSeconds(5);
-        YouDiedImage.gameObject.SetActive(true);
         gameObject.SetActive(false);
         _playerMove.isAlive = false;
         Cursor.lockState = CursorLockMode.None;
