@@ -12,10 +12,4 @@ public class Player_Stemina : MonoBehaviour
         playerMove = FindObjectOfType<PlayerMove>();
         //slider.value = playerMove.Stamina / 100;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

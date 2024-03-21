@@ -27,6 +27,9 @@ public class InventoryManager : MonoBehaviour
     public delegate void OnItemChanged();
     public static event OnItemChanged onItemChangedCallback;
 
+    public GameObject HealingEffect;
+    public Transform HealingPosition;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -93,7 +96,8 @@ public class InventoryManager : MonoBehaviour
             itemToRemove.Value -= 1;
             int index = items.IndexOf(itemToRemove);
             ItemInventoryUISlots[index].countitemText.text = itemToRemove.Value.ToString();
-            FindObjectOfType<Player>().Heal(10);
+            FindObjectOfType<Player>().Heal(60);
+            Instantiate(HealingEffect, HealingPosition.position, HealingPosition.rotation);
             Debug.Log("포션이 깎여야함");
 
             if (itemToRemove.Value == 0)
