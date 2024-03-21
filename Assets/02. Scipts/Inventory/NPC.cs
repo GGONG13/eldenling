@@ -47,7 +47,7 @@ public class NPC : MonoBehaviour
         }
         else
         {
-            Debug.Log("코인이 부족합니다.");
+            return;
         }
     }
 
@@ -61,8 +61,9 @@ public class NPC : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player")&&Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("F 눌렀음");
             animator.SetTrigger("Hi");
             bool Setactive = !Store.gameObject.activeSelf;
             Store.gameObject.SetActive(Setactive);
