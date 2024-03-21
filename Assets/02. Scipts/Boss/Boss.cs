@@ -50,6 +50,8 @@ public class Boss : MonoBehaviour
     private float originalSpeed;
     public float RotationSpeed = 0.5f;
 
+    public GameObject _circleVFX;
+
     private void Awake()
     {
         _agent = GetComponentInParent<NavMeshAgent>();
@@ -90,7 +92,8 @@ public class Boss : MonoBehaviour
                 CriticalAttack(); break;
             case BossState.Die:
                 Die(); break;                
-        }           
+        }
+        _circleVFX.SetActive(_currentState == BossState.Patrol);
     }
     public void RefreshUI()
     {
@@ -106,6 +109,7 @@ public class Boss : MonoBehaviour
         {
             //Debug.Log("Boss: Patrol -> Trace");
             _currentState = BossState.Trace;
+            _circleVFX.SetActive(false);
             _animator.SetTrigger("PatrolToTrace");
         }
         if (Vector3.Distance(transform.position, StartPosition) > MoveLimit)
