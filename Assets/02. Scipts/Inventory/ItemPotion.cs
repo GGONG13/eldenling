@@ -46,6 +46,7 @@ public class ItemPotion : MonoBehaviour
             return;
         }
         Refresh();
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Inventory);
     }
     public void Refresh()
     {
