@@ -16,11 +16,29 @@ public class NPC : MonoBehaviour
     public GameObject[] PotionSlot;
     public GameObject[] PotionObjects;
 
+    private float _counter = 10f;
+    private float _timer; 
+
     private void Start()
     {
         Store.gameObject.SetActive(false);
         InfoText.gameObject.SetActive(false);
     }
+
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+        if (_timer < _counter && !PotionSlot[PotionSlot.Length - 1].activeSelf)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                PotionSlot[i].SetActive(true);
+                PotionObjects[i].SetActive(true);
+            }
+            _timer = 0;
+        }
+    }
+
     public void BuyPotion()
     {
         Player player = FindAnyObjectByType<Player>();
@@ -29,6 +47,7 @@ public class NPC : MonoBehaviour
             player.Coin -= 10;
             InventoryManager.Instance.Add(item);
             InventoryManager.Instance.ListItem();
+            ItemPotion.Instance.Refresh();
             for (int i = 0; i < PotionSlot.Length; i++)
             {
                 if (PotionSlot[i].activeSelf)

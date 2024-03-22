@@ -35,6 +35,7 @@ public class ItemPotion : MonoBehaviour
             item.Value -= 1;
             FindObjectOfType<Player>().Heal(60);
             Instantiate(HealingEffect, HealingPosition.position, HealingPosition.rotation);
+            InventoryManager.Instance.Remove(item);
         }
         else if (item.Value == 0)
         {

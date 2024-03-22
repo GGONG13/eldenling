@@ -131,3 +131,5 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: f1ace6c999316d74d8487f81cbdedd32, type: 2}
   PositionIcon: {fileID: 0}
   Count: {fileID: 0}
+  HealingEffect: {fileID: 0}
+  HealingPosition: {fileID: 0}
