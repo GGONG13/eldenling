@@ -136,6 +136,7 @@ public class Boss : MonoBehaviour
             //Debug.Log("Boss: Trace -> RunAttack");
             _currentState = BossState.RunAttack;
             _animator.SetTrigger("TraceToRunAttack");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BossAttack);
             return;
         }
         else if (Vector3.Distance(_target.position, transform.position) <= AttackDistance)
@@ -179,6 +180,7 @@ public class Boss : MonoBehaviour
                     //Debug.Log("Boss: Trace -> CriticalAttack");
                     _currentState = BossState.CriticalAttack;
                     _animator.SetTrigger("CriticalAttack");
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.BossAttack);
                     _delayTimer = 0;
                 }
                 else
@@ -186,6 +188,7 @@ public class Boss : MonoBehaviour
                     //Debug.Log("Boss: Trace -> NormalAttack");
                     _currentState = BossState.NormalAttack;
                     _animator.SetTrigger("NormalAttack");
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.BossAttack);
                     _delayTimer = 0;
                 }        
             }
