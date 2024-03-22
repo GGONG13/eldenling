@@ -98,6 +98,7 @@ public class InventoryManager : MonoBehaviour
             ItemInventoryUISlots[index].countitemText.text = itemToRemove.Value.ToString();
             FindObjectOfType<Player>().Heal(60);
             Instantiate(HealingEffect, HealingPosition.position, HealingPosition.rotation);
+            ItemPotion.Instance.Refresh();
             Debug.Log("포션이 깎여야함");
 
             if (itemToRemove.Value == 0)

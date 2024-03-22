@@ -29,6 +29,7 @@ public class NPC : MonoBehaviour
             player.Coin -= 10;
             InventoryManager.Instance.Add(item);
             InventoryManager.Instance.ListItem();
+            ItemPotion.Instance.Refresh();
             for (int i = 0; i < PotionSlot.Length; i++)
             {
                 if (PotionSlot[i].activeSelf)

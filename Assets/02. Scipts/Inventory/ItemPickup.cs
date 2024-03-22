@@ -27,7 +27,8 @@ public class ItemPickup : MonoBehaviour
             if (distance <= 3 && !isCollecting)
             {
                 isCollecting = true;
-                Pickup();
+                DontshowItem();
+              //  Pickup();
             }
         }
         else
@@ -64,6 +65,13 @@ public class ItemPickup : MonoBehaviour
         UI_PopUPItem.Instance.ShowItemPopUp(Item.Icon, Item.Name);
         _isPickable = false;
         // 아이템 추가 및 인벤토리 업데이트
+        InventoryManager.Instance.Add(Item);
+        InventoryManager.Instance.ListItem();
+        gameObject.SetActive(false);
+    }
+    void DontshowItem()
+    {
+        UI_PopUPItem.Instance.ShowItemPopUp(Item.Icon, Item.Name);
         InventoryManager.Instance.Add(Item);
         InventoryManager.Instance.ListItem();
         gameObject.SetActive(false);
