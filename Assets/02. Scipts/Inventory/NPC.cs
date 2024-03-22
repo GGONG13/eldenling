@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     public GameObject[] PotionObjects;
 
     private float _counter = 10f;
-    private float _timer; 
+    public float _timer; 
 
     private void Start()
     {
@@ -28,16 +28,18 @@ public class NPC : MonoBehaviour
     private void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer < _counter && !PotionSlot[PotionSlot.Length - 1].activeSelf)
+        if (_timer < _counter)
         {
-            for (int i = 0; i < 4; i++)
+            if (!PotionSlot[PotionSlot.Length - 1].activeSelf)
             {
-                PotionSlot[i].SetActive(true);
-                PotionObjects[i].SetActive(true);
+                for (int i = 0; i < 4; i++)
+                {
+                    PotionSlot[i].SetActive(true);
+                    PotionObjects[i].SetActive(true);
+                }
+                _timer = 0;
             }
-            _timer = 0;
         }
-
     }
 
     public void BuyPotion()
