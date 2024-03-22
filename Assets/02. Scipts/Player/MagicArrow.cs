@@ -35,6 +35,10 @@ public class MagicArrow : MonoBehaviour
             rb.angularVelocity = rotateAmount * rotateSpeed; // 회전 속도 적용
             rb.velocity = transform.forward * speed; // 전진 속도 적용
         }
+        else
+        {
+            return;
+        }
     }
 
     // 가장 가까운 적을 찾는 메서드
