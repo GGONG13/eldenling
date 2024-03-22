@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 6234293417893202187}
   - component: {fileID: 7001816766290298542}
   - component: {fileID: 5102442079624852068}
-  - component: {fileID: 236201121715229477}
+  - component: {fileID: 5845059188449012221}
   m_Layer: 0
   m_Name: MagicStaff
   m_TagString: Untagged
@@ -230,7 +230,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &236201121715229477
+--- !u!114 &5845059188449012221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,11 +239,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6759754029706040241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 187ccf5c6f930834290fcc3d59f3187d, type: 3}
+  m_Script: {fileID: 11500000, guid: 943e3ec9708a03c418d87b03d5827593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  Damage: 20
-  _isAttacking: 0
-  TrailEffect: {fileID: 4211442848471796313}
-  _animator: {fileID: 0}
+  Item: {fileID: 11400000, guid: f9d6e01cb325ec4488ea02e0bcf4dba0, type: 2}
+  _itemSpeed: 10
+  Player: {fileID: 0}
