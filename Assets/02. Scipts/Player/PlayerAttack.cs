@@ -24,7 +24,9 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && attackTimer <= 0f && _playerMove.Stamina >= 12 && AttackCount == 0 && InventoryManager.Instance.isActive == false)
+        bool NPC = FindAnyObjectByType<NPC>().Store.gameObject.activeSelf;
+        bool Inventory = InventoryManager.Instance.isActive;
+        if (Input.GetMouseButtonDown(0) && attackTimer <= 0f && _playerMove.Stamina >= 12 && AttackCount == 0 && !Inventory && !NPC)
         {
             
                 // 첫 번째 공격 실행

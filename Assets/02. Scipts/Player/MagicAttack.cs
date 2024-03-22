@@ -26,7 +26,9 @@ public class MagicAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25 && InventoryManager.Instance.isActive == false)
+        bool NPC = FindAnyObjectByType<NPC>().Store.gameObject.activeSelf;
+        bool Inventory = InventoryManager.Instance.isActive;
+        if (Input.GetMouseButtonDown(0) && AttackTimer <= 0f && !_playerShield._isDefending && _playerMove.Stamina >= 25 && !Inventory && !NPC)
         {
             _animator.SetTrigger("MagicAttack");
             _playerMove.ReduceStamina(25); // 스태미너 감소 적용

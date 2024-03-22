@@ -37,6 +37,7 @@ public class NPC : MonoBehaviour
             }
             _timer = 0;
         }
+
     }
 
     public void BuyPotion()
