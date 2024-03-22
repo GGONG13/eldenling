@@ -9,7 +9,7 @@ public class ItemPickup : MonoBehaviour
 {
     public ItemData Item;
 
-    public float _itemSpeed = 5f;
+    public float _itemSpeed = 10f;
     public Transform Player;
     private bool isCollecting = false;
     private bool _isPickable = false;

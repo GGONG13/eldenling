@@ -18,6 +18,8 @@ public class Player_Shield : MonoBehaviour
         // 해당 게임 오브젝트에 있는 Animator 컴포넌트 참조를 가져옴
         _animator = GetComponent<Animator>();
         _isDefending = false;
+        ShieldEffect.gameObject.SetActive(false);
+        DefenseEffect.gameObject.SetActive(false);
     }
 
     void Update()
