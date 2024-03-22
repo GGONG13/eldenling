@@ -50,6 +50,9 @@ public class Boss : MonoBehaviour
     private float originalSpeed;
     public float RotationSpeed = 0.5f;
 
+    public int HealAmount = 5;
+    public float _healTimer = 0f;
+
     public GameObject _circleVFX;
 
     private void Awake()
@@ -62,6 +65,7 @@ public class Boss : MonoBehaviour
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _delayTimer = 0f;
         _stiffTimer = 0f;
+        _healTimer = 0f;
         EnemyFelledImage.gameObject.SetActive(false);
         _currentState = BossState.Patrol;
         Health = MaxHealth;
@@ -94,6 +98,11 @@ public class Boss : MonoBehaviour
                 Die(); break;                
         }
         _circleVFX.SetActive(_currentState == BossState.Patrol);
+        if (_currentState == BossState.Patrol || _currentState == BossState.Trace)
+        {
+            _healTimer += Time.deltaTime;
+            Healing();
+        }
     }
     public void RefreshUI()
     {
@@ -295,6 +304,22 @@ public class Boss : MonoBehaviour
         // 여기서 보스의 체력을 출력합니다.
         Debug.Log($"보스 체력: {Health}");
         RefreshUI();
+    }
+    private void Healing()
+    {
+        if (Health >= MaxHealth)
+        {
+            return;
+        }
+        else
+        {
+            if (_healTimer >= 1)
+            {
+                Health += HealAmount;
+                _healTimer = 0;
+                RefreshUI();
+            }
+        }      
     }
     private IEnumerator Die_Coroutine()
     {
