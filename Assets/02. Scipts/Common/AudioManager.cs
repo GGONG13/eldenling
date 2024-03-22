@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     int channelIndex;
 
     public enum Bgm {LobbyScene, EndingScene, }
-    public enum Sfx {Walk, Run, Sword, Shield, EnemyAttack, BossHit, BossDie, Inventory}
+    public enum Sfx {Walk, Run, Sword, Shield, EnemyAttack, BossHit, BossDie, Inventory, BossAttack}
 
     public static AudioManager instance;
 

@@ -57,5 +57,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2b404e24adb25704a80e60e353bc73be, type: 3}
   - {fileID: 8300000, guid: 395962101d8f2fe4daf8fe642770a4f0, type: 3}
   - {fileID: 8300000, guid: 6d2b5f6dcbb2dd54a92ea2dbac0d775c, type: 3}
+  - {fileID: 8300000, guid: 631238672e0bda641bc64ccecf2cac71, type: 3}
   SfxVolume: 0.5
   Channels: 5
