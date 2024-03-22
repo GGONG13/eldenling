@@ -27,7 +27,6 @@ public class ItemPotion : MonoBehaviour
         {
             EatPotion();
         }
-        Refresh();
     }
     public void EatPotion()
     {
