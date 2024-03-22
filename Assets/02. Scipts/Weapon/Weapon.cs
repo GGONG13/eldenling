@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
 
     public int Damage = 20; // 공격 데미지
     public bool _isAttacking = false; // 현재 공격 중인지 여부
-    private bool _hasDealtDamage = false; // 이번 공격에서 이미 데미지를 주었는지 여부
+    //private bool _hasDealtDamage = false; // 이번 공격에서 이미 데미지를 주었는지 여부
 
     public TrailRenderer TrailEffect;
     public Animator _animator;
