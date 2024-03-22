@@ -21,11 +21,6 @@ public class NPC : MonoBehaviour
         Store.gameObject.SetActive(false);
         InfoText.gameObject.SetActive(false);
     }
-
-    private void Update()
-    {
-
-    }
     public void BuyPotion()
     {
         Player player = FindAnyObjectByType<Player>();
@@ -49,6 +44,7 @@ public class NPC : MonoBehaviour
         {
             return;
         }
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Inventory);
     }
 
     private void OnTriggerEnter(Collider other)

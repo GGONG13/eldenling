@@ -35,6 +35,7 @@ public class ItemInventoryUI
         }
         ChangeWeapon();
         Time.timeScale = 1.0f;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Inventory);
     }
     public void SetItemData(ItemData itemData)
     {
