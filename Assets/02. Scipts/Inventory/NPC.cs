@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.Android.Types;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class NPC : MonoBehaviour
 {
@@ -39,6 +35,10 @@ public class NPC : MonoBehaviour
                 }
                 _timer = 0;
             }
+        }
+        if (!Store.gameObject.activeSelf) 
+        {
+            UnityEngine.Cursor.visible = false;
         }
     }
 

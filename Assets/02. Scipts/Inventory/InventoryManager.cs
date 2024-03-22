@@ -1,14 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEditor.Progress;
+
 
 public class InventoryManager : MonoBehaviour
 {
@@ -66,10 +58,12 @@ public class InventoryManager : MonoBehaviour
         if (Inventory.activeInHierarchy == false)
         {
             StateUIPopUp.SetActive(true);
+            UnityEngine.Cursor.visible = false;
         }
         else
         {
             StateUIPopUp.SetActive(false);
+            UnityEngine.Cursor.visible = true;
         }
     }
     public void Add(ItemData newItem)
