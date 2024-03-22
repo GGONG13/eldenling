@@ -9,7 +9,6 @@ public class LoadingScene : MonoBehaviour
     public SceneName NextScene;
 
     public Slider LoadingSliderUI;
-    public TextMeshProUGUI LoadingTextUI;
 
     void Start()
     {
@@ -31,7 +30,6 @@ public class LoadingScene : MonoBehaviour
         while (!ao.isDone)
         {
             LoadingSliderUI.value = ao.progress;
-            LoadingTextUI.text = $"{ao.progress * 100f}%";
             if (ao.progress >= 0.9f)
             {
                 ao.allowSceneActivation = true;

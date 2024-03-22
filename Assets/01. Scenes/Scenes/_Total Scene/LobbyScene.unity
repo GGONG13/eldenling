@@ -806,8 +806,8 @@ MonoBehaviour:
   m_text: "WASD : \uC774\uB3D9\n\nSHIFT : \uB2EC\uB9AC\uAE30\n\nSPACE : \uAD6C\uB974\uAE30\n\n\uC88C\uD074\uB9AD
     : \uADFC\uC811\uACF5\uACA9\n\n\uB354\uBE14\uD074\uB9AD : \uC5F0\uC18D\uACF5\uACA9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75118434b6422b6448034949f767846f, type: 2}
-  m_sharedMaterial: {fileID: 9007445858544292836, guid: 75118434b6422b6448034949f767846f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
+  m_sharedMaterial: {fileID: -3202122935924142246, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -831,8 +831,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1147,11 +1147,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "F : \uC0C1\uC810\n\nI : \uC778\uBCA4\uD1A0\uB9AC\n\nT : LockOn Camera\n\nLeft
-    Ctrl : \uD3EC\uC158"
+  m_text: "\uC6B0\uD074\uB9AD : \uBC29\uC5B4\n\nI : \uC778\uBCA4\uD1A0\uB9AC\n\nT
+    : Camera \uBCC0\uACBD\n\nLeft Ctrl : \uD3EC\uC158"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75118434b6422b6448034949f767846f, type: 2}
-  m_sharedMaterial: {fileID: 9007445858544292836, guid: 75118434b6422b6448034949f767846f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
+  m_sharedMaterial: {fileID: -3202122935924142246, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1175,8 +1175,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2172,8 +2172,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: INFORMATION
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75118434b6422b6448034949f767846f, type: 2}
-  m_sharedMaterial: {fileID: 9007445858544292836, guid: 75118434b6422b6448034949f767846f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
+  m_sharedMaterial: {fileID: -3202122935924142246, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2486,8 +2486,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BACK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75118434b6422b6448034949f767846f, type: 2}
-  m_sharedMaterial: {fileID: 9007445858544292836, guid: 75118434b6422b6448034949f767846f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
+  m_sharedMaterial: {fileID: -3202122935924142246, guid: a4dc00909b15acc448adeb9fb95ecafa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2511,8 +2511,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
